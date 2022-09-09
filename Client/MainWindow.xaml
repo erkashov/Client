@@ -1,0 +1,105 @@
+﻿<Window x:Class="Client.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Client" xmlns:hc="https://handyorg.github.io/handycontrol"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="720" Width="1245" WindowState="Maximized"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Window.Resources>
+        <Style TargetType="RadioButton">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="250"></RowDefinition>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Margin="5">
+                <RadioButton x:Name="AllRB" GroupName="Periods" Content="Все" Checked="AllRB_Checked"/>
+            </StackPanel>
+
+            <RadioButton x:Name="PeriodsRB" GroupName="Periods" Grid.Row="1" Grid.Column="0">
+                <StackPanel Orientation="Horizontal">
+                    <ComboBox x:Name="PeriodsCB" IsEditable="False" IsEnabled="{Binding Path=IsChecked, ElementName=PeriodsRB}" MinWidth="120" BorderBrush="Black" Background="White" SelectionChanged="PeriodsCB_SelectionChanged"/>
+                </StackPanel>
+            </RadioButton>
+
+            <RadioButton x:Name="DayRB" GroupName="Periods" Grid.Row="2" Grid.Column="0" IsChecked="True">
+                <StackPanel Orientation="Horizontal">
+                    <DatePicker x:Name="DayDP"  IsEnabled="{Binding Path=IsChecked, ElementName=DayRB}" FirstDayOfWeek="Monday" MinWidth="120" SelectedDateChanged="DayDP_SelectedDateChanged" BorderBrush="Black"/>
+
+                    <Button x:Name="MinusDayBN" Content="&lt;" Click="MinusDayBN_Click"/>
+                    <Button x:Name="PlusDayBN" Content=">" Click="PlusDayBN_Click"/>
+                </StackPanel>
+            </RadioButton>
+
+            <RadioButton x:Name="DaysRB" GroupName="Periods" Grid.Row="3" Grid.Column="0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="с " VerticalAlignment="Center"/>
+                    <DatePicker x:Name="DayStartDP"  IsEnabled="{Binding Path=IsChecked, ElementName=DaysRB}" FirstDayOfWeek="Monday" IsTodayHighlighted="True" MinWidth="120" SelectedDateChanged="DayStartDP_SelectedDateChanged" BorderBrush="Black"/>
+                    <TextBlock Text="по " VerticalAlignment="Center"/>
+                    <DatePicker x:Name="DayEndDP"  IsEnabled="{Binding Path=IsChecked, ElementName=DaysRB}" FirstDayOfWeek="Monday" IsTodayHighlighted="True" MinWidth="120" SelectedDateChanged="DayEndDP_SelectedDateChanged" BorderBrush="Black"/>
+                </StackPanel>
+            </RadioButton>
+
+
+
+            <RadioButton x:Name="MonthRB" GroupName="Periods" Grid.Row="4" Grid.Column="0">
+                <StackPanel Orientation="Horizontal">
+                    <ComboBox x:Name="MonthCB" IsEditable="False" IsEnabled="{Binding Path=IsChecked, ElementName=MonthRB}" MinWidth="120" SelectionChanged="MonthCB_SelectionChanged" BorderBrush="Black"/>
+                </StackPanel>
+            </RadioButton>
+
+
+            <Button x:Name="saveButton" Content="Сохранить" Click="saveButton_Click" Grid.Column="1" ></Button>
+
+
+
+            <DatePicker x:Name="dateStart" Grid.Row="1" SelectedDateChanged="dateStart_SelectedDateChanged" Grid.Column="1" />
+            <DatePicker x:Name="dateEnd" Grid.Row="2" Grid.Column="1" />
+        </Grid>
+
+
+
+
+        <DataGrid x:Name="datagridRashods" AutoGenerateColumns="False" Grid.Row="1" ItemsSource="{Binding Path=rashods, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" CanUserAddRows="False" MouseDoubleClick="datagridRashods_MoseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding kod_zap}" Header="Код" x:Name="kod_zap" Visibility="Collapsed"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding nom_rash}" Header="№" x:Name="nom_rash" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding data_rash, StringFormat=dd.MM.yyyy}" Header="Дата" x:Name="data_rash" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding data_otgruzki, StringFormat=dd.MM.yyyy}" Header="Дата отгр." x:Name="data_otgr" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Otpustil}" Header="Отпустил" x:Name="otgr" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding prim}" Header="Прим" x:Name="prim"></DataGridTextColumn>
+                <DataGridCheckBoxColumn Binding="{Binding isTovOpl}" Header="Товар оплачен" x:Name="oplach"/>
+                <DataGridCheckBoxColumn Binding="{Binding isTovOpl}" Header="Товар оплачен" x:Name="dost_oplach"/>
+                <DataGridCheckBoxColumn Binding="{Binding otgruzheno}" Header="Отгружено" x:Name="otgruz"/>
+                <DataGridTextColumn Binding="{Binding Sheta.nom_1C}" Header="Счет" x:Name="shet" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding summa, StringFormat=N2}" Header="Нал" x:Name="summa_nal" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding summa_karta, StringFormat=N2}" Header="Карта" x:Name="summa_karta" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding summa_beznal, StringFormat=N2}" Header="Безнал" x:Name="summa_beznal" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding dolg, StringFormat=N2}" Header="Долг" x:Name="summa_dolg" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Spr_oplat_sklad.naim}" Header="Оплата" x:Name="oplata"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
