@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,6 +18,7 @@ namespace Client
         public static string Api = "https://localhost:7082/";
         public static HttpClient client = new HttpClient();
         private static List<Spr_oplat_sklad> _skladList;
+        private static List<Spr_period_filtr> _spr_periods_filter;
         public static List<Spr_oplat_sklad> spr_Oplat_Sklads
         {
             get
@@ -47,6 +49,19 @@ namespace Client
                 return _skladList;
             }
         }
+        
+        public static List<Spr_period_filtr> spr_periods_filter
+        {
+            get
+            {
+                if (_spr_periods_filter == null)
+                {
+                    HttpRequests<List<Spr_period_filtr>> periodsHttp = new HttpRequests<List<Spr_period_filtr>>();
+                    _spr_periods_filter = periodsHttp.GetRequest($"api/Spr_period_filtr", _spr_periods_filter).Result;
+                }
+                return _spr_periods_filter;
+            }
+        }
 
         public static NotificationManager notificationManager = new NotificationManager();
 
@@ -66,17 +81,60 @@ namespace Client
     {
         public async Task<T> GetRequest(string url, T responce) 
         {
-            HttpResponseMessage response = await Global.client.GetAsync(url);
+            try
+            {
+                HttpResponseMessage response = await Global.client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    responce = JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+                }
+                else
+                {
+                    Global.ErrorLog(response.StatusCode.ToString());
+                    //if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                Global.ErrorLog(ex.InnerException.Message);
+            }
+            catch (Exception ex)
+            {
+                Global.ErrorLog(ex.Message);
+            }
+            return responce;
+        }
+
+        public async Task PutRequest(string url, T responce)
+        {
+            StringContent jsonContent = new StringContent(JsonConvert.SerializeObject(responce), Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await Global.client.PutAsJsonAsync(url, responce);
             if (response.IsSuccessStatusCode)
             {
-                responce = JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
             }
             else
             {
-                Global.ErrorLog(response.StatusCode.ToString());
+                string excep = response.Content.ReadAsStringAsync().Result;
+                Global.ErrorLog(response.StatusCode.ToString() + " " + excep);
                 //if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             }
-            return responce;
+        }
+
+        public async Task<T> PostRequest(string url, T responce)
+        {
+            HttpResponseMessage response = await Global.client.PostAsJsonAsync(url, responce);
+            if (response.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+            }
+            else
+            {
+                string excep = response.Content.ReadAsStringAsync().Result;
+                Global.ErrorLog(response.StatusCode.ToString() + " " + excep);
+                return responce; 
+                //if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            }
+            
         }
     }
 }
