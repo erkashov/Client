@@ -33,7 +33,7 @@
 
             <RadioButton x:Name="PeriodsRB" GroupName="Periods" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left">
                 <StackPanel Orientation="Horizontal">
-                    <ComboBox x:Name="PeriodsCB" ItemsSource="{Binding periods}" DisplayMemberPath="naim" IsEditable="False" IsEnabled="{Binding Path=IsChecked, ElementName=PeriodsRB}" MinWidth="150" BorderBrush="Black" Background="White" SelectionChanged="PeriodsCB_SelectionChanged"  MinHeight="20" Height="23" Padding="3,3,3,3"/>
+                    <ComboBox x:Name="PeriodsCB" ItemsSource="{Binding Spr_Periods_Filter}" DisplayMemberPath="naim" IsEditable="False" IsEnabled="{Binding Path=IsChecked, ElementName=PeriodsRB}" MinWidth="150" BorderBrush="Black" Background="White" SelectionChanged="PeriodsCB_SelectionChanged"  MinHeight="20" Height="23" Padding="3,3,3,3"/>
                 </StackPanel>
             </RadioButton>
 
@@ -80,17 +80,17 @@
 
             <StackPanel Grid.Row="1" Grid.Column="3" Margin="5 0">
                 <TextBlock Text="Тип оплаты"/>
-                <ComboBox x:Name="TipOplatyCB" IsEditable="False" MinHeight="20" Height="23" Padding="3,3,3,3"/>
+                <ComboBox x:Name="TipOplatyCB" IsEditable="False" MinHeight="20" Height="23" Padding="3,3,3,3" ItemsSource="{Binding Spr_Oplat_Sklad}" DisplayMemberPath="naim"/>
             </StackPanel>
 
             <StackPanel Grid.Row="0" Grid.Column="4" Margin="5 0">
                 <TextBlock Text="Отгружено"/>
-                <ComboBox x:Name="OtgruzhenoCB" IsEditable="False" MinHeight="20" Height="23" Padding="3,3,3,3"/>
+                <ComboBox x:Name="OtgruzhenoCB" IsEditable="False" MinHeight="20" Height="23" Padding="3,3,3,3" ItemsSource="{Binding Spr_Otgruzheno}" SelectedItem="{Binding SelectedOtgruzheno}"/>
             </StackPanel>
 
             <StackPanel Grid.Row="1" Grid.Column="4" Margin="5 0">
                 <TextBlock Text="Товар оплачен"/>
-                <ComboBox x:Name="OplachenCB" IsEditable="False" MinHeight="20" Height="23" Padding="3,3,3,3"/>
+                <ComboBox x:Name="OplachenCB" IsEditable="False" MinHeight="20" Height="23" Padding="3,3,3,3" ItemsSource="{Binding Spr_TovarOplachen}" SelectedItem="{Binding SelectedTovarOpl}"/>
             </StackPanel>
 
             <!--<hc:PropertyGrid Panel.ZIndex="999" Width="500" SelectedObject="{Binding DemoModel}" Grid.Column="2" Grid.Row="0" Grid.RowSpan="4" x:Name="prop" MaxTitleWidth="197" ShowSortButton="False"/>

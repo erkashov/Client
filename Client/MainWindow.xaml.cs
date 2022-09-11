@@ -1,4 +1,5 @@
 ﻿using Client.Models;
+using Client.ViewModels;
 using HandyControl.Tools;
 using Newtonsoft.Json;
 using System;
@@ -29,15 +30,9 @@ namespace Client
     {
         bool IsDataLoaded = false;
         public ObservableCollection<Sklad_rashod> rashods = new ObservableCollection<Sklad_rashod>();
-        public List<Spr_period_filtr> periods = new List<Spr_period_filtr>();
 
         private DateTime? StartFilterDate = new DateTime(2022, 3, 9);
         private DateTime? EndFilterDate = new DateTime(2022, 3, 9);
-
-        public PropertyGridDemoModel DemoModel = new PropertyGridDemoModel
-        {
-            Отгружено = Othruzheno.Все, Сдано = Sdano.Все, Товар_оплачен = TovarOpl.Все
-        };
 
         public MainWindow()
         {
@@ -49,6 +44,8 @@ namespace Client
 
             GetProduct();
             FillComboBox();
+            
+            this.DataContext = new RashodyViewModel();
             //prop.SelectedObject = DemoModel;
         }
 
@@ -79,9 +76,6 @@ namespace Client
         }
         public async void FillComboBox()
         {
-            HttpRequests<List<Spr_period_filtr>> periodsHttp = new HttpRequests<List<Spr_period_filtr>>();
-            periods = await periodsHttp.GetRequest($"api/Spr_period_filtr", periods);
-            PeriodsCB.ItemsSource = periods;
         }
 
         public void Filter()
@@ -235,7 +229,7 @@ namespace Client
 
     public class PropertyGridDemoModel
     {
-        private Othruzheno otgr;
+        /*private Othruzheno otgr;
         [Category("Category1")]
         public Othruzheno Отгружено
         {
@@ -257,26 +251,7 @@ namespace Client
         {
             get { return sdano; }
             set { sdano = value; }
-        }
+        }*/
     }
-    public enum Othruzheno
-    {
-        Все,
-        Да,
-        Нет
-    }
-
-    public enum TovarOpl
-    {
-        Все,
-        Да,
-        Нет
-    }
-
-    public enum Sdano
-    {
-        Все,
-        Да,
-        Нет
-    }
+    
 }

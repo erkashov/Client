@@ -120,6 +120,7 @@
     <Compile Include="Models\Sheta.cs" />
     <Compile Include="Models\Sklad_dostavki.cs" />
     <Compile Include="Models\Sklad_rashod.cs" />
+    <Compile Include="ViewModels\RashodyViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

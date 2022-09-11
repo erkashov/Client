@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Notification.Wpf;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -17,50 +18,44 @@ namespace Client
     {
         public static string Api = "https://localhost:7082/";
         public static HttpClient client = new HttpClient();
-        private static List<Spr_oplat_sklad> _skladList;
-        private static List<Spr_period_filtr> _spr_periods_filter;
-        public static List<Spr_oplat_sklad> spr_Oplat_Sklads
+        private static ObservableCollection<Spr_oplat_sklad> _spr_Oplat_Sklad;
+        private static ObservableCollection<Spr_period_filtr> _spr_Periods_Filter;
+        public async static Task<ObservableCollection<Spr_oplat_sklad>> GetSprOplatSklad()
         {
-            get
+            if (_spr_Oplat_Sklad == null)
             {
-                if (_skladList == null)
+                if (File.Exists(Environment.CurrentDirectory + "\\Spr_Oplat_Sklad.json"))
                 {
-                    if (File.Exists(Environment.CurrentDirectory + "\\spr_oplat_sklad.json"))
+                    using (StreamReader file = File.OpenText(Environment.CurrentDirectory + "\\Spr_Oplat_Sklad.json"))
                     {
-                        using (StreamReader file = File.OpenText(Environment.CurrentDirectory + "\\spr_oplat_sklad.json"))
-                        {
-                            JsonSerializer serializer = new JsonSerializer();
-                             _skladList = (List<Spr_oplat_sklad>)serializer.Deserialize(file, typeof(List<Spr_oplat_sklad>));
-                        }
+                        JsonSerializer serializer = new JsonSerializer();
+                        _spr_Oplat_Sklad = (ObservableCollection<Spr_oplat_sklad>)serializer.Deserialize(file, typeof(List<Spr_oplat_sklad>));
                     }
-                    else
-                    {
-                        /*HttpRequests<List<Spr_oplat_sklad>> httpRequests = new HttpRequests<List<Spr_oplat_sklad>>();
-                        _skladList = httpRequests.GetRequest("api/Spr_oplat_sklad", _skladList).Result;
+                }
+                else
+                {
+                    HttpRequests<ObservableCollection<Spr_oplat_sklad>> httpRequests = new HttpRequests<ObservableCollection<Spr_oplat_sklad>>();
+                    _spr_Oplat_Sklad = await httpRequests.GetRequest("api/Spr_Oplat_Sklad", _spr_Oplat_Sklad);
 
-                        // serialize JSON directly to a file
-                        using (StreamWriter file = File.CreateText(Environment.CurrentDirectory + "\\spr_oplat_sklad.json"))
-                        {
-                            JsonSerializer serializer = new JsonSerializer();
-                            serializer.Serialize(file, _skladList);
-                        }*/
-                    }
+                    /*// serialize JSON directly to a file
+                    using (StreamWriter file = File.CreateText(Environment.CurrentDirectory + "\\spr_oplat_sklad.json"))
+                    {
+                        JsonSerializer serializer = new JsonSerializer();
+                        serializer.Serialize(file, _skladList);
+                    }*/
                 }
-                return _skladList;
             }
+            return _spr_Oplat_Sklad;
         }
-        
-        public static List<Spr_period_filtr> spr_periods_filter
+
+        public async static Task<ObservableCollection<Spr_period_filtr>> GetSprPeriodsFilter()
         {
-            get
+            if (_spr_Periods_Filter == null)
             {
-                if (_spr_periods_filter == null)
-                {
-                    HttpRequests<List<Spr_period_filtr>> periodsHttp = new HttpRequests<List<Spr_period_filtr>>();
-                    _spr_periods_filter = periodsHttp.GetRequest($"api/Spr_period_filtr", _spr_periods_filter).Result;
-                }
-                return _spr_periods_filter;
+                HttpRequests<ObservableCollection<Spr_period_filtr>> periodsHttp = new HttpRequests<ObservableCollection<Spr_period_filtr>>();
+                _spr_Periods_Filter = await periodsHttp.GetRequest($"api/Spr_period_filtr", _spr_Periods_Filter);
             }
+            return _spr_Periods_Filter;
         }
 
         public static NotificationManager notificationManager = new NotificationManager();
