@@ -68,10 +68,6 @@
                 </StackPanel>
             </RadioButton>
 
-            <hc:SearchBar Grid.Column="2" Grid.Row="0" BorderBrush="Black" x:Name="SearchTB" TextChanged="SearchBar_TextChanged" MinHeight="25" Height="25" />
-
-
-
             <usercontrols:ToolBarControl Grid.Row="5" Grid.Column="0" AddClick="AddBN_Click" SaveClick="SaveBN_Click" DeleteClick="ToolBarControl_DeleteClick" UpdateClick="ToolBarControl_UpdateClick" HorizontalAlignment="Right" Width="400"/>
 
             <StackPanel Grid.Row="0" Grid.Column="3" Margin="5 0">
@@ -101,9 +97,6 @@
                     <ComboBoxItem Content="Нет"/>
                 </ComboBox>
             </StackPanel>
-
-            <!--<hc:PropertyGrid Panel.ZIndex="999" Width="500" SelectedObject="{Binding DemoModel}" Grid.Column="2" Grid.Row="0" Grid.RowSpan="4" x:Name="prop" MaxTitleWidth="197" ShowSortButton="False"/>
--->
         </Grid>
 
 

@@ -2,6 +2,7 @@
 using Client.Models.Sklad;
 using Client.ViewModels;
 using Client.Windows;
+using ControlzEx.Theming;
 using HandyControl.Tools;
 using Newtonsoft.Json;
 using System;
@@ -47,6 +48,7 @@ namespace Client
             DayDP.SelectedDate = DateTime.Now;
             //получаем ViewModel
             GetVM();
+            ThemeManager.Current.ChangeTheme(this, "Light.Violet");
         }
 
         public async void GetVM()
@@ -87,7 +89,7 @@ namespace Client
         public async void GetProduct()
         {
             IsDataLoaded = false;
-            RashodyQueryParams queryParams = new RashodyQueryParams(StartFilterDate, EndFilterDate, SearchTB.Text);
+            RashodyQueryParams queryParams = new RashodyQueryParams(StartFilterDate, EndFilterDate, /*SearchTB.Text*/"");
             HttpPostRequests<List<Sklad_rashod>, RashodyQueryParams> postRequests = new HttpPostRequests<List<Sklad_rashod>, RashodyQueryParams>();
             rashods = await postRequests.PostRequest("api/Sklad_rashod/Filter", rashods, queryParams);
             RashodyViewModel.Rashods = new ObservableCollection<Sklad_rashod>(rashods);
