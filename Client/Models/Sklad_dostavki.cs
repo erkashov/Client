@@ -12,7 +12,7 @@ namespace Client.Models
     {
         [Key]
         public decimal id { get; set; }
-        public decimal sklad_rashod_id { get; set; }
+        public int sklad_rashod_id { get; set; }
         public string address { get; set; }
         public decimal summa { get; set; }
         public decimal tip_opl_id { get; set; }

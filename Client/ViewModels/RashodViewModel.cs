@@ -10,10 +10,9 @@ using System.Threading.Tasks;
 
 namespace Client.ViewModels
 {
-    public class RashodyViewModel : INotifyPropertyChanged
+    public class RashodViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<Spr_oplat_sklad> _spr_Oplat_Sklad;
-        public ObservableCollection<Spr_oplat_sklad> Spr_Oplat_Sklad { get { return _spr_Oplat_Sklad; } set { _spr_Oplat_Sklad = value; OnPropertyChanged(nameof(Spr_Oplat_Sklad)); } }
+        public ObservableCollection<Spr_oplat_sklad> Spr_Oplat_Sklad { get { return Global.Spr_Oplat_Sklad; } set { Global.Spr_Oplat_Sklad = value; OnPropertyChanged(nameof(Spr_Oplat_Sklad)); } }
 
 
         private ObservableCollection<Spr_period_filtr> _spr_Periods_Filter;
@@ -24,20 +23,11 @@ namespace Client.ViewModels
         public ObservableCollection<string> Spr_Managers_Filter { get { return _spr_Managers_Filter; } set { _spr_Managers_Filter = value; OnPropertyChanged(nameof(Spr_Managers_Filter)); } }
 
 
-        private ObservableCollection<Sklad_rashod> _rashods;
-        public ObservableCollection<Sklad_rashod> Rashods { get { return _rashods; } set { _rashods = value; OnPropertyChanged(nameof(Rashods)); /*Years = new ObservableCollection<int>(Rashods.Select(p => p.Data_rash.Value.Year).Distinct());*/ } }
+        private Sklad_rashod _rashod;
+        public Sklad_rashod Rashod { get { return _rashod; } set { _rashod = value; OnPropertyChanged(nameof(Rashod));} }
 
-
-        private ObservableCollection<int> _months;
-        public ObservableCollection<int> Months { get { return _months; } set { _months = value; OnPropertyChanged(nameof(Months)); } }
-
-
-        private ObservableCollection<int> _years;
-        public ObservableCollection<int> Years { get { return _years; } set { _years = value; OnPropertyChanged(nameof(Years)); } }
-
-        public RashodyViewModel()
+        public RashodViewModel()
         {
-
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

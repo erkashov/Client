@@ -32,7 +32,7 @@ namespace Client.Models
         }
 
         [Key]
-        public decimal? kod_zap { get; set; }
+        public int? kod_zap { get; set; }
 
         private bool? isTovOpl;
         private bool? isInvent;
@@ -118,7 +118,7 @@ namespace Client.Models
         public Nullable<DateTime> Data_sozdania { get { return data_sozdania; } set { data_sozdania = value; OnPropertyChanged(nameof(Data_sozdania)); } }
         public Nullable<DateTime> Data_opl { get { return data_opl; } set { data_opl = value; OnPropertyChanged(nameof(Data_opl)); } }
 
-        private Nullable<decimal> nom_rash;
+        private Nullable<int> nom_rash;
         private Nullable<decimal> summa;
         private Nullable<decimal> summa_beznal;
         private Nullable<decimal> summa_karta;
@@ -133,7 +133,7 @@ namespace Client.Models
         private Nullable<decimal> skidka;
         private Nullable<decimal> phone_pokup;
 
-        public Nullable<decimal> Nom_rash { get { return nom_rash; } set { nom_rash = value; OnPropertyChanged(nameof(Nom_rash)); } }
+        public Nullable<int> Nom_rash { get { return Convert.ToInt32(nom_rash); } set { nom_rash = value; OnPropertyChanged(nameof(Nom_rash)); } }
         public Nullable<decimal> Summa { get { return summa; } set { summa = value; OnPropertyChanged( nameof(Summa)); } }
         public Nullable<decimal> Summa_beznal { get { return summa_beznal; } set { summa_beznal = value; OnPropertyChanged(nameof(Summa_beznal)); } }
         public Nullable<decimal> Summa_karta { get { return summa_karta; } set { summa_karta = value; OnPropertyChanged(nameof(Summa_karta)); } }
@@ -181,7 +181,10 @@ namespace Client.Models
             }
             set
             {
-
+                if(Sklad_dostavki != null)
+                {
+                    foreach (var dost in Sklad_dostavki) dost.opl_klientom = value.Value;
+                } 
             }
         }
 

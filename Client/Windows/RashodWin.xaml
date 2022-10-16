@@ -1,4 +1,4 @@
-﻿<Window x:Class="Client.MainWindow"
+﻿<Window x:Class="Client.Windows.RashodWin"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -10,6 +10,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="250"></RowDefinition>
             <RowDefinition/>
+            <RowDefinition Height="250"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Margin="5">
@@ -22,58 +23,33 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="400"></ColumnDefinition>
                 <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="400"></ColumnDefinition>
                 <ColumnDefinition Width="300"></ColumnDefinition>
                 <ColumnDefinition Width="180"></ColumnDefinition>
                 <ColumnDefinition Width="180"></ColumnDefinition>
                 <ColumnDefinition Width="180"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <RadioButton x:Name="AllRB" GroupName="Periods" Content="Все" Checked="AllRB_Checked"  Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" />
 
-            <RadioButton x:Name="PeriodsRB" GroupName="Periods" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Checked="PeriodsRB_Checked">
-                <StackPanel Orientation="Horizontal">
-                    <ComboBox x:Name="PeriodsCB" ItemsSource="{Binding Spr_Periods_Filter}" DisplayMemberPath="naim" IsEditable="False" IsEnabled="{Binding Path=IsChecked, ElementName=PeriodsRB}" MinWidth="150" BorderBrush="Black" Background="White" SelectionChanged="PeriodsCB_SelectionChanged"  MinHeight="20" Height="23" Padding="3,3,3,3"/>
-                </StackPanel>
-            </RadioButton>
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+                <TextBlock VerticalAlignment="Center">Номер</TextBlock>
+                <TextBox x:Name="NomerTB" Text="{Binding Rashod.Nom_rash, TargetNullValue=0, FallbackValue=100}" Margin="10 0 0 0" IsReadOnly="True" MinHeight="20" MaxLines="1" Height="30"/>
+            </StackPanel>
 
-            <RadioButton x:Name="DayRB" GroupName="Periods" Grid.Row="2" Grid.Column="0" IsChecked="True" HorizontalAlignment="Left" Checked="DayRB_Checked">
-                <StackPanel Orientation="Horizontal">
-                    <DatePicker x:Name="DayDP"  IsEnabled="{Binding Path=IsChecked, ElementName=DayRB}" FirstDayOfWeek="Monday" MinWidth="120" SelectedDateChanged="DayDP_SelectedDateChanged" BorderBrush="Black"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+                <TextBlock VerticalAlignment="Center">Дата</TextBlock>
+                <DatePicker x:Name="DateDP" SelectedDate="{Binding Rashod.Data_rash}" Margin="10 5" FirstDayOfWeek="Monday" IsTodayHighlighted="True" MinWidth="120" BorderBrush="Black"></DatePicker>
+            </StackPanel>
 
-                    <Button x:Name="MinusDayBN" Content="&lt;" Click="MinusDayBN_Click"/>
-                    <Button x:Name="PlusDayBN" Content=">" Click="PlusDayBN_Click"/>
-                </StackPanel>
-            </RadioButton>
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                <TextBlock VerticalAlignment="Center">Оплата</TextBlock>
+                <ComboBox x:Name="OplataCB" IsEditable="False" MinWidth="60" MinHeight="20" Height="30" Margin="10 5" Width="130" ItemsSource="{Binding Spr_Oplat_Sklad}" DisplayMemberPath="naim" SelectedValuePath="kod_zap" SelectedValue="{Binding Rashod.Oplata}"/>
+            </StackPanel>
+            
+            <usercontrols:ToolBarControl Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" AddClick="AddBN_Click" SaveClick="SaveBN_Click" DeleteClick="ToolBarControl_DeleteClick" UpdateClick="ToolBarControl_UpdateClick" HorizontalAlignment="Right" Width="400"/>
 
-            <RadioButton x:Name="DaysRB" GroupName="Periods" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" Checked="DaysRB_Checked">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="с " VerticalAlignment="Center"/>
-                    <DatePicker x:Name="DayStartDP"  IsEnabled="{Binding Path=IsChecked, ElementName=DaysRB}" FirstDayOfWeek="Monday" IsTodayHighlighted="True" MinWidth="120" SelectedDateChanged="DayStartDP_SelectedDateChanged" BorderBrush="Black"/>
-                    <TextBlock Text="по " VerticalAlignment="Center"/>
-                    <DatePicker x:Name="DayEndDP"  IsEnabled="{Binding Path=IsChecked, ElementName=DaysRB}" FirstDayOfWeek="Monday" IsTodayHighlighted="True" MinWidth="120" SelectedDateChanged="DayEndDP_SelectedDateChanged" BorderBrush="Black"/>
-                </StackPanel>
-            </RadioButton>
-
-
-
-            <RadioButton x:Name="MonthRB" GroupName="Periods" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" Checked="MonthRB_Checked">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Год " VerticalAlignment="Center"/>
-                    <ComboBox x:Name="YearCB" ItemsSource="{Binding Years}" IsEditable="False" IsEnabled="{Binding Path=IsChecked, ElementName=MonthRB}" MinWidth="60" SelectionChanged="MonthCB_SelectionChanged" BorderBrush="Black" MinHeight="20" Height="23" Padding="3,3,3,3"/>
-
-                    <TextBlock Text="     Месяц " VerticalAlignment="Center"/>
-                    <ComboBox x:Name="MonthCB" ItemsSource="{Binding Months}" IsEditable="False" IsEnabled="{Binding Path=IsChecked, ElementName=MonthRB}" MinWidth="50" SelectionChanged="MonthCB_SelectionChanged" BorderBrush="Black" MinHeight="20" Height="23" Padding="3,3,3,3"/>
-                </StackPanel>
-            </RadioButton>
-
-            <hc:SearchBar Grid.Column="2" Grid.Row="0" BorderBrush="Black" x:Name="SearchTB" TextChanged="SearchBar_TextChanged" MinHeight="25" Height="25" />
-
-
-
-            <usercontrols:ToolBarControl Grid.Row="5" Grid.Column="0" AddClick="AddBN_Click" SaveClick="SaveBN_Click" DeleteClick="ToolBarControl_DeleteClick" UpdateClick="ToolBarControl_UpdateClick" HorizontalAlignment="Right" Width="400"/>
-
+            <!--
             <StackPanel Grid.Row="0" Grid.Column="3" Margin="5 0">
                 <TextBlock Text="Менеджер"/>
                 <ComboBox x:Name="ManagerCB" IsEditable="False" MinHeight="20" Height="23" Padding="3,3,3,3" ItemsSource="{Binding Spr_Managers_Filter}" SelectionChanged="ManagerCB_SelectionChanged"/>
@@ -102,20 +78,18 @@
                 </ComboBox>
             </StackPanel>
 
-            <!--<hc:PropertyGrid Panel.ZIndex="999" Width="500" SelectedObject="{Binding DemoModel}" Grid.Column="2" Grid.Row="0" Grid.RowSpan="4" x:Name="prop" MaxTitleWidth="197" ShowSortButton="False"/>
+            <hc:PropertyGrid Panel.ZIndex="999" Width="500" SelectedObject="{Binding DemoModel}" Grid.Column="2" Grid.Row="0" Grid.RowSpan="4" x:Name="prop" MaxTitleWidth="197" ShowSortButton="False"/>
 -->
         </Grid>
 
 
 
 
-        <DataGrid x:Name="datagridRashods" AutoGenerateColumns="False" Grid.Row="1" ItemsSource="{Binding Path=Rashods, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" CanUserAddRows="False" MouseDoubleClick="datagridRashods_MoseDoubleClick">
+        <DataGrid x:Name="datagridRashods" AutoGenerateColumns="False" Grid.Row="1" ItemsSource="{Binding Path=Rashods, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding kod_zap}" Header="Код" x:Name="kod_zap" Visibility="Collapsed"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Nom_rash}" Header="№" x:Name="nom_rash" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Data_rash, StringFormat=dd.MM.yyyy}" Header="Дата" x:Name="data_rash" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Data_otgruzki, StringFormat=dd.MM.yyyy}" Header="Дата отгр." x:Name="data_otgr" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Otpustil}" Header="Отпустил" x:Name="otgr" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding }" Header="Отпустил" x:Name="otgr" IsReadOnly="True"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Prim}" Header="Прим" x:Name="prim"></DataGridTextColumn>
                 <DataGridCheckBoxColumn Binding="{Binding IsTovOpl}" Header="Товар оплачен" x:Name="oplach"/>
                 <DataGridCheckBoxColumn Binding="{Binding IsDostOpl}" Header="Дост. опл" x:Name="oplach_dost"/>

@@ -20,6 +20,10 @@ namespace Client
         public static HttpClient client = new HttpClient();
         private static ObservableCollection<Spr_oplat_sklad> _spr_Oplat_Sklad;
         private static ObservableCollection<Spr_period_filtr> _spr_Periods_Filter;
+
+        public static ObservableCollection<Spr_oplat_sklad> Spr_Oplat_Sklad { get; set; }
+
+
         public async static Task<ObservableCollection<Spr_oplat_sklad>> GetSprOplatSklad()
         {
             if (_spr_Oplat_Sklad == null)
@@ -67,7 +71,8 @@ namespace Client
 
         public static void ErrorLog( string message, string title = "Ошибка")
         {
-            ShowNotif(title, message, NotificationType.Error);
+            if(message == "Невозможно соединиться с удаленным сервером") ShowNotif(message, "Повторите операцию", NotificationType.Error);
+            else ShowNotif(title, message, NotificationType.Error);
         }
 
     }
@@ -130,6 +135,34 @@ namespace Client
                 //if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             }
             
+        }
+    }
+
+    public class HttpPostRequests<T, K>
+    {
+        public async Task<T> PostRequest(string url, T responce, K query)
+        {
+            try
+            {
+                HttpResponseMessage response = await Global.client.PostAsJsonAsync(url, query);
+                if (response.IsSuccessStatusCode)
+                {
+                    return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+                }
+                else
+                {
+                    string excep = response.Content.ReadAsStringAsync().Result;
+                    Global.ErrorLog(response.StatusCode.ToString() + " " + excep);
+                    return responce;
+                    //if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                }
+            }
+            catch (Exception ex)
+            {
+                Global.ErrorLog(ex.InnerException.Message);
+                return responce;
+            }
+
         }
     }
 }

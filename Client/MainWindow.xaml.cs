@@ -1,5 +1,7 @@
 ﻿using Client.Models;
+using Client.Models.Sklad;
 using Client.ViewModels;
+using Client.Windows;
 using HandyControl.Tools;
 using Newtonsoft.Json;
 using System;
@@ -29,7 +31,8 @@ namespace Client
     public partial class MainWindow : Window
     {
         bool IsDataLoaded = false;
-        public ObservableCollection<Sklad_rashod> rashods = new ObservableCollection<Sklad_rashod>();
+        private List<Sklad_rashod> rashods = new List<Sklad_rashod>();
+        public RashodyViewModel RashodyViewModel { get; set; }
 
         private DateTime? StartFilterDate = new DateTime(2022, 3, 9);
         private DateTime? EndFilterDate = new DateTime(2022, 3, 9);
@@ -41,65 +44,123 @@ namespace Client
             Global.client.BaseAddress = new Uri(Global.Api);
             Global.client.DefaultRequestHeaders.Accept.Clear();
             Global.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            DayDP.SelectedDate = DateTime.Now;
+            //получаем ViewModel
+            GetVM();
+        }
 
+        public async void GetVM()
+        {
+            IsDataLoaded = false;
+            HttpRequests<RashodyViewModel> httpRequests4 = new HttpRequests<RashodyViewModel>();
+            RashodyViewModel = new RashodyViewModel();
+            RashodyViewModel = await httpRequests4.GetRequest("/api/Sklad_rashod/VM", RashodyViewModel);
+            Global.Spr_Oplat_Sklad = RashodyViewModel.Spr_Oplat_Sklad;
+            #region code
+            /*  HttpRequests<ObservableCollection<Sklad_rashod>> httpRequests = new HttpRequests<ObservableCollection<Sklad_rashod>>();
+              List<string> parametrs = new List<string>();
+              if (StartFilterDate.HasValue) parametrs.Add("start=" + StartFilterDate.Value.ToString("s", System.Globalization.CultureInfo.InvariantCulture));
+              if (EndFilterDate.HasValue) parametrs.Add("end=" + EndFilterDate.Value.ToString("s", System.Globalization.CultureInfo.InvariantCulture));
+              if (SearchTB.Text != "") parametrs.Add("search=" + SearchTB.Text);
+
+              rashods = await httpRequests.GetRequest($"api/Sklad_rashod/Sklad_rashod_date?" + String.Join("&", parametrs), rashods);
+
+              if (SearchTB.Text != "" && rashods.Count == 0)
+              {
+                  if (PeriodsCB.SelectedIndex < PeriodsCB.Items.Count - 1)
+                  {
+                      PeriodsRB.IsChecked = true;
+                      if (PeriodsCB.SelectedIndex == -1) PeriodsCB.SelectedIndex = 0;
+                      else PeriodsCB.SelectedIndex++;
+                  }
+                  else if (!AllRB.IsChecked.Value) AllRB.IsChecked = true;
+              }
+  */
+            #endregion
+            //получаем список расходов
             GetProduct();
-            FillComboBox();
-            
-            this.DataContext = new RashodyViewModel();
-            //prop.SelectedObject = DemoModel;
+            //фильтруем его
+            Filter();
+            this.DataContext = RashodyViewModel;
         }
 
         public async void GetProduct()
         {
-            HttpRequests<ObservableCollection<Sklad_rashod>> httpRequests = new HttpRequests<ObservableCollection<Sklad_rashod>>();
-            List<string> parametrs = new List<string>();
-            if (StartFilterDate.HasValue) parametrs.Add("start=" + StartFilterDate.Value.ToString("s", System.Globalization.CultureInfo.InvariantCulture));
-            if (EndFilterDate.HasValue) parametrs.Add("end=" + EndFilterDate.Value.ToString("s", System.Globalization.CultureInfo.InvariantCulture));
-            if (SearchTB.Text != "") parametrs.Add("search=" + SearchTB.Text);
-
-            rashods = await httpRequests.GetRequest($"api/Sklad_rashod/Sklad_rashod_date?" + String.Join("&", parametrs), rashods);
-
-            if (SearchTB.Text != "" && rashods.Count == 0)
-            {
-                if (PeriodsCB.SelectedIndex < PeriodsCB.Items.Count - 1)
-                {
-                    PeriodsRB.IsChecked = true;
-                    if (PeriodsCB.SelectedIndex == -1) PeriodsCB.SelectedIndex = 0;
-                    else PeriodsCB.SelectedIndex++;
-                }
-                else if (!AllRB.IsChecked.Value) AllRB.IsChecked = true;
-            }
-
-            datagridRashods.ItemsSource = rashods;
+            IsDataLoaded = false;
+            RashodyQueryParams queryParams = new RashodyQueryParams(StartFilterDate, EndFilterDate, SearchTB.Text);
+            HttpPostRequests<List<Sklad_rashod>, RashodyQueryParams> postRequests = new HttpPostRequests<List<Sklad_rashod>, RashodyQueryParams>();
+            rashods = await postRequests.PostRequest("api/Sklad_rashod/Filter", rashods, queryParams);
+            RashodyViewModel.Rashods = new ObservableCollection<Sklad_rashod>(rashods);
+            RashodyViewModel.Spr_Managers_Filter = new ObservableCollection<string>(RashodyViewModel.Rashods.Select(p => p.Otpustil).Distinct().OrderBy(p => p));
             IsDataLoaded = true;
-
-        }
-        public async void FillComboBox()
-        {
+            Filter();
         }
 
         public void Filter()
         {
-            if (IsDataLoaded) GetProduct();
+            if (IsDataLoaded)
+            {
+                IsDataLoaded = false;
+                List<Sklad_rashod> filt = new List<Sklad_rashod>(rashods);
+                if (ManagerCB.SelectedItem != null && (ManagerCB.SelectedItem as string) != "") 
+                    filt = filt.Where(p => p.Otpustil == (ManagerCB.SelectedItem as string)).ToList();
+                if (OplachenCB.SelectedItem != null)
+                {
+                    switch ((OplachenCB.SelectedItem as ComboBoxItem).Content)
+                    {
+                        case "Да":
+                            {
+                                //если значение null, то не берем
+                                filt = filt.Where(p => p.IsTovOpl.HasValue ? p.IsTovOpl.Value : false).ToList();
+                                break;
+                            }
+                        case "Нет":
+                            {
+                                //если значениие nullб то берем
+                                filt = filt.Where(p => p.IsTovOpl.HasValue ? !p.IsTovOpl.Value : true).ToList();
+                                break;
+                            }
+                    }
+                }
+                if (OtgruzhenoCB.SelectedItem != null)
+                {
+                    switch ((OtgruzhenoCB.SelectedItem as ComboBoxItem).Content)
+                    {
+                        case "Да":
+                            {
+                                //если значение null, то не берем
+                                filt = filt.Where(p => p.Otgruzheno.HasValue ? p.Otgruzheno.Value : false).ToList();
+                                break;
+                            }
+                        case "Нет":
+                            {
+                                //если значение null, то берем
+                                filt = filt.Where(p => p.Otgruzheno.HasValue ? !p.Otgruzheno.Value : true).ToList();
+                                break;
+                            }
+                    }
+                }
+                if (TipOplatyCB.SelectedItem != null && (TipOplatyCB.SelectedItem as Spr_oplat_sklad).naim != "")
+                {
+                    filt = filt.Where(p => p.Oplata == ((Spr_oplat_sklad)TipOplatyCB.SelectedItem).kod_zap).ToList();
+                }
+                RashodyViewModel.Rashods = new ObservableCollection<Sklad_rashod>(filt);
+                IsDataLoaded = true;
+            }
         }
 
         private void datagridRashods_MoseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (datagridRashods.SelectedItem != null)
             {
-                Global.ShowNotif("Внимание", (datagridRashods.SelectedItem as Sklad_rashod).Nom_rash.ToString(), Notification.Wpf.NotificationType.Information);
+                RashodWin rashod = new RashodWin((datagridRashods.SelectedItem as Sklad_rashod).kod_zap.Value);
+                rashod.Show();
             }
         }
 
-        private void saveButton_Click(object sender, RoutedEventArgs e)
+        private void RashodWin(decimal v, object id)
         {
-            rashods.Add(new Sklad_rashod());
-            rashods[0].Otpustil = "dcdcd";
-        }
-
-        private async void dateStart_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-
+            throw new NotImplementedException();
         }
 
         private void MinusDayBN_Click(object sender, RoutedEventArgs e)
@@ -116,7 +177,7 @@ namespace Client
         {
             StartFilterDate = null;
             EndFilterDate = null;
-            Filter();
+            GetProduct();
         }
 
         private void PeriodsCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -166,7 +227,7 @@ namespace Client
                                 }
                         }
                     }
-                    Filter();
+                    GetProduct();
                 }
             }
         }
@@ -175,29 +236,49 @@ namespace Client
         {
             StartFilterDate = DayDP.SelectedDate;
             EndFilterDate = DayDP.SelectedDate;
-            Filter();
+            GetProduct();
         }
 
         private void DayStartDP_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             StartFilterDate = DayStartDP.SelectedDate;
-            Filter();
+            GetProduct();
         }
 
         private void DayEndDP_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             EndFilterDate = DayEndDP.SelectedDate;
-            Filter();
+            GetProduct();
         }
 
         private void MonthCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            if (MonthCB.SelectedIndex != -1 && YearCB.SelectedIndex != -1)
+            {
+                StartFilterDate = new DateTime((int)YearCB.SelectedItem, (int)MonthCB.SelectedItem, 1);
+                EndFilterDate = StartFilterDate.Value.AddMonths(1).AddDays(-1);
+            }
+            GetProduct();
         }
 
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
+            GetProduct();
+        }
+
+        private void ManagerCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
             Filter();
+        }
+
+        private void ToolBarControl_DeleteClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ToolBarControl_UpdateClick(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private async void SaveBN_Click(object sender, RoutedEventArgs e)
@@ -214,7 +295,7 @@ namespace Client
                     Global.ErrorLog(ex.Message);
                 }
             }
-
+            GetProduct();
         }
 
         private async void AddBN_Click(object sender, RoutedEventArgs e)
@@ -224,6 +305,23 @@ namespace Client
             rashod.Otpustil = "Test";
             rashod.Nom_rash = 999;
             rashod = await httpRequests.PostRequest("api/Sklad_rashod/", rashod);
+        }
+
+        private void PeriodsRB_Checked(object sender, RoutedEventArgs e)
+        {
+            if(IsDataLoaded) PeriodsCB_SelectionChanged(sender, null);
+        }
+        private void DayRB_Checked(object sender, RoutedEventArgs e)
+        {
+            if (IsDataLoaded) DayDP_SelectedDateChanged(sender, null);
+        }
+        private void DaysRB_Checked(object sender, RoutedEventArgs e)
+        {
+            if (IsDataLoaded) DayStartDP_SelectedDateChanged(sender, null);
+        }
+        private void MonthRB_Checked(object sender, RoutedEventArgs e)
+        {
+            if (IsDataLoaded) MonthCB_SelectionChanged(sender, null);
         }
     }
 
