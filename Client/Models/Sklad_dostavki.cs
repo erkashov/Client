@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Client.Models.Sklad;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -21,7 +22,7 @@ namespace Client.Models
         public bool opl_voditelu { get; set; }
         public string prim { get; set; }
         public bool provereno { get; set; }
-        public Nullable<decimal> karta_id { get; set; }
+        public Nullable<int> karta_id { get; set; }
         public Nullable<decimal> perevoz_id { get; set; }
         public Nullable<decimal> voditel_id { get; set; }
         public Nullable<bool> opl_na_vigruz { get; set; }
@@ -40,5 +41,8 @@ namespace Client.Models
         /*public virtual Sklad_voditely Sklad_voditely { get; set; }*/
         [ForeignKey("tip_opl_id")]
         public virtual Spr_oplat_sklad Spr_oplat_sklad { get; set; }
+
+        [ForeignKey("karta_id")]
+        public virtual Karta Karta { get; set; }
     }
 }

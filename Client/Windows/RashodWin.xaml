@@ -45,61 +45,43 @@
             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
                 <TextBlock VerticalAlignment="Center">Оплата</TextBlock>
                 <ComboBox x:Name="OplataCB" IsEditable="False" MinWidth="60" MinHeight="20" Height="30" Margin="10 5" Width="130" ItemsSource="{Binding Spr_Oplat_Sklad}" DisplayMemberPath="naim" SelectedValuePath="kod_zap" SelectedValue="{Binding Rashod.Oplata}"/>
-            </StackPanel>
-            
-            <usercontrols:ToolBarControl Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" AddClick="AddBN_Click" SaveClick="SaveBN_Click" DeleteClick="ToolBarControl_DeleteClick" UpdateClick="ToolBarControl_UpdateClick" HorizontalAlignment="Right" Width="400"/>
-
-            <!--
-            <StackPanel Grid.Row="0" Grid.Column="3" Margin="5 0">
-                <TextBlock Text="Менеджер"/>
-                <ComboBox x:Name="ManagerCB" IsEditable="False" MinHeight="20" Height="23" Padding="3,3,3,3" ItemsSource="{Binding Spr_Managers_Filter}" SelectionChanged="ManagerCB_SelectionChanged"/>
+                <TextBlock VerticalAlignment="Center">Карта</TextBlock>
+                <ComboBox x:Name="KartaCB" IsEditable="False" MinWidth="60" MinHeight="20" Height="30" Margin="10 5" Width="130" ItemsSource="{Binding Spr_karty}" DisplayMemberPath="name" SelectedValuePath="id" SelectedValue="{Binding Rashod.Karta}"/>
             </StackPanel>
 
-            <StackPanel Grid.Row="1" Grid.Column="3" Margin="5 0">
-                <TextBlock Text="Тип оплаты"/>
-                <ComboBox x:Name="TipOplatyCB" IsEditable="False" MinHeight="20" Height="23" Padding="3,3,3,3" ItemsSource="{Binding Spr_Oplat_Sklad}" DisplayMemberPath="naim" SelectionChanged="ManagerCB_SelectionChanged"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="4">
+                <TextBlock VerticalAlignment="Center">Счет</TextBlock>
+                <ComboBox x:Name="ShetCB" IsEditable="False" MinWidth="60" MinHeight="20" Height="30" Margin="10 5" Width="130" ItemsSource="{Binding Spr_Oplat_Sklad}" DisplayMemberPath="naim" SelectedValuePath="kod_zap" SelectedValue="{Binding Rashod.Oplata}"/>
             </StackPanel>
 
-            <StackPanel Grid.Row="0" Grid.Column="4" Margin="5 0">
-                <TextBlock Text="Отгружено"/>
-                <ComboBox x:Name="OtgruzhenoCB" IsEditable="False" MinHeight="20" Height="23" Padding="3,3,3,3" SelectionChanged="ManagerCB_SelectionChanged">
-                    <ComboBoxItem Content="Все"/>
-                    <ComboBoxItem Content="Да"/>
-                    <ComboBoxItem Content="Нет"/>
-                </ComboBox>
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="4">
+                <TextBlock VerticalAlignment="Center">Плательщик</TextBlock>
+                <TextBlock x:Name="PlatelTB"/>
             </StackPanel>
 
-            <StackPanel Grid.Row="1" Grid.Column="4" Margin="5 0">
-                <TextBlock Text="Товар оплачен"/>
-                <ComboBox x:Name="OplachenCB" IsEditable="False" MinHeight="20" Height="23" Padding="3,3,3,3" SelectionChanged="ManagerCB_SelectionChanged">
-                    <ComboBoxItem Content="Все"/>
-                    <ComboBoxItem Content="Да"/>
-                    <ComboBoxItem Content="Нет"/>
-                </ComboBox>
-            </StackPanel>
 
-            <hc:PropertyGrid Panel.ZIndex="999" Width="500" SelectedObject="{Binding DemoModel}" Grid.Column="2" Grid.Row="0" Grid.RowSpan="4" x:Name="prop" MaxTitleWidth="197" ShowSortButton="False"/>
--->
+            <usercontrols:ToolBarControl Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" AddClick="AddBN_Click" SaveClick="SaveBN_Click" DeleteClick="ToolBarControl_DeleteClick" UpdateClick="ToolBarControl_UpdateClick" HorizontalAlignment="Left" Width="490" Margin="0"/>
         </Grid>
 
 
 
 
-        <DataGrid x:Name="datagridRashods" AutoGenerateColumns="False" Grid.Row="1" ItemsSource="{Binding Path=Rashods, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" CanUserAddRows="False">
+        <DataGrid x:Name="datagridRashods" SelectionUnit="CellOrRowHeader" AutoGenerateColumns="False" Grid.Row="1" ItemsSource="{Binding Path=Rashod.Sklad_rashod_tov, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding kod_zap}" Header="Код" x:Name="kod_zap" Visibility="Collapsed"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Nom_rash}" Header="№" x:Name="nom_rash" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding }" Header="Отпустил" x:Name="otgr" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Prim}" Header="Прим" x:Name="prim"></DataGridTextColumn>
-                <DataGridCheckBoxColumn Binding="{Binding IsTovOpl}" Header="Товар оплачен" x:Name="oplach"/>
-                <DataGridCheckBoxColumn Binding="{Binding IsDostOpl}" Header="Дост. опл" x:Name="oplach_dost"/>
-                <DataGridCheckBoxColumn Binding="{Binding Otgruzheno}" Header="Отгружено" x:Name="otgruz"/>
-                <DataGridTextColumn Binding="{Binding Sheta.nom_1C}" Header="Счет" x:Name="shet" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Summa, StringFormat=N2}" Header="Нал" x:Name="summa_nal" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Summa_karta, StringFormat=N2}" Header="Карта" x:Name="summa_karta" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Summa_beznal, StringFormat=N2}" Header="Безнал" x:Name="summa_beznal" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Dolg, StringFormat=N2}" Header="Долг" x:Name="summa_dolg" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Spr_oplat_sklad.naim}" Header="Оплата" x:Name="oplata"></DataGridTextColumn>
+                <DataGridTextColumn Header="№" x:Name="nom" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Tovar.naim2}" Header="№" x:Name="tovar" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTemplateColumn IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="TovBtn" Content="..." HorizontalAlignment="Center" VerticalAlignment="Center" Click="TovBtn_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Binding="{Binding count}" Header="Кол-во" x:Name="count"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding zena}" Header="Цена" x:Name="zena"/>
+                <DataGridTextColumn Binding="{Binding summa}" Header="Сумма" x:Name="summa" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding nom_prih}" Header="Приход" x:Name="prih"/>
+                <DataGridTextColumn Binding="{Binding pribyl}" Header="Прибыль" x:Name="pribyl"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

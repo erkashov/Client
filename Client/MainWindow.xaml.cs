@@ -56,8 +56,8 @@ namespace Client
             IsDataLoaded = false;
             HttpRequests<RashodyViewModel> httpRequests4 = new HttpRequests<RashodyViewModel>();
             RashodyViewModel = new RashodyViewModel();
-            RashodyViewModel = await httpRequests4.GetRequest("/api/Sklad_rashod/VM", RashodyViewModel);
-            Global.Spr_Oplat_Sklad = RashodyViewModel.Spr_Oplat_Sklad;
+            RashodyViewModel = await httpRequests4.GetRequestAsync("/api/Sklad_rashod/VM", RashodyViewModel);
+            //Global.Spr_Oplat_Sklad = RashodyViewModel.Spr_Oplat_Sklad;
             #region code
             /*  HttpRequests<ObservableCollection<Sklad_rashod>> httpRequests = new HttpRequests<ObservableCollection<Sklad_rashod>>();
               List<string> parametrs = new List<string>();

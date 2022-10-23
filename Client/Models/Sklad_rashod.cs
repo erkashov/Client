@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Client.Models.Sklad;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -127,7 +129,7 @@ namespace Client.Models
         private Nullable<decimal> oplata;
         private Nullable<decimal> weight;
         private Nullable<decimal> volume;
-        private Nullable<decimal> karta;
+        private Nullable<int> karta;
         private Nullable<decimal> dolg;
         private Nullable<decimal> region;
         private Nullable<decimal> skidka;
@@ -142,7 +144,7 @@ namespace Client.Models
         public Nullable<decimal> Oplata { get { return oplata; } set { oplata = value; OnPropertyChanged(nameof(Oplata)); } }
         public Nullable<decimal> Weight { get { return weight; } set { weight = value; OnPropertyChanged(nameof(Weight)); } }
         public Nullable<decimal> Volume { get { return volume; } set { volume = value; OnPropertyChanged(nameof(Volume)); } }
-        public Nullable<decimal> Karta { get { return karta; } set { karta = value; OnPropertyChanged(nameof(Karta)); } }
+        public Nullable<int> Karta { get { return karta; } set { karta = value; OnPropertyChanged(nameof(Karta)); } }
         public Nullable<decimal> Dolg { get { return dolg; } set { dolg = value; OnPropertyChanged(nameof(Dolg)); } }
         public Nullable<decimal> Skidka { get { return skidka; } set { skidka = value; OnPropertyChanged(nameof(Skidka)); } }
         public Nullable<decimal> Phone_pokup { get { return phone_pokup; } set { phone_pokup = value; OnPropertyChanged(nameof(Phone_pokup)); } }
@@ -188,7 +190,7 @@ namespace Client.Models
             }
         }
 
-        public virtual ICollection<Sklad_rashod_tov> Sklad_rashod_tov { get; set; }
+        public virtual ObservableCollection<Sklad_rashod_tov> Sklad_rashod_tov { get; set; }
         public virtual ICollection<Sklad_dostavki> Sklad_dostavki { get; set; }
 
 
@@ -197,6 +199,9 @@ namespace Client.Models
 
         [ForeignKey("oplata")]
         public virtual Spr_oplat_sklad Spr_oplat_sklad { get; set; }
+
+        [ForeignKey("karta")]
+        public virtual Karta Kart { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
