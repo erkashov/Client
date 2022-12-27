@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="Client.UserControls.CategoryNavControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.UserControls" xmlns:hc="https://handyorg.github.io/handycontrol" 
+             mc:Ignorable="d"
+             d:DesignHeight="100" d:DesignWidth="100">
+    <Grid Name="main">
+        <hc:TabControl ItemsSource="{Binding tabs}" x:Name="tabC" ShowCloseButton="False">
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding name}" FontSize="20"/>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <ListBox ItemsSource="{Binding Children}" SelectedItem="{Binding Selected, Mode=TwoWay}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding short_name}" HorizontalAlignment="Center" VerticalAlignment="Center" MouseDown="Button_Click" FontSize="17"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" 
+                                           Width="{Binding ElementName=main, Path=Width}" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                    </ListBox>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </hc:TabControl>
+    </Grid>
+</UserControl>

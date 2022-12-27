@@ -5,121 +5,45 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client" xmlns:hc="https://handyorg.github.io/handycontrol" xmlns:usercontrols="clr-namespace:Client.UserControls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1080" Width="1920" WindowState="Maximized">
+        Title="" Height="1080" Width="1920" WindowState="Maximized"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     TextElement.FontWeight="Regular"
+     TextElement.FontSize="13"
+     TextOptions.TextFormattingMode="Ideal"
+     TextOptions.TextRenderingMode="Auto"
+     Background="{DynamicResource MaterialDesignPaper}"
+     FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="250"></RowDefinition>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Margin="5">
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="400"></ColumnDefinition>
-                <ColumnDefinition Width="100"></ColumnDefinition>
-                <ColumnDefinition Width="300"></ColumnDefinition>
-                <ColumnDefinition Width="180"></ColumnDefinition>
-                <ColumnDefinition Width="180"></ColumnDefinition>
-                <ColumnDefinition Width="180"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <RadioButton x:Name="AllRB" GroupName="Periods" Content="Все" Checked="AllRB_Checked"  Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" />
+        <Menu VerticalAlignment="Top">
+            <MenuItem Header="Склад">
+                <MenuItem Header="Расходы" x:Name="rashodsM" Click="rashodsM_Click"/>
+                <MenuItem Header="Остатки" x:Name="ostatkiM" Click="ostatkiM_Click"/>
+            </MenuItem>
+        </Menu>
 
-            <RadioButton x:Name="PeriodsRB" GroupName="Periods" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Checked="PeriodsRB_Checked">
-                <StackPanel Orientation="Horizontal">
-                    <ComboBox x:Name="PeriodsCB" ItemsSource="{Binding Spr_Periods_Filter}" DisplayMemberPath="naim" IsEditable="False" IsEnabled="{Binding Path=IsChecked, ElementName=PeriodsRB}" MinWidth="150" BorderBrush="Black" Background="White" SelectionChanged="PeriodsCB_SelectionChanged"  MinHeight="20" Height="23" Padding="3,3,3,3"/>
-                </StackPanel>
-            </RadioButton>
-
-            <RadioButton x:Name="DayRB" GroupName="Periods" Grid.Row="2" Grid.Column="0" IsChecked="True" HorizontalAlignment="Left" Checked="DayRB_Checked">
-                <StackPanel Orientation="Horizontal">
-                    <DatePicker x:Name="DayDP"  IsEnabled="{Binding Path=IsChecked, ElementName=DayRB}" FirstDayOfWeek="Monday" MinWidth="120" SelectedDateChanged="DayDP_SelectedDateChanged" BorderBrush="Black"/>
-
-                    <Button x:Name="MinusDayBN" Content="&lt;" Click="MinusDayBN_Click"/>
-                    <Button x:Name="PlusDayBN" Content=">" Click="PlusDayBN_Click"/>
-                </StackPanel>
-            </RadioButton>
-
-            <RadioButton x:Name="DaysRB" GroupName="Periods" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" Checked="DaysRB_Checked">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="с " VerticalAlignment="Center"/>
-                    <DatePicker x:Name="DayStartDP"  IsEnabled="{Binding Path=IsChecked, ElementName=DaysRB}" FirstDayOfWeek="Monday" IsTodayHighlighted="True" MinWidth="120" SelectedDateChanged="DayStartDP_SelectedDateChanged" BorderBrush="Black"/>
-                    <TextBlock Text="по " VerticalAlignment="Center"/>
-                    <DatePicker x:Name="DayEndDP"  IsEnabled="{Binding Path=IsChecked, ElementName=DaysRB}" FirstDayOfWeek="Monday" IsTodayHighlighted="True" MinWidth="120" SelectedDateChanged="DayEndDP_SelectedDateChanged" BorderBrush="Black"/>
-                </StackPanel>
-            </RadioButton>
-
-
-
-            <RadioButton x:Name="MonthRB" GroupName="Periods" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" Checked="MonthRB_Checked">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Год " VerticalAlignment="Center"/>
-                    <ComboBox x:Name="YearCB" ItemsSource="{Binding Years}" IsEditable="False" IsEnabled="{Binding Path=IsChecked, ElementName=MonthRB}" MinWidth="60" SelectionChanged="MonthCB_SelectionChanged" BorderBrush="Black" MinHeight="20" Height="23" Padding="3,3,3,3"/>
-
-                    <TextBlock Text="     Месяц " VerticalAlignment="Center"/>
-                    <ComboBox x:Name="MonthCB" ItemsSource="{Binding Months}" IsEditable="False" IsEnabled="{Binding Path=IsChecked, ElementName=MonthRB}" MinWidth="50" SelectionChanged="MonthCB_SelectionChanged" BorderBrush="Black" MinHeight="20" Height="23" Padding="3,3,3,3"/>
-                </StackPanel>
-            </RadioButton>
-
-            <usercontrols:ToolBarControl Grid.Row="5" Grid.Column="0" AddClick="AddBN_Click" SaveClick="SaveBN_Click" DeleteClick="ToolBarControl_DeleteClick" UpdateClick="ToolBarControl_UpdateClick" HorizontalAlignment="Right" Width="400"/>
-
-            <StackPanel Grid.Row="0" Grid.Column="3" Margin="5 0">
-                <TextBlock Text="Менеджер"/>
-                <ComboBox x:Name="ManagerCB" IsEditable="False" MinHeight="20" Height="23" Padding="3,3,3,3" ItemsSource="{Binding Spr_Managers_Filter}" SelectionChanged="ManagerCB_SelectionChanged"/>
-            </StackPanel>
-
-            <StackPanel Grid.Row="1" Grid.Column="3" Margin="5 0">
-                <TextBlock Text="Тип оплаты"/>
-                <ComboBox x:Name="TipOplatyCB" IsEditable="False" MinHeight="20" Height="23" Padding="3,3,3,3" ItemsSource="{Binding Spr_Oplat_Sklad}" DisplayMemberPath="naim" SelectionChanged="ManagerCB_SelectionChanged"/>
-            </StackPanel>
-
-            <StackPanel Grid.Row="0" Grid.Column="4" Margin="5 0">
-                <TextBlock Text="Отгружено"/>
-                <ComboBox x:Name="OtgruzhenoCB" IsEditable="False" MinHeight="20" Height="23" Padding="3,3,3,3" SelectionChanged="ManagerCB_SelectionChanged">
-                    <ComboBoxItem Content="Все"/>
-                    <ComboBoxItem Content="Да"/>
-                    <ComboBoxItem Content="Нет"/>
-                </ComboBox>
-            </StackPanel>
-
-            <StackPanel Grid.Row="1" Grid.Column="4" Margin="5 0">
-                <TextBlock Text="Товар оплачен"/>
-                <ComboBox x:Name="OplachenCB" IsEditable="False" MinHeight="20" Height="23" Padding="3,3,3,3" SelectionChanged="ManagerCB_SelectionChanged">
-                    <ComboBoxItem Content="Все"/>
-                    <ComboBoxItem Content="Да"/>
-                    <ComboBoxItem Content="Нет"/>
-                </ComboBox>
-            </StackPanel>
-        </Grid>
-
-
-
-
-        <DataGrid x:Name="datagridRashods" AutoGenerateColumns="False" Grid.Row="1" ItemsSource="{Binding Path=Rashods, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" CanUserAddRows="False" MouseDoubleClick="datagridRashods_MoseDoubleClick">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding kod_zap}" Header="Код" x:Name="kod_zap" Visibility="Collapsed"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Nom_rash}" Header="№" x:Name="nom_rash" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Data_rash, StringFormat=dd.MM.yyyy}" Header="Дата" x:Name="data_rash" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Data_otgruzki, StringFormat=dd.MM.yyyy}" Header="Дата отгр." x:Name="data_otgr" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Otpustil}" Header="Отпустил" x:Name="otgr" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Prim}" Header="Прим" x:Name="prim"></DataGridTextColumn>
-                <DataGridCheckBoxColumn Binding="{Binding IsTovOpl}" Header="Товар оплачен" x:Name="oplach"/>
-                <DataGridCheckBoxColumn Binding="{Binding IsDostOpl}" Header="Дост. опл" x:Name="oplach_dost"/>
-                <DataGridCheckBoxColumn Binding="{Binding Otgruzheno}" Header="Отгружено" x:Name="otgruz"/>
-                <DataGridTextColumn Binding="{Binding Sheta.nom_1C}" Header="Счет" x:Name="shet" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Summa, StringFormat=N2}" Header="Нал" x:Name="summa_nal" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Summa_karta, StringFormat=N2}" Header="Карта" x:Name="summa_karta" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Summa_beznal, StringFormat=N2}" Header="Безнал" x:Name="summa_beznal" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Dolg, StringFormat=N2}" Header="Долг" x:Name="summa_dolg" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Spr_oplat_sklad.naim}" Header="Оплата" x:Name="oplata"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+        <hc:TabControl TabStripPlacement="Left" Grid.Row="2" ShowCloseButton="True" ItemsSource="{Binding PagesCont}"
+                       KeyboardNavigation.TabNavigation="None" x:Name="tabControl" ShowOverflowButton="True"
+                       IsDraggable="True" IsScrollable="True" IsAnimationEnabled="True" IsTabFillEnabled="False" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" Background="White" >
+            <hc:TabControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" MaxWidth="200">
+                        <TextBlock Text="{Binding Title}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </hc:TabControl.ItemTemplate>
+            <hc:TabControl.ContentTemplate>
+                <DataTemplate>
+                    <ContentControl Content="{Binding Page}" Validation.ErrorTemplate="{x:Null}" Background="White"/>
+                </DataTemplate>
+            </hc:TabControl.ContentTemplate>
+        </hc:TabControl>
     </Grid>
 </Window>

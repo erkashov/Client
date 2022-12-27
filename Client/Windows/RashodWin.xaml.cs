@@ -33,9 +33,8 @@ namespace Client.Windows
 
         public async void GetVM()
         {
-            HttpRequests<Sklad_rashod> httpRequests4 = new HttpRequests<Sklad_rashod>();
             ViewModel = new RashodViewModel();
-            ViewModel.Rashod = await httpRequests4.GetRequestAsync("api/Sklad_rashod/" + Convert.ToInt32(Id), ViewModel.Rashod);
+            ViewModel.Rashod = await HttpRequests<Sklad_rashod>.GetRequestAsync("api/Sklad_rashod/" + Convert.ToInt32(Id), ViewModel.Rashod);
             this.DataContext = ViewModel;
         }
 
@@ -72,7 +71,8 @@ namespace Client.Windows
         {
             if(datagridRashods.SelectedCells.Count == 1)
             {
-                MessageBox.Show((datagridRashods.SelectedCells[0].Item as Sklad_rashod_tov).Tovar.naim2.ToString());
+                OstatkiWin win = new OstatkiWin();
+                win.ShowDialog();
             }
         }
     }

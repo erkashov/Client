@@ -12,12 +12,9 @@ namespace Client.ViewModels
 {
     public class RashodyViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<Spr_oplat_sklad> _spr_Oplat_Sklad;
-        public ObservableCollection<Spr_oplat_sklad> Spr_Oplat_Sklad { get { return _spr_Oplat_Sklad; } set { _spr_Oplat_Sklad = value; OnPropertyChanged(nameof(Spr_Oplat_Sklad)); } }
+        public ObservableCollection<Spr_oplat_sklad> Spr_Oplat_Sklad { get { return Enums.Spr_Oplat_Sklad; } set { OnPropertyChanged(nameof(Spr_Oplat_Sklad)); } }
 
-
-        private ObservableCollection<Spr_period_filtr> _spr_Periods_Filter;
-        public ObservableCollection<Spr_period_filtr> Spr_Periods_Filter { get { return _spr_Periods_Filter; } set { _spr_Periods_Filter = value; OnPropertyChanged(nameof(Spr_Periods_Filter)); } }
+        public ObservableCollection<Spr_period_filtr> Spr_Periods_Filter { get { return Enums.Spr_Periods_Filter; } set { OnPropertyChanged(nameof(Spr_Periods_Filter)); } }
         
 
         private ObservableCollection<string> _spr_Managers_Filter;
@@ -25,15 +22,12 @@ namespace Client.ViewModels
 
 
         private ObservableCollection<Sklad_rashod> _rashods;
-        public ObservableCollection<Sklad_rashod> Rashods { get { return _rashods; } set { _rashods = value; OnPropertyChanged(nameof(Rashods)); /*Years = new ObservableCollection<int>(Rashods.Select(p => p.Data_rash.Value.Year).Distinct());*/ } }
+        public ObservableCollection<Sklad_rashod> Rashods { get { return _rashods; } 
+                                                            set { _rashods = value; OnPropertyChanged(nameof(Rashods));
+                                                                Spr_Managers_Filter = new ObservableCollection<string>(_rashods.Select(p => p.Otpustil).Distinct().OrderBy(p => p)); } }
 
-
-        private ObservableCollection<int> _months;
-        public ObservableCollection<int> Months { get { return _months; } set { _months = value; OnPropertyChanged(nameof(Months)); } }
-
-
-        private ObservableCollection<int> _years;
-        public ObservableCollection<int> Years { get { return _years; } set { _years = value; OnPropertyChanged(nameof(Years)); } }
+        public ObservableCollection<int> Months { get { return Enums.Months; } set { OnPropertyChanged(nameof(Months)); } }
+        public ObservableCollection<int> Years { get { return Enums.RashodyYears; } set { OnPropertyChanged(nameof(Years)); } }
 
         public RashodyViewModel()
         {

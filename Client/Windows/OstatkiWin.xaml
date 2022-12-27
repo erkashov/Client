@@ -3,10 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Client.Windows"
+        xmlns:local="clr-namespace:Client.Windows" xmlns:usercontrols="clr-namespace:Client.UserControls"
         mc:Ignorable="d"
         Title="OstatkiWin" Height="450" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+
+        <usercontrols:CategoryNavControl Margin="10"  UpdateClick="navControl_UpdateClick" x:Name="tabControl"/>
+
+        <DataGrid ItemsSource="{Binding Ostatki, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Товар" Binding="{Binding naim2}"/>
+                <DataGridTextColumn Header="В наличии" Binding="{Binding OSTATOK}"/>
+                <DataGridTextColumn Header="В пути" Binding="{Binding not_in_sklad}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

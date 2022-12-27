@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="Client.UserControls.TitledTextBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="100">
+    <Grid>
+        <StackPanel Margin="5 2" Orientation="Horizontal">
+            <TextBlock Text="{Binding Title}"/>
+            <TextBox x:Name="CB" MinHeight="20" Height="23" Padding="3,3,3,3" Width="{Binding WidthCB}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

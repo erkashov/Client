@@ -1,0 +1,28 @@
+﻿<ContentControl x:Class="Client.Pages.Sklad.OstatkiPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Client.Pages.Sklad" xmlns:usercontrols="clr-namespace:Client.UserControls"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="1200"
+      xmlns:hc="https://handyorg.github.io/handycontrol" xmlns:viewmodels="clr-namespace:Client.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:OstatkiViewModel}">
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="130"/>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button Width="22" Height="22" Visibility="{Binding CloseBTNVisible}" Command="hc:ControlCommands.Close" Style="{StaticResource ButtonIcon}" Foreground="{DynamicResource PrimaryBrush}" Panel.ZIndex="99" hc:IconElement.Geometry="{StaticResource ErrorGeometry}" Padding="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,4,4,0"/>
+
+        <usercontrols:CategoryNavControl Margin="5"  UpdateClick="navControl_UpdateClick" x:Name="tabControl"/>
+
+        <DataGrid x:Name="ostatkiDataGrid" ItemsSource="{Binding Ostatki, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="DataGrid_MouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Товар" Binding="{Binding naim2}"/>
+                <DataGridTextColumn Header="В наличии" Binding="{Binding OSTATOK}"/>
+                <DataGridTextColumn Header="В пути" Binding="{Binding not_in_sklad}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</ContentControl>

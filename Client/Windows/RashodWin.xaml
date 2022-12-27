@@ -8,23 +8,23 @@
         Title="MainWindow" Height="1080" Width="1920" WindowState="Maximized">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="250"></RowDefinition>
+            <RowDefinition Height="260"></RowDefinition>
             <RowDefinition/>
             <RowDefinition Height="250"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Margin="5">
             <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"></ColumnDefinition>
-                <ColumnDefinition Width="400"></ColumnDefinition>
+                <ColumnDefinition Width="300"></ColumnDefinition>
                 <ColumnDefinition Width="300"></ColumnDefinition>
                 <ColumnDefinition Width="180"></ColumnDefinition>
                 <ColumnDefinition Width="180"></ColumnDefinition>
@@ -33,21 +33,26 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
-                <TextBlock VerticalAlignment="Center">Номер</TextBlock>
+                <TextBlock VerticalAlignment="Center">Расход №</TextBlock>
                 <TextBox x:Name="NomerTB" Text="{Binding Rashod.Nom_rash, TargetNullValue=0, FallbackValue=100}" Margin="10 0 0 0" IsReadOnly="True" MinHeight="20" MaxLines="1" Height="30"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
-                <TextBlock VerticalAlignment="Center">Дата</TextBlock>
+                <TextBlock VerticalAlignment="Center">от </TextBlock>
                 <DatePicker x:Name="DateDP" SelectedDate="{Binding Rashod.Data_rash}" Margin="10 5" FirstDayOfWeek="Monday" IsTodayHighlighted="True" MinWidth="120" BorderBrush="Black"></DatePicker>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                 <TextBlock VerticalAlignment="Center">Оплата</TextBlock>
                 <ComboBox x:Name="OplataCB" IsEditable="False" MinWidth="60" MinHeight="20" Height="30" Margin="10 5" Width="130" ItemsSource="{Binding Spr_Oplat_Sklad}" DisplayMemberPath="naim" SelectedValuePath="kod_zap" SelectedValue="{Binding Rashod.Oplata}"/>
                 <TextBlock VerticalAlignment="Center">Карта</TextBlock>
                 <ComboBox x:Name="KartaCB" IsEditable="False" MinWidth="60" MinHeight="20" Height="30" Margin="10 5" Width="130" ItemsSource="{Binding Spr_karty}" DisplayMemberPath="name" SelectedValuePath="id" SelectedValue="{Binding Rashod.Karta}"/>
             </StackPanel>
+
+            <TextBlock VerticalAlignment="Center" Grid.Row="2" Grid.Column="0">Примечание</TextBlock>
+
+            <TextBox x:Name="PrimTB" Text="{Binding Rashod.Prim}" Grid.Row="2" Grid.Column="1" Margin="5" Grid.RowSpan="2" MinHeight="20"/>
+            
 
             <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="4">
                 <TextBlock VerticalAlignment="Center">Счет</TextBlock>

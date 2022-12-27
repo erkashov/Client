@@ -3,18 +3,31 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Client.UserControls" xmlns:hc="https://handyorg.github.io/handycontrol"
+             xmlns:local="clr-namespace:Client.UserControls" xmlns:hc="https://handyorg.github.io/handycontrol" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="500">
     <Grid>
-        <ToolBar Grid.Row="5" Background="Transparent">
-            <Button x:Name="AddBN" Content="Добавить" Click="AddBN_Click"/>
-            <hc:Divider Orientation="Vertical" Width="5" LineStroke="#FF0033FF"/>
-            <Button x:Name="SaveBN" Content="Сохранить" Click="SaveBN_Click"/>
-            <hc:Divider Orientation="Vertical" Width="5" LineStroke="#FF0033FF"/>
-            <Button x:Name="DeleteBN" Content="Удалить" Click="DeleteBN_Click"/>
-            <hc:Divider Orientation="Vertical" Width="5" LineStroke="#FF0033FF"/>
-            <Button x:Name="UpdateBN" Content="Обновить" Click="UpdateBN_Click"/>
+        <ToolBar Grid.Row="5" Background="Transparent" Height="50">
+            <Button x:Name="AddBN" Click="AddBN_Click" Padding="0" Margin="5 0" Width="35" Height="35">
+                <Border Background="#d9d9d9" CornerRadius="2" Padding="5">
+                    <materialDesign:PackIcon Kind="Plus" Width="25" Height="25" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Border>
+            </Button>
+            <Button x:Name="SaveBN" Click="SaveBN_Click" Padding="0" Margin="5 0" Width="35" Height="35">
+                <Border Background="#d9d9d9" CornerRadius="2" Padding="5">
+                    <materialDesign:PackIcon Kind="ContentSave" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+            </Button>
+            <Button x:Name="DeleteBN" Click="DeleteBN_Click" Padding="0" Margin="5 0"  Width="35" Height="35">
+                <Border Background="#d9d9d9" CornerRadius="2" Padding="5">
+                    <materialDesign:PackIcon Kind="Close" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+            </Button>
+            <Button x:Name="UpdateBN" Click="UpdateBN_Click" Padding="0" Margin="5 0" Width="35" Height="35">
+                <Border Background="#d9d9d9" CornerRadius="2" Padding="5">
+                    <materialDesign:PackIcon Kind="Refresh" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+            </Button>
         </ToolBar>
     </Grid>
 </UserControl>

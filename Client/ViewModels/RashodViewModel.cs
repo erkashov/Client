@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Client.ViewModels
 {
@@ -18,8 +19,9 @@ namespace Client.ViewModels
 
 
         private Sklad_rashod _rashod;
-        public Sklad_rashod Rashod { get { return _rashod; } set { _rashod = value; OnPropertyChanged(nameof(Rashod));} }
-
+        public Sklad_rashod Rashod { get { return _rashod; } 
+            set { _rashod = value; OnPropertyChanged(nameof(Rashod)); } }
+        
         public RashodViewModel()
         {
         }
