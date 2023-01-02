@@ -5,25 +5,10 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
-            <!--<ResourceDictionary.MergedDictionaries>
-                <hc:ThemeResources/>
-                <hc:Theme/>
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
-            </ResourceDictionary.MergedDictionaries>-->
             <ResourceDictionary.MergedDictionaries>
                 <hc:ThemeResources/>
                 <hc:Theme/>
-                <!--<ui:ThemesDictionary Theme="Light" />
-                <ui:ControlsDictionary />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />-->
-
                 <ResourceDictionary>
-
                     <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
                         <Setter Property="VerticalAlignment" Value="Center"/>
                         <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -64,6 +49,14 @@
                         <Setter Property="Margin" Value="2"/>
                         <Setter Property="FontFamily" Value="Segoe UI"/>
                         <Setter Property="Padding" Value="0"/>
+                    </Style>
+                    <Style TargetType="{x:Type Calendar}" BasedOn="{StaticResource {x:Type Calendar}}">
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="Margin" Value="2"/>
+                        <Setter Property="FontFamily" Value="Segoe UI"/>
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="FontSize" Value="10"/>
                     </Style>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>

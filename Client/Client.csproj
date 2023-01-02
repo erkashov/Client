@@ -152,6 +152,9 @@
     <Compile Include="Pages\Sklad\OstatkiPage.xaml.cs">
       <DependentUpon>OstatkiPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Sklad\PrihodsPage.xaml.cs">
+      <DependentUpon>PrihodsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Sklad\RashodPage.xaml.cs">
       <DependentUpon>RashodPage.xaml</DependentUpon>
     </Compile>
@@ -192,6 +195,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pages\Sklad\OstatkiPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Sklad\PrihodsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

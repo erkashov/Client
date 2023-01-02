@@ -24,6 +24,7 @@
 
         <Menu VerticalAlignment="Top">
             <MenuItem Header="Склад">
+                <MenuItem Header="Приходы" x:Name="prihodsM" Click="prihodsM_Click"/>
                 <MenuItem Header="Расходы" x:Name="rashodsM" Click="rashodsM_Click"/>
                 <MenuItem Header="Остатки" x:Name="ostatkiM" Click="ostatkiM_Click"/>
             </MenuItem>

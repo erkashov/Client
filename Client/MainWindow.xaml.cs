@@ -80,6 +80,11 @@ namespace Client
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
+
+        private void prihodsM_Click(object sender, RoutedEventArgs e)
+        {
+            ShowPage(new PagesContainer("Список приходов", new PrihodsPage()));
+        }
     }
 
     public class PagesContainer
