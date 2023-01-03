@@ -58,6 +58,13 @@
                         <Setter Property="Padding" Value="0"/>
                         <Setter Property="FontSize" Value="10"/>
                     </Style>
+                    <Style TargetType="{x:Type DatePicker}" BasedOn="{StaticResource DatePickerExtend}">
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                        <Setter Property="Margin" Value="3"/>
+                        <Setter Property="FontFamily" Value="Segoe UI"/>
+                        <Setter Property="hc:InfoElement.TitlePlacement" Value="Left"/>
+                    </Style>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

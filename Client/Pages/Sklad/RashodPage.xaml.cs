@@ -53,7 +53,7 @@ namespace Client.Pages.Sklad
         {
             HttpRequests<Sklad_rashod_tov> httpRequests = new HttpRequests<Sklad_rashod_tov>();
             Sklad_rashod_tov tov = new Sklad_rashod_tov();
-            tov.Kod_rashoda = (int)ViewModel.Rashod.kod_zap;
+            tov.Kod_rashoda = (int)ViewModel.Rashod.Kod_zap;
             tov = await httpRequests.PostRequest("api/Sklad_rashod/Tov", tov);
             ViewModel.Rashod = await HttpRequests<Sklad_rashod>.GetRequestAsync("api/Sklad_rashod/" + Convert.ToInt32(Id), ViewModel.Rashod);
         }
@@ -61,13 +61,13 @@ namespace Client.Pages.Sklad
         private async void SaveBN_Click(object sender, RoutedEventArgs e)
         {
             IsLoaded = false;
-            ViewModel.Rashod.Last_polz = "Алексей 2";
+            /*ViewModel.Rashod.Last_polz = "Алексей 2";
             ViewModel.Rashod.Last_machiname = Environment.MachineName;
-            ViewModel.Rashod.Last_changes_date = DateTime.Now.ToString();
+            ViewModel.Rashod.Last_changes_date = DateTime.Now.ToString();*/
             HttpRequests<Sklad_rashod> httpRequests = new HttpRequests<Sklad_rashod>();
             try
             {
-                await httpRequests.PutRequest("api/Sklad_rashod/" + ViewModel.Rashod.kod_zap, ViewModel.Rashod);
+                await httpRequests.PutRequest("api/Sklad_rashod/" + ViewModel.Rashod.Kod_zap, ViewModel.Rashod);
             }
             catch (Exception ex)
             {
@@ -155,7 +155,7 @@ namespace Client.Pages.Sklad
         private async void print_file(string format)
         {
             string path = "";
-            path = await HttpRequests<string>.GetRequestAsync($"api/Sklad_rashod/File?id={ViewModel.Rashod.kod_zap}&format={format}&printZeny=true&printBeznal=true", path);
+            path = await HttpRequests<string>.GetRequestAsync($"api/Sklad_rashod/File?id={ViewModel.Rashod.Kod_zap}&format={format}&printZeny=true&printBeznal=true", path);
             if(path != "")
             {
                 Process.Start(path);

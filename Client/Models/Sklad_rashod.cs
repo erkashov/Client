@@ -15,18 +15,131 @@ namespace Client.Models
 {
     public class Sklad_rashod : INotifyPropertyChanged
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        private int kod_zap;
+        public int Kod_zap { get { return kod_zap; } set { kod_zap = value; OnPropertyChanged(nameof(Kod_zap)); } }
+
+        private int nom_rash;
+        public int Nom_rash { get { return nom_rash; } set { nom_rash = value; OnPropertyChanged(nameof(Nom_rash)); } }
+
+        private DateTime date_rash;
+        public DateTime Date_rash { get { return date_rash; } set { date_rash = value; OnPropertyChanged(nameof(Date_rash)); } }
+
+        private Nullable<System.DateTime> date_otgruzki;
+        public Nullable<DateTime> Date_otgruzki { get { return date_otgruzki; } set { date_otgruzki = value; OnPropertyChanged(nameof(Date_otgruzki)); } }
+
+        private Nullable<System.DateTime> date_sozdania;
+        public Nullable<DateTime> Date_sozdania { get { return date_sozdania; } set { date_sozdania = value; OnPropertyChanged(nameof(Date_sozdania)); } }
+
+        private Nullable<System.DateTime> date_raspila;
+        public Nullable<DateTime> Date_raspila { get { return date_raspila; } set { date_raspila = value; OnPropertyChanged(nameof(Date_raspila)); } }
+
+        private Nullable<System.DateTime> date_opl;
+        public Nullable<DateTime> Date_opl { get { return date_opl; } set { date_opl = value; OnPropertyChanged(nameof(Date_opl)); } }
+
+        private int id_polz;
+        public int Id_polz { get { return id_polz; } set { id_polz = value; OnPropertyChanged(nameof(Id_polz)); } }
+
+        private string prim;
+        public string Prim { get { return prim; } set { prim = value; OnPropertyChanged(nameof(Prim)); } }
+
+        private string prim_zav_sklad;
+        public string Prim_zav_sklad { get { return prim_zav_sklad; } set { prim_zav_sklad = value; OnPropertyChanged(nameof(Prim_zav_sklad)); } }
+
+        private string prim_buh;
+        public string Prim_buh { get { return prim_buh; } set { prim_buh = value; OnPropertyChanged(nameof(Prim_buh)); } }
+
+        private Nullable<int> shet;
+        public Nullable<int> Shet { get { return shet; } set { shet = value; OnPropertyChanged(nameof(Shet)); } }
+
+        [ForeignKey("shet")]
+        public virtual Sheta Sheta { get; set; }
+
+        private bool otgruzheno;
+        public bool Otgruzheno { get { return otgruzheno; } set { otgruzheno = value; OnPropertyChanged(nameof(Otgruzheno)); } }
+
+        private Nullable<decimal> summa_nal;
+        public Nullable<decimal> Summa_nal { get { return summa_nal; } set { summa_nal = value; OnPropertyChanged(nameof(Summa_nal)); } }
+        private Nullable<decimal> summa_beznal;
+        public Nullable<decimal> Summa_beznal { get { return summa_beznal; } set { summa_beznal = value; OnPropertyChanged(nameof(Summa_beznal)); } }
+
+        private Nullable<decimal> summa_karta;
+        public Nullable<decimal> Summa_karta { get { return summa_karta; } set { summa_karta = value; OnPropertyChanged(nameof(Summa_karta)); } }
+
+        private Nullable<decimal> dolg;
+        public Nullable<decimal> Dolg { get { return dolg; } set { dolg = value; OnPropertyChanged(nameof(Dolg)); } }
+
+        private Nullable<bool> sdano;
+        public Nullable<bool> Sdano { get { return sdano; } set { sdano = value; OnPropertyChanged(nameof(Sdano)); } }
+        private Nullable<decimal> weight;
+        public Nullable<decimal> Weight { get { return weight; } set { weight = value; OnPropertyChanged(nameof(Weight)); } }
+
+        private Nullable<decimal> volume;
+        public Nullable<decimal> Volume { get { return volume; } set { volume = value; OnPropertyChanged(nameof(Volume)); } }
+
+        private Nullable<bool> is_invent;
+        public Nullable<bool> Is_invent { get { return is_invent; } set { is_invent = value; OnPropertyChanged(nameof(Is_invent)); } }
+
+        private Nullable<bool> is_tov_opl;
+        public Nullable<bool> Is_tov_opl { get { return is_tov_opl; } set { is_tov_opl = value; OnPropertyChanged(nameof(Is_tov_opl)); } }
+
+        private Nullable<bool> isnt_in_prodazhi_history;
+        public Nullable<bool> Isnt_in_prodazhi_history { get { return isnt_in_prodazhi_history; } set { isnt_in_prodazhi_history = value; OnPropertyChanged(nameof(Isnt_in_prodazhi_history)); } }
+
+        private string first_phone;
+        public string First_phone { get { return first_phone; } set { first_phone = value; OnPropertyChanged(nameof(First_phone)); } }
+
+        private string name_pokup;
+        public string Name_pokup { get { return name_pokup; } set { name_pokup = value; OnPropertyChanged(nameof(Name_pokup)); } }
+
+        private string name_kontact_person;
+        public string Name_kontact_person { get { return name_kontact_person; } set { name_kontact_person = value; OnPropertyChanged(nameof(Name_kontact_person)); } }
+
+        private string second_phone;
+        public string Second_phone { get { return second_phone; } set { second_phone = value; OnPropertyChanged(nameof(Second_phone)); } }
+
+        private Nullable<bool> na_raspile;
+        public Nullable<bool> Na_raspile { get { return na_raspile; } set { na_raspile = value; OnPropertyChanged(nameof(Na_raspile)); } }
+
+        private Nullable<bool> na_pechat_dost;
+        public Nullable<bool> Na_pechat_dost { get { return na_pechat_dost; } set { na_pechat_dost = value; OnPropertyChanged(nameof(Na_pechat_dost)); } }
+
+        private Nullable<bool> raspileno;
+        public Nullable<bool> Raspileno { get { return raspileno; } set { raspileno = value; OnPropertyChanged(nameof(Raspileno)); } }
+
+        private int oplata;
+        public int Oplata { get { return oplata; } set { oplata = value; OnPropertyChanged(nameof(Oplata)); OnPropertyChanged(nameof(KartaCBVisibility)); OnPropertyChanged(nameof(ShetVisibility)); } }
+
+        public decimal SummaAll
+        {
+            get { return Sklad_rashod_tov != null ? Sklad_rashod_tov.Sum(p => Math.Ceiling(p.Summa)) : 0; }
+        }
+        public int CountDost { get { return Sklad_dostavki != null ? Sklad_dostavki.Count() : 0; } }
+        public decimal SummaDost { get { return Sklad_dostavki != null ? Sklad_dostavki.Select(p => p.summa).Sum() : 0; } }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
+
+        [ForeignKey("oplata")]
+        public virtual Spr_oplat_sklad Spr_oplat_sklad { get; set; }
+        [ForeignKey("id_polz")]
+        public virtual User Polz { get; set; }
+
         public Sklad_rashod()
         {
-            IsTovOpl = false;
-            IsNotInProdazhiHistory = false;
-            IsInvent = false;
+            is_tov_opl = false;
+            isnt_in_prodazhi_history = false;
+            Is_invent = false;
             otgruzheno = false;
-            na_Pechat_Dost = false;
             sdano = false;
-            на_производство = false;
             IsDostOpl = false;
 
-            summa = 0;
+            summa_nal = 0;
             summa_karta = 0;
             summa_beznal = 0; ;
             weight = 0;
@@ -34,149 +147,6 @@ namespace Client.Models
             dolg = 0;
         }
 
-        [Key]
-        public int? kod_zap { get; set; }
-
-        private bool? isTovOpl;
-        private bool? isInvent;
-        private bool? isNotInProdazhiHistory;
-        private bool? opl_pok_karta;
-        private bool? otgruzheno;
-        private bool? na_Pechat_Dost;
-        private bool? sdano;
-        private bool? на_производство;
-
-        public bool? IsTovOpl
-        {
-            get { return isTovOpl; }
-            set
-            {
-                isTovOpl = value;
-                OnPropertyChanged(nameof(IsTovOpl));
-            }
-        }
-        public bool? IsInvent
-        {
-            get { return isInvent; }
-            set
-            {
-                isInvent = value;
-                OnPropertyChanged(nameof(IsInvent));
-            }
-        }
-        public bool? IsNotInProdazhiHistory
-        {
-            get { return isNotInProdazhiHistory; }
-            set
-            {
-                isNotInProdazhiHistory = value;
-                OnPropertyChanged(nameof(IsNotInProdazhiHistory));
-            }
-        }
-        public bool? Otgruzheno
-        {
-            get { return otgruzheno; }
-            set
-            {
-                otgruzheno = value;
-                OnPropertyChanged(nameof(Otgruzheno));
-            }
-        }
-        public Nullable<bool> Na_Pechat_Dost
-        {
-            get { return na_Pechat_Dost; }
-            set
-            {
-                na_Pechat_Dost = value;
-                OnPropertyChanged(nameof(Na_Pechat_Dost));
-            }
-        }
-        public Nullable<bool> Sdano
-        {
-            get { return sdano; }
-            set
-            {
-                sdano = value;
-                OnPropertyChanged(nameof(Sdano));
-            }
-        }
-        public Nullable<bool> На_производство
-        {
-            get { return на_производство; }
-            set
-            {
-                на_производство = value;
-                OnPropertyChanged(nameof(На_производство));
-            }
-        }
-
-        private Nullable<DateTime> data_sozdania;
-        private Nullable<DateTime> data_rash;
-        private Nullable<DateTime> data_opl;
-        private Nullable<DateTime> data_otgruzki;
-        private Nullable<TimeSpan> time_rash;
-        private Nullable<TimeSpan> time_otgruzki;
-        public Nullable<DateTime> Data_rash { get { return data_rash; } set { data_rash = value; OnPropertyChanged(nameof(Data_rash)); } }
-        public Nullable<DateTime> Data_otgruzki { get { return data_otgruzki; } set { data_otgruzki = value; OnPropertyChanged(nameof(Data_otgruzki)); } }
-        public Nullable<DateTime> Data_sozdania { get { return data_sozdania; } set { data_sozdania = value; OnPropertyChanged(nameof(Data_sozdania)); } }
-        public Nullable<DateTime> Data_opl { get { return data_opl; } set { data_opl = value; OnPropertyChanged(nameof(Data_opl)); } }
-
-        private Nullable<int> nom_rash;
-        private Nullable<decimal> summa;
-        private Nullable<decimal> summa_beznal;
-        private Nullable<decimal> summa_karta;
-        private Nullable<decimal> shet;
-        private Nullable<decimal> org;
-        private Nullable<decimal> oplata;
-        private Nullable<decimal> weight;
-        private Nullable<decimal> volume;
-        private Nullable<int> karta;
-        private Nullable<decimal> dolg;
-        private Nullable<decimal> region;
-        private Nullable<decimal> skidka;
-        private Nullable<decimal> phone_pokup;
-
-        public Nullable<int> Nom_rash { get { return Convert.ToInt32(nom_rash); } set { nom_rash = value; OnPropertyChanged(nameof(Nom_rash)); } }
-        public Nullable<decimal> Summa { get { return summa; } set { summa = value; OnPropertyChanged( nameof(Summa)); } }
-        public Nullable<decimal> Summa_beznal { get { return summa_beznal; } set { summa_beznal = value; OnPropertyChanged(nameof(Summa_beznal)); } }
-        public Nullable<decimal> Summa_karta { get { return summa_karta; } set { summa_karta = value; OnPropertyChanged(nameof(Summa_karta)); } }
-        public Nullable<decimal> Shet { get { return shet; } set { shet = value; OnPropertyChanged(nameof(Shet));} }
-        public Nullable<decimal> Org { get { return org; } set { org = value; OnPropertyChanged(nameof(Org)); } }
-        public Nullable<decimal> Oplata { get { return oplata; } 
-            set { oplata = value; OnPropertyChanged(nameof(Oplata)); OnPropertyChanged(nameof(KartaCBVisibility)); OnPropertyChanged(nameof(ShetVisibility)); } }
-        public Nullable<decimal> Weight { get { return weight; } set { weight = value; OnPropertyChanged(nameof(Weight)); } }
-        public Nullable<decimal> Volume { get { return volume; } set { volume = value; OnPropertyChanged(nameof(Volume)); } }
-        public Nullable<int> Karta { get { return karta; } 
-            set { karta = value; OnPropertyChanged(nameof(Karta)); } }
-        public Nullable<decimal> Dolg { get { return dolg; } set { dolg = value; OnPropertyChanged(nameof(Dolg)); } }
-        public Nullable<decimal> Skidka { get { return skidka; } set { skidka = value; OnPropertyChanged(nameof(Skidka)); } }
-        public Nullable<decimal> Phone_pokup { get { return phone_pokup; } set { phone_pokup = value; OnPropertyChanged(nameof(Phone_pokup)); } }
-
-
-        private string prim_buh;
-        private string primZavSklad;
-        private string prim;
-        private string first_phone;
-        private string second_phone;
-        private string name_kontact_person;
-        private string name_pokup;
-        private string last_polz;
-        private string last_machiname;
-        private string last_changes_date;
-        private string otpustil;
-
-        public string Prim_buh { get { return prim_buh; } set { prim_buh = value; OnPropertyChanged(nameof(Prim_buh)); } }
-        public string PrimZavSklad { get { return primZavSklad; } set { primZavSklad = value; OnPropertyChanged(nameof(PrimZavSklad)); } }
-        public string First_phone { get { return first_phone; } set { first_phone = value; OnPropertyChanged(nameof(First_phone)); } }
-        public string Second_phone { get { return Global.FormattedPhoneNumber(second_phone); } set { second_phone = value; OnPropertyChanged(nameof(Second_phone)); } }
-        public string Name_kontact_person { get { return name_kontact_person; } set { name_kontact_person = value; OnPropertyChanged(nameof(Name_kontact_person)); } }
-        public string Name_pokup { get { return name_pokup; } set { name_pokup = value; OnPropertyChanged(nameof(Name_pokup)); } }
-        public string Last_polz { get { return last_polz != null ? last_polz.Trim() : last_polz; } set { last_polz = value; OnPropertyChanged(nameof(Last_polz)); } }
-        public string Last_machiname { get { return last_machiname.Trim(); } set { last_machiname = value; OnPropertyChanged(nameof(Last_machiname)); } }
-        public string Last_changes_date { get { return last_changes_date.Trim(); } set { last_changes_date = value; OnPropertyChanged(nameof(Last_changes_date)); } }
-        public string Otpustil { get { return this.otpustil; } set { this.otpustil = value; OnPropertyChanged(nameof(Otpustil));} }
-        public string Prim { get { return this.prim; } set { this.prim = value; OnPropertyChanged(nameof(Prim)); } }
-        
         public bool? IsDostOpl
         {
             get
@@ -186,15 +156,12 @@ namespace Client.Models
             }
             set
             {
-                if(Sklad_dostavki != null)
+                if (Sklad_dostavki != null)
                 {
                     foreach (var dost in Sklad_dostavki) dost.opl_klientom = value.Value;
-                } 
+                }
             }
         }
-        public int CountDost { get { return Sklad_dostavki != null ? Sklad_dostavki.Count() : 0; } }
-        public decimal SummaDost { get { return Sklad_dostavki != null ? Sklad_dostavki.Sum(p => p.summa) : 0; } }
-        public decimal SummaAll { get { return Sklad_rashod_tov != null ? Sklad_rashod_tov.Sum(p => p.Summa) : 0; } }
 
         public Visibility KartaCBVisibility { get { return Oplata == 10002 || Oplata == 3 ? Visibility.Visible : Visibility.Collapsed; } set { OnPropertyChanged(nameof(KartaCBVisibility)); } }
         public Visibility ShetVisibility { get { return Oplata == 2 ? Visibility.Visible : Visibility.Collapsed; } set { OnPropertyChanged(nameof(ShetVisibility)); } }
@@ -202,28 +169,5 @@ namespace Client.Models
         private ObservableCollection<Sklad_rashod_tov> _Sklad_rashod_tov;
         public ObservableCollection<Sklad_rashod_tov> Sklad_rashod_tov { get { return _Sklad_rashod_tov; } set { _Sklad_rashod_tov = value; OnPropertyChanged(nameof(Sklad_rashod_tov)); } }
         public ObservableCollection<Sklad_dostavki> Sklad_dostavki { get; set; }
-
-
-        [ForeignKey("shet")]
-        public virtual Sheta Sheta { get; set; }
-
-        [ForeignKey("oplata")]
-        public virtual Spr_oplat_sklad Spr_oplat_sklad { get; set; }
-
-        [ForeignKey("karta")]
-        public virtual Karta Kart { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
-
-        public void AddTovar()
-        {
-            
-            Sklad_rashod_tov.Add(new Models.Sklad_rashod_tov() { Count = 0, Kod_rashoda = (int)kod_zap});
-        }
     }
 }

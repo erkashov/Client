@@ -48,7 +48,7 @@ namespace Client.Windows
             HttpRequests<Sklad_rashod> httpRequests = new HttpRequests<Sklad_rashod>();
             try
             {
-                await httpRequests.PutRequest("api/Sklad_rashod/" + ViewModel.Rashod.kod_zap, ViewModel.Rashod);
+                await httpRequests.PutRequest("api/Sklad_rashod/" + ViewModel.Rashod.Kod_zap, ViewModel.Rashod);
             }
             catch (Exception ex)
             {

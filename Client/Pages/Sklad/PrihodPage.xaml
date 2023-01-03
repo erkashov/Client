@@ -1,0 +1,55 @@
+﻿<ContentControl x:Class="Client.Pages.Sklad.PrihodPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Client.Pages.Sklad"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1300" xmlns:hc="https://handyorg.github.io/handycontrol" xmlns:usercontrols="clr-namespace:Client.UserControls" d:DataContext="{d:DesignInstance Type=local:PrihodPage}">
+    <ContentControl.Resources>
+        <CollectionViewSource x:Key="TovaryList" Source="{Binding TovaryList}" />
+    </ContentControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBox Text="{Binding Prihod.Nom_prih}" Grid.Column="0" Grid.Row="0" hc:InfoElement.Title="Номер"/>
+        <ComboBox Grid.Column="1" ItemsSource="{Binding TovaryList}" DisplayMemberPath="naim" hc:InfoElement.Title="Получатель" 
+                  SelectedValue="{Binding Prihodd.kod_poluch}"/>
+
+        <DatePicker Grid.Row="1" Grid.Column="0" SelectedDate="{Binding Prihod.Date_prih}" hc:InfoElement.Title="Дата"/>
+        <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding Prihod.Prim}" hc:InfoElement.Title="Примечание"/>
+
+        <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding Prihod.Cost_dost}" hc:InfoElement.Title="Стоимость доставки" IsEnabled="{Binding Prihod.Cost_Dost_Enable}"/>
+        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Prihod.Dop_rash}" hc:InfoElement.Title="Доп. расходы"/>
+
+        <CheckBox Content="Транспорт поставщика" IsChecked="{Binding Prihod.Transport_ot_post}" Grid.Row="2" Grid.Column="2" x:Name="trans_ot_postCheckBox"/>
+        <CheckBox Content="На складе" IsChecked="{Binding Prihod.Is_in_sklad}" Grid.Row="2" Grid.Column="3"/>
+        <CheckBox Content="Скорректирован" IsChecked="{Binding Prihod.Is_corrected}" Grid.Row="1" Grid.Column="3"/>
+        <usercontrols:ToolBarControl Grid.Row="3" Grid.Column="0" AddClick="ToolBarControl_AddClick" SaveClick="ToolBarControl_SaveClick" DeleteClick="ToolBarControl_DeleteClick" UpdateClick="ToolBarControl_UpdateClick"/>
+
+        <DataGrid ItemsSource="{Binding Prihod.Sklad_prihod_tov}" AutoGenerateColumns="False" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" x:Name="datagridTovars">
+            <DataGrid.Columns>
+                <DataGridComboBoxColumn Header="Товар" ItemsSource="{Binding Source={StaticResource TovaryList}}" SelectedValuePath="kod_tovara" SelectedValueBinding="{Binding Kod_tovara}" DisplayMemberPath="naim"/>
+                <DataGridTextColumn Header="Кол-во" x:Name="countCol" Binding="{Binding Count}" />
+                <DataGridTextColumn Header="Цена" x:Name="zenaCol" Binding="{Binding Zena}"/>
+                <DataGridTextColumn Header="Цена с доставкой" x:Name="zenadostCol" Binding="{Binding Zena_with_dost}"/>
+                <DataGridTextColumn Header="Стоимость" Binding="{Binding Cost}"/>
+                <DataGridTextColumn Header="Стоимость с доставкой" Binding="{Binding Cost_with_dost}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</ContentControl>

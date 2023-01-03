@@ -102,7 +102,7 @@ namespace Client
             }
         }
 
-        public T GetRequest(string url, T responce)
+        public static T GetRequest(string url, T responce)
         {
             try
             {

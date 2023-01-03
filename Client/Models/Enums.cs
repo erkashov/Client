@@ -73,8 +73,7 @@ namespace Client.Models
         {
             if (e == null)
             {
-                HttpRequests<T> periodsHttp = new HttpRequests<T>();
-                e = periodsHttp.GetRequest(url, e);
+                e = HttpRequests<T>.GetRequest(url, e);
             }
             return e;
         }

@@ -87,7 +87,7 @@ namespace Client.Pages.Sklad
             HttpPostRequests<List<Sklad_rashod>, RashodyQueryParams> postRequests = new HttpPostRequests<List<Sklad_rashod>, RashodyQueryParams>();
             rashods = await postRequests.PostRequest("api/Sklad_rashod/Filter", rashods, queryParams);
             RashodyViewModel.Rashods = new ObservableCollection<Sklad_rashod>(rashods);
-            RashodyViewModel.Spr_Managers_Filter = new ObservableCollection<string>(RashodyViewModel.Rashods.Select(p => p.Otpustil).Distinct().OrderBy(p => p));
+            //RashodyViewModel.Spr_Managers_Filter = new ObservableCollection<string>(RashodyViewModel.Rashods.Select(p => p.Otpustil).Distinct().OrderBy(p => p));
             IsDataLoaded = true;
             Filter();
         }
@@ -99,7 +99,8 @@ namespace Client.Pages.Sklad
                 IsDataLoaded = false;
                 List<Sklad_rashod> filt = new List<Sklad_rashod>(rashods);
                 if (ManagerCB.SelectedItem != null && (ManagerCB.SelectedItem as string) != "")
-                    filt = filt.Where(p => p.Otpustil == (ManagerCB.SelectedItem as string)).ToList();
+                    throw new NotImplementedException();
+                    //filt = filt.Where(p => p.Id_polz == (ManagerCB.SelectedItem as string)).ToList();
                 if (OplachenCB.SelectedItem != null)
                 {
                     switch ((OplachenCB.SelectedItem as ComboBoxItem).Content)
@@ -107,13 +108,13 @@ namespace Client.Pages.Sklad
                         case "Да":
                             {
                                 //если значение null, то не берем
-                                filt = filt.Where(p => p.IsTovOpl.HasValue ? p.IsTovOpl.Value : false).ToList();
+                                filt = filt.Where(p => p.Is_tov_opl.HasValue ? p.Is_tov_opl.Value : false).ToList();
                                 break;
                             }
                         case "Нет":
                             {
                                 //если значениие nullб то берем
-                                filt = filt.Where(p => p.IsTovOpl.HasValue ? !p.IsTovOpl.Value : true).ToList();
+                                filt = filt.Where(p => p.Is_tov_opl.HasValue ? !p.Is_tov_opl.Value : true).ToList();
                                 break;
                             }
                     }
@@ -125,13 +126,13 @@ namespace Client.Pages.Sklad
                         case "Да":
                             {
                                 //если значение null, то не берем
-                                filt = filt.Where(p => p.Otgruzheno.HasValue ? p.Otgruzheno.Value : false).ToList();
+                                filt = filt.Where(p => p.Otgruzheno).ToList();
                                 break;
                             }
                         case "Нет":
                             {
                                 //если значение null, то берем
-                                filt = filt.Where(p => p.Otgruzheno.HasValue ? !p.Otgruzheno.Value : true).ToList();
+                                filt = filt.Where(p => !p.Otgruzheno).ToList();
                                 break;
                             }
                     }
@@ -149,7 +150,7 @@ namespace Client.Pages.Sklad
         {
             if (datagridRashods.SelectedItem != null)
             {
-                RashodPage rashod = new RashodPage((datagridRashods.SelectedItem as Sklad_rashod).kod_zap.Value);
+                RashodPage rashod = new RashodPage((datagridRashods.SelectedItem as Sklad_rashod).Kod_zap);
                 Global.MainWin.ShowPage(new PagesContainer("Расход №" + (datagridRashods.SelectedItem as Sklad_rashod).Nom_rash, rashod));
             }
         }
@@ -284,7 +285,7 @@ namespace Client.Pages.Sklad
             {
                 try
                 {
-                    await httpRequests.PutRequest("api/Sklad_rashod/" + Convert.ToInt32(rashod.kod_zap), rashod);
+                    await httpRequests.PutRequest("api/Sklad_rashod/" + Convert.ToInt32(rashod.Kod_zap), rashod);
                 }
                 catch (Exception ex)
                 {
@@ -298,7 +299,7 @@ namespace Client.Pages.Sklad
         {
             HttpRequests<Sklad_rashod> httpRequests = new HttpRequests<Sklad_rashod>();
             Sklad_rashod rashod = new Sklad_rashod();
-            rashod.Otpustil = "Test";
+            //rashod.Otpustil = "Test";
             rashod.Nom_rash = 999;
             rashod = await httpRequests.PostRequest("api/Sklad_rashod/", rashod);
         }

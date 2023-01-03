@@ -145,12 +145,18 @@
     <Compile Include="Models\Sheta.cs" />
     <Compile Include="Models\Sklad\Karta.cs" />
     <Compile Include="Models\Sklad\RashodyQueryParams.cs" />
+    <Compile Include="Models\Sklad\Sklad_prihod.cs" />
+    <Compile Include="Models\Sklad\Sklad_prihod_tov.cs" />
     <Compile Include="Models\Sklad\Sklad_tov_OSTATKI.cs" />
     <Compile Include="Models\Sklad_dostavki.cs" />
     <Compile Include="Models\Sklad_rashod.cs" />
     <Compile Include="Models\Tovary.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Pages\Sklad\OstatkiPage.xaml.cs">
       <DependentUpon>OstatkiPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Sklad\PrihodPage.xaml.cs">
+      <DependentUpon>PrihodPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Sklad\PrihodsPage.xaml.cs">
       <DependentUpon>PrihodsPage.xaml</DependentUpon>
@@ -195,6 +201,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pages\Sklad\OstatkiPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Sklad\PrihodPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -17,14 +17,14 @@ namespace Client.ViewModels
         public ObservableCollection<Spr_period_filtr> Spr_Periods_Filter { get { return Enums.Spr_Periods_Filter; } set { OnPropertyChanged(nameof(Spr_Periods_Filter)); } }
         
 
-        private ObservableCollection<string> _spr_Managers_Filter;
-        public ObservableCollection<string> Spr_Managers_Filter { get { return _spr_Managers_Filter; } set { _spr_Managers_Filter = value; OnPropertyChanged(nameof(Spr_Managers_Filter)); } }
+        private ObservableCollection<User> _spr_Managers_Filter;
+        public ObservableCollection<User> Spr_Managers_Filter { get { return _spr_Managers_Filter; } set { _spr_Managers_Filter = value; OnPropertyChanged(nameof(Spr_Managers_Filter)); } }
 
 
         private ObservableCollection<Sklad_rashod> _rashods;
         public ObservableCollection<Sklad_rashod> Rashods { get { return _rashods; } 
                                                             set { _rashods = value; OnPropertyChanged(nameof(Rashods));
-                                                                Spr_Managers_Filter = new ObservableCollection<string>(_rashods.Select(p => p.Otpustil).Distinct().OrderBy(p => p)); } }
+                                                                Spr_Managers_Filter = new ObservableCollection<User>(_rashods.Select(p => p.Polz).Distinct().OrderBy(p => p)); } }
 
         public ObservableCollection<int> Months { get { return Enums.Months; } set { OnPropertyChanged(nameof(Months)); } }
         public ObservableCollection<int> Years { get { return Enums.RashodyYears; } set { OnPropertyChanged(nameof(Years)); } }

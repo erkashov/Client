@@ -27,5 +27,10 @@ namespace Client.Models.Sklad
             this.Search = search;
             this.DateFilter = dateFilter;
         }
+        public RashodyQueryParams(string search, int dateFilter = 1)
+        {
+            this.Search = search;
+            this.DateFilter = dateFilter;
+        }
     }
 }

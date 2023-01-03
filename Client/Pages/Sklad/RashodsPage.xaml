@@ -37,11 +37,11 @@
 
             <RadioButton x:Name="PeriodsRB" GroupName="Periods" Grid.Row="1" Grid.Column="0" Checked="PeriodsRB_Checked">
                 <StackPanel Orientation="Horizontal">
-                    <ComboBox x:Name="PeriodsCB" ItemsSource="{Binding Spr_Periods_Filter}" DisplayMemberPath="naim" IsEditable="False" IsEnabled="{Binding Path=IsChecked, ElementName=PeriodsRB}" MinWidth="150" Background="White" SelectionChanged="PeriodsCB_SelectionChanged"  MinHeight="20" Height="23"/>
+                    <ComboBox x:Name="PeriodsCB" DisplayMemberPath="naim" IsEditable="False" IsEnabled="{Binding Path=IsChecked, ElementName=PeriodsRB}" MinWidth="150" Background="White" SelectionChanged="PeriodsCB_SelectionChanged"  MinHeight="20" Height="23"/>
                 </StackPanel>
             </RadioButton>
 
-            <RadioButton x:Name="DayRB" GroupName="Periods" Grid.Row="2" Grid.Column="0" Checked="DayRB_Checked">
+            <RadioButton x:Name="DayRB" GroupName="Periods" Grid.Row="2" Grid.Column="0" Checked="DayRB_Checked" IsChecked="True">
                 <StackPanel Orientation="Horizontal">
                     <DatePicker x:Name="DayDP"  IsEnabled="{Binding Path=IsChecked, ElementName=DayRB}" FirstDayOfWeek="Monday" MinWidth="120" SelectedDateChanged="DayDP_SelectedDateChanged" BorderBrush="Black"/>
 
@@ -65,7 +65,7 @@
 
 
 
-            <RadioButton x:Name="MonthRB" GroupName="Periods" Grid.Row="4" Grid.Column="0" IsChecked="True" Checked="MonthRB_Checked">
+            <RadioButton x:Name="MonthRB" GroupName="Periods" Grid.Row="4" Grid.Column="0" Checked="MonthRB_Checked">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Год " VerticalAlignment="Center"/>
                     <ComboBox x:Name="YearCB" ItemsSource="{Binding Years}" IsEditable="False" IsEnabled="{Binding Path=IsChecked, ElementName=MonthRB}" MinWidth="60" SelectionChanged="MonthCB_SelectionChanged"/>
