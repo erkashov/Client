@@ -33,7 +33,7 @@ namespace Client.UserControls
         public CategoryNavControl()
         {
             InitializeComponent();
-            tabs = new ObservableCollection<Category>(Enums.Spr_category.Where(p=>p.kod_zap > 52 && p.kod_zap < 63));
+            tabs = new ObservableCollection<Category>(Enums.Spr_category.Where(p=>p.parent_kod_zap is null)/*.Where(p=>p.kod_zap > 52 && p.kod_zap < 63)*/);
             this.DataContext = this;
         }
 

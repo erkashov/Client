@@ -22,7 +22,7 @@ namespace Client.Models
         [Key]
         private decimal kod_zap ;
         private Nullable<int> kod_rashoda;
-        private Nullable<int> tov;
+        private Nullable<int> kod_tovara;
         private Nullable<decimal> count;
         private Nullable<decimal> count_pachek;
         private Nullable<decimal> nom_prih;
@@ -40,10 +40,10 @@ namespace Client.Models
             get { return (int)kod_rashoda; }
             set { kod_rashoda = value; OnPropertyChanged(nameof(Kod_rashoda)); }
         }
-        public Nullable<int> Tov
+        public Nullable<int> Kod_tovara
         {
-            get { return tov; }
-            set { tov = value; OnPropertyChanged(nameof(Tov)); }
+            get { return kod_tovara; }
+            set { kod_tovara = value; OnPropertyChanged(nameof(Kod_tovara)); }
         }
         public Nullable<decimal> Count
         {
@@ -82,7 +82,7 @@ namespace Client.Models
         }
         public async Task UpdateZena()
         {
-            Zena = await HttpRequests<decimal>.GetRequestAsync($"api/Zen_roznichnie/Zena?id={tov}&tipOplaty=2&count={(int)Count}", (decimal)Zena);
+            Zena = await HttpRequests<decimal>.GetRequestAsync($"api/Zen_roznichnie/Zena?id={Kod_tovara}&tipOplaty=2&count={(int)Count}", (decimal)Zena);
         }
         public decimal Summa
         {

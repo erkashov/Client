@@ -1,4 +1,5 @@
 ﻿using Client.Models;
+using Client.Windows;
 using HandyControl.Controls;
 using Newtonsoft.Json;
 using Notification.Wpf;
@@ -37,6 +38,11 @@ namespace Client
         public static void ErrorLog(string message, string title = "Ошибка")
         {
             if (message == "Невозможно соединиться с удаленным сервером") ShowNotif(message, "Повторите операцию", NotificationType.Error);
+            else if (message.Contains("Unauthorized"))
+            {
+                MainWin.Hide();
+                (new AuthWindow()).Show();
+            }
             else ShowNotif(title, message, NotificationType.Error);
         }
 
@@ -68,13 +74,35 @@ namespace Client
                 HttpResponseMessage response = await Global.client.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
-                    //var s = JsonConvert.DeserializeObject<Sklad_rashod>(await response.Content.ReadAsStringAsync());
                     responce = JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
                 }
                 else
                 {
                     Global.ErrorLog(response.StatusCode.ToString());
-                    //if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                Global.ErrorLog(ex.InnerException.Message);
+            }
+            catch (Exception ex)
+            {
+                Global.ErrorLog(ex.Message);
+            }
+            return responce;
+        }
+        public static T GetRequest(string url, T responce)
+        {
+            try
+            {
+                HttpResponseMessage response = Global.client.GetAsync(url).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    responce = JsonConvert.DeserializeObject<T>(response.Content.ReadAsStringAsync().Result);
+                }
+                else
+                {
+                    Global.ErrorLog(response.StatusCode.ToString());
                 }
             }
             catch (HttpRequestException ex)
@@ -98,39 +126,11 @@ namespace Client
             {
                 string excep = response.Content.ReadAsStringAsync().Result;
                 Global.ErrorLog(response.StatusCode.ToString() + " " + excep);
-                //if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             }
         }
 
-        public static T GetRequest(string url, T responce)
+        public static async Task PutRequest(string url, T responce)
         {
-            try
-            {
-                HttpResponseMessage response = Global.client.GetAsync(url).Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    responce = JsonConvert.DeserializeObject<T>(response.Content.ReadAsStringAsync().Result);
-                }
-                else
-                {
-                    Global.ErrorLog(response.StatusCode.ToString());
-                    //if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
-                }
-            }
-            catch (HttpRequestException ex)
-            {
-                Global.ErrorLog(ex.InnerException.Message);
-            }
-            catch (Exception ex)
-            {
-                Global.ErrorLog(ex.Message);
-            }
-            return responce;
-        }
-
-        public async Task PutRequest(string url, T responce)
-        {
-            StringContent jsonContent = new StringContent(JsonConvert.SerializeObject(responce), Encoding.UTF8, "application/json");
             HttpResponseMessage response = await Global.client.PutAsJsonAsync(url, responce);
             if (response.IsSuccessStatusCode)
             {
@@ -139,11 +139,10 @@ namespace Client
             {
                 string excep = response.Content.ReadAsStringAsync().Result;
                 Global.ErrorLog(response.StatusCode.ToString() + " " + excep);
-                //if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             }
         }
 
-        public async Task<T> PostRequest(string url, T responce)
+        public static async Task<T> PostRequest(string url, T responce)
         {
             HttpResponseMessage response = await Global.client.PostAsJsonAsync(url, responce);
             if (response.IsSuccessStatusCode)
@@ -155,14 +154,13 @@ namespace Client
                 string excep = response.Content.ReadAsStringAsync().Result;
                 Global.ErrorLog(response.StatusCode.ToString() + " " + excep);
                 return responce; 
-                //if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             }
         }
     }
 
     public class HttpPostRequests<T, K>
     {
-        public async Task<T> PostRequest(string url, T responce, K query)
+        public static async Task<T> PostRequest(string url, T responce, K query)
         {
             try
             {
@@ -176,7 +174,6 @@ namespace Client
                     string excep = response.Content.ReadAsStringAsync().Result;
                     Global.ErrorLog(response.StatusCode.ToString() + " " + excep);
                     return responce;
-                    //if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 }
             }
             catch (Exception ex)
@@ -184,7 +181,6 @@ namespace Client
                 Global.ErrorLog(ex.InnerException.Message);
                 return responce;
             }
-
         }
     }
 }

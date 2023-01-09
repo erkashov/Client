@@ -18,6 +18,10 @@ namespace Client.Models.Sklad
         /// </summary>
         public int? DateFilter { get; set; }
         public string Search { get; set; }
+        public bool? SelectedOplachen { get; set; }
+        public bool? SelectedOtgruzheno { get; set; }
+        public Spr_oplat_sklad SelectedTipOpl { get; set; }
+        public User SelectedManager { get; set; }
         //public Tovary SearchTovar { get; set; }
 
         public RashodyQueryParams(DateTime? startDate, DateTime? endDate, string search, int dateFilter = 1)

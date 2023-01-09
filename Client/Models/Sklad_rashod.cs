@@ -54,7 +54,7 @@ namespace Client.Models
         public Nullable<int> Shet { get { return shet; } set { shet = value; OnPropertyChanged(nameof(Shet)); } }
 
         [ForeignKey("shet")]
-        public virtual Sheta Sheta { get; set; }
+        public virtual Shet Sheta { get; set; }
 
         private bool otgruzheno;
         public bool Otgruzheno { get { return otgruzheno; } set { otgruzheno = value; OnPropertyChanged(nameof(Otgruzheno)); } }
@@ -109,7 +109,8 @@ namespace Client.Models
         public Nullable<bool> Raspileno { get { return raspileno; } set { raspileno = value; OnPropertyChanged(nameof(Raspileno)); } }
 
         private int oplata;
-        public int Oplata { get { return oplata; } set { oplata = value; OnPropertyChanged(nameof(Oplata)); OnPropertyChanged(nameof(KartaCBVisibility)); OnPropertyChanged(nameof(ShetVisibility)); } }
+        public int Oplata { get { return oplata; } 
+            set { oplata = value; OnPropertyChanged(nameof(Oplata)); OnPropertyChanged(nameof(ShetVisibility)); } }
 
         public decimal SummaAll
         {
@@ -127,9 +128,10 @@ namespace Client.Models
 
         [ForeignKey("oplata")]
         public virtual Spr_oplat_sklad Spr_oplat_sklad { get; set; }
+        public User polz;
         [ForeignKey("id_polz")]
-        public virtual User Polz { get; set; }
-
+        public User Polz { get { return polz; } set { polz = value; OnPropertyChanged(nameof(Polz)); } } 
+        
         public Sklad_rashod()
         {
             is_tov_opl = false;

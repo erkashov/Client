@@ -45,29 +45,24 @@ namespace Client.Pages.Sklad
             ViewModel = new RashodViewModel();
             ViewModel.Rashod = await HttpRequests<Sklad_rashod>.GetRequestAsync("api/Sklad_rashod/" + Convert.ToInt32(Id), ViewModel.Rashod);
             this.DataContext = ViewModel;
-            Header += ViewModel.Rashod.Nom_rash;
             IsLoaded = true;
         }
 
         private async void AddBN_Click(object sender, RoutedEventArgs e)
         {
-            HttpRequests<Sklad_rashod_tov> httpRequests = new HttpRequests<Sklad_rashod_tov>();
-            Sklad_rashod_tov tov = new Sklad_rashod_tov();
+            ViewModel.AddTovar();
+            /*Sklad_rashod_tov tov = new Sklad_rashod_tov();
             tov.Kod_rashoda = (int)ViewModel.Rashod.Kod_zap;
-            tov = await httpRequests.PostRequest("api/Sklad_rashod/Tov", tov);
-            ViewModel.Rashod = await HttpRequests<Sklad_rashod>.GetRequestAsync("api/Sklad_rashod/" + Convert.ToInt32(Id), ViewModel.Rashod);
+            await HttpRequests<Sklad_rashod_tov>.PostRequest("api/Sklad_rashod/Tov", tov);
+            ViewModel.Rashod = await HttpRequests<Sklad_rashod>.GetRequestAsync("api/Sklad_rashod/" + Convert.ToInt32(Id), ViewModel.Rashod);*/
         }
 
         private async void SaveBN_Click(object sender, RoutedEventArgs e)
         {
             IsLoaded = false;
-            /*ViewModel.Rashod.Last_polz = "Алексей 2";
-            ViewModel.Rashod.Last_machiname = Environment.MachineName;
-            ViewModel.Rashod.Last_changes_date = DateTime.Now.ToString();*/
-            HttpRequests<Sklad_rashod> httpRequests = new HttpRequests<Sklad_rashod>();
             try
             {
-                await httpRequests.PutRequest("api/Sklad_rashod/" + ViewModel.Rashod.Kod_zap, ViewModel.Rashod);
+                await HttpRequests<Sklad_rashod>.PutRequest("api/Sklad_rashod/" + ViewModel.Rashod.Kod_zap, ViewModel.Rashod);
             }
             catch (Exception ex)
             {
@@ -117,7 +112,7 @@ namespace Client.Pages.Sklad
         {
             if (Global.Kod_Tov != 0 && SelectedItem != null)
             {
-                ViewModel.Rashod.Sklad_rashod_tov.Where(p=>p.Kod_zap ==  (SelectedItem as Sklad_rashod_tov).Kod_zap).FirstOrDefault().Tov = Convert.ToInt32(Global.Kod_Tov);
+                ViewModel.Rashod.Sklad_rashod_tov.Where(p=>p.Kod_zap ==  (SelectedItem as Sklad_rashod_tov).Kod_zap).FirstOrDefault().Kod_tovara = Convert.ToInt32(Global.Kod_Tov);
                 ViewModel.Rashod.Sklad_rashod_tov.Where(p=>p.Kod_zap ==  (SelectedItem as Sklad_rashod_tov).Kod_zap).FirstOrDefault().Tovar = Global.SelectedTovar;
                 SelectedItem = null;
             } 

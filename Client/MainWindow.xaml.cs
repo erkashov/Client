@@ -1,5 +1,6 @@
 ﻿using Client.Models;
 using Client.Models.Sklad;
+using Client.Pages;
 using Client.Pages.Sklad;
 using Client.ViewModels;
 using Client.Windows;
@@ -41,15 +42,10 @@ namespace Client
 
         public MainWindow()
         {
-            Global.client.BaseAddress = new Uri(Global.Api);
-            Global.client.DefaultRequestHeaders.Accept.Clear();
-            Global.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            ConfigHelper.Instance.SetLang("ru");
             PagesCont = new ObservableCollection<PagesContainer>();
             InitializeComponent();
             Global.MainWin = this;
             this.DataContext = this;
-            //ThemeManager.Current.ChangeTheme(this, "Light.Violet");
         }
 
         private void rashodsM_Click(object sender, RoutedEventArgs e)
@@ -84,6 +80,16 @@ namespace Client
         private void prihodsM_Click(object sender, RoutedEventArgs e)
         {
             ShowPage(new PagesContainer("Список приходов", new PrihodsPage()));
+        }
+
+        private void toavryM_Click(object sender, RoutedEventArgs e)
+        {
+            ShowPage(new PagesContainer("Товары", new TovaryPage()));
+        }
+
+        private void shetaM_Click(object sender, RoutedEventArgs e)
+        {
+            ShowPage(new PagesContainer("Счета", new ShetaPage()));
         }
     }
 

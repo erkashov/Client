@@ -46,8 +46,7 @@ namespace Client.Pages.Sklad
             IsDataLoaded = false;
             RashodyQueryParams queryParams = new RashodyQueryParams(DateStart, DateEnd, "");
 
-            HttpPostRequests<List<Sklad_prihod>, RashodyQueryParams> postRequests = new HttpPostRequests<List<Sklad_prihod>, RashodyQueryParams>();
-            Sklad_prihods = new ObservableCollection<Sklad_prihod>(await postRequests.PostRequest("api/Sklad_prihod/Filter", new List<Sklad_prihod>(), queryParams));
+            Sklad_prihods = new ObservableCollection<Sklad_prihod>(await HttpPostRequests<List<Sklad_prihod>, RashodyQueryParams>.PostRequest("api/Sklad_prihod/Filter", new List<Sklad_prihod>(), queryParams));
             IsDataLoaded = true;
         }
 
@@ -65,10 +64,9 @@ namespace Client.Pages.Sklad
 
         private async void ToolBarControl_AddClick(object sender, RoutedEventArgs e)
         {
-            HttpRequests<Sklad_prihod> httpRequests = new HttpRequests<Sklad_prihod>();
             Sklad_prihod prihod = new Sklad_prihod();
             prihod.Id_polz = 1;
-            prihod = await httpRequests.PostRequest("api/Sklad_prihod/", prihod);
+            prihod = await HttpRequests<Sklad_prihod>.PostRequest("api/Sklad_prihod/", prihod);
             Filter();
         }
 
@@ -77,18 +75,17 @@ namespace Client.Pages.Sklad
             if (datagridPrihods.SelectedItem != null)
             {
                 PrihodPage rashod = new PrihodPage((datagridPrihods.SelectedItem as Sklad_prihod).Kod_zap);
-                Global.MainWin.ShowPage(new PagesContainer("Расход №" + (datagridPrihods.SelectedItem as Sklad_prihod).Nom_prih, rashod));
+                Global.MainWin.ShowPage(new PagesContainer("Приход №" + (datagridPrihods.SelectedItem as Sklad_prihod).Nom_prih, rashod));
             }
         }
 
         private async void ToolBarControl_SaveClick(object sender, RoutedEventArgs e)
         {
-            HttpRequests<Sklad_prihod> httpRequests = new HttpRequests<Sklad_prihod>();
             foreach (Sklad_prihod prihod in Sklad_prihods)
             {
                 try
                 {
-                    await httpRequests.PutRequest("api/Sklad_prihod/" + prihod.Kod_zap, prihod);
+                    await HttpRequests<Sklad_prihod>.PutRequest("api/Sklad_prihod/" + prihod.Kod_zap, prihod);
                 }
                 catch (Exception ex)
                 {

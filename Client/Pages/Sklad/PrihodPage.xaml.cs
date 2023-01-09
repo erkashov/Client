@@ -1,5 +1,6 @@
 ﻿using Client.Models;
 using Client.Models.Sklad;
+using HandyControl.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -60,10 +61,9 @@ namespace Client.Pages.Sklad
         {
             IsLoaded = false;
             foreach (Sklad_prihod_tov tov in Prihod.Sklad_prihod_tov) tov.Sklad_prihod = null;
-            HttpRequests<Sklad_prihod> httpRequests = new HttpRequests<Sklad_prihod>();
             try
             {
-                await httpRequests.PutRequest("api/Sklad_prihod/" + Prihod.Kod_zap, Prihod);
+                await HttpRequests<Sklad_prihod>.PutRequest("api/Sklad_prihod/" + Prihod.Kod_zap, Prihod);
             }
             catch (Exception ex)
             {
@@ -100,6 +100,25 @@ namespace Client.Pages.Sklad
         private void datagridTovars_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             //if (e.Column == zenaCol || e.Column == zenadostCol || e.Column == countCol) Prihod.UpdateZenaDost();
+        }
+
+        private void TovBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (datagridTovars.CurrentItem != null)
+            {
+                TovaryPage win = new TovaryPage(true, UpdateTovar);
+                win.Width = 1200;
+                win.Height = 800;
+                Global.DialogWindow = Dialog.Show(win);
+            }
+        }
+        public void UpdateTovar()
+        {
+            if (Global.Kod_Tov != 0 && datagridTovars.SelectedItem != null)
+            {
+                (datagridTovars.SelectedItem as Sklad_prihod_tov).Kod_tovara = Convert.ToInt32(Global.Kod_Tov);
+                (datagridTovars.SelectedItem as Sklad_prihod_tov).Tovar = Global.SelectedTovar;
+            }
         }
     }
 }

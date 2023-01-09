@@ -41,7 +41,24 @@ namespace Client.Models
                 return false;
             }
 
-            public Category Category { get; set; }
+        public bool IsValid
+        {
+            get
+            {
+                return naim != null && dlina != null && shir != null && tol != null && sort != null && nazn != null &&
+                    naim != "" && sort != "" && nazn != "";
+            }
+        }
+
+        public Category Category { get; set; }
+
+        public string Naim2
+        {
+            get
+            {
+                return $"{naim} {material} {dlina} {shir} {tol} {nazn} {sort} {dekor}";
+            }
+        }
 
         
 

@@ -35,7 +35,7 @@ namespace Client.Models
         public virtual Perevozy Perevozy { get; set; }*/
 
         [ForeignKey("shet")]
-        public virtual Sheta Sheta { get; set; }
+        public virtual Shet Sheta { get; set; }
         [ForeignKey("sklad_rashod_id")]
         public virtual Sklad_rashod Sklad_rashod { get; set; }
         /*public virtual Sklad_voditely Sklad_voditely { get; set; }*/

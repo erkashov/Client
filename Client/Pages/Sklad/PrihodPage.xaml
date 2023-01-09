@@ -31,7 +31,7 @@
                   SelectedValue="{Binding Prihodd.kod_poluch}"/>
 
         <DatePicker Grid.Row="1" Grid.Column="0" SelectedDate="{Binding Prihod.Date_prih}" hc:InfoElement.Title="Дата"/>
-        <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding Prihod.Prim}" hc:InfoElement.Title="Примечание"/>
+        <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding Prihod.Prim, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Примечание"/>
 
         <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding Prihod.Cost_dost}" hc:InfoElement.Title="Стоимость доставки" IsEnabled="{Binding Prihod.Cost_Dost_Enable}"/>
         <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Prihod.Dop_rash}" hc:InfoElement.Title="Доп. расходы"/>
@@ -43,13 +43,26 @@
 
         <DataGrid ItemsSource="{Binding Prihod.Sklad_prihod_tov}" AutoGenerateColumns="False" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" x:Name="datagridTovars">
             <DataGrid.Columns>
-                <DataGridComboBoxColumn Header="Товар" ItemsSource="{Binding Source={StaticResource TovaryList}}" SelectedValuePath="kod_tovara" SelectedValueBinding="{Binding Kod_tovara}" DisplayMemberPath="naim"/>
+                <DataGridComboBoxColumn Header="Товар" ItemsSource="{Binding Source={StaticResource TovaryList}}" SelectedValuePath="kod_tovara" SelectedValueBinding="{Binding Kod_tovara}" DisplayMemberPath="Naim2"/>
+                <DataGridTemplateColumn IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="TovBtn" Content="..." HorizontalAlignment="Center" VerticalAlignment="Center" Click="TovBtn_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Кол-во" x:Name="countCol" Binding="{Binding Count}" />
                 <DataGridTextColumn Header="Цена" x:Name="zenaCol" Binding="{Binding Zena}"/>
                 <DataGridTextColumn Header="Цена с доставкой" x:Name="zenadostCol" Binding="{Binding Zena_with_dost}"/>
                 <DataGridTextColumn Header="Стоимость" Binding="{Binding Cost}"/>
                 <DataGridTextColumn Header="Стоимость с доставкой" Binding="{Binding Cost_with_dost}"/>
             </DataGrid.Columns>
+
+            <DataGrid.RowHeaderTemplate>
+                <DataTemplate>
+                    <CheckBox IsChecked="{Binding IsSelected,RelativeSource={RelativeSource AncestorType=DataGridRow}}"/>
+                </DataTemplate>
+            </DataGrid.RowHeaderTemplate>
         </DataGrid>
     </Grid>
 </ContentControl>

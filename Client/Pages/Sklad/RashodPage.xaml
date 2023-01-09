@@ -41,17 +41,14 @@
 
             <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
                 <TextBlock VerticalAlignment="Center">от</TextBlock>
-                <DatePicker x:Name="DateDP" SelectedDate="{Binding Rashod.Data_rash}" Margin="10 5" FirstDayOfWeek="Monday" IsTodayHighlighted="True" MinWidth="120" BorderBrush="Black"></DatePicker>
+                <DatePicker x:Name="DateDP" SelectedDate="{Binding Rashod.Date_rash}" Margin="10 5" FirstDayOfWeek="Monday" IsTodayHighlighted="True" MinWidth="120" BorderBrush="Black"></DatePicker>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-                <ComboBox x:Name="OplataCB" IsEditable="False" MinWidth="60" Margin="10 1" Width="200"
+                <ComboBox x:Name="OplataCB" IsEditable="False" MinWidth="60"  Width="200"
                           hc:InfoElement.Title="Оплата" hc:InfoElement.ContentHeight="40" Padding="0"
                           ItemsSource="{Binding Spr_Oplat_Sklad}" DisplayMemberPath="naim" SelectedValuePath="kod_zap" 
-                          SelectedValue="{Binding Rashod.Oplata, Mode=TwoWay}"/>
-                <ComboBox x:Name="KartaCB" IsEditable="False" MinWidth="60" Margin="10 1" Width="200" Visibility="{Binding Rashod.KartaCBVisibility}"
-                              hc:InfoElement.Title="Карта" hc:InfoElement.ContentHeight="40"
-                              ItemsSource="{Binding Spr_karty}" DisplayMemberPath="name" SelectedValuePath="Id" SelectedValue="{Binding Rashod.Karta, Mode=TwoWay}"/>
+                          SelectedValue="{Binding Rashod.Oplata}"/>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding Rashod.ShetVisibility}">
                     <TextBlock VerticalAlignment="Center">Счет №</TextBlock>
                     <TextBox x:Name="ShetTB" Text="{Binding Rashod.Sheta.nom_1C}" Grid.Row="2" Grid.Column="1" Margin="5" Grid.RowSpan="2" MinHeight="20" MinWidth="50"/>
@@ -61,36 +58,36 @@
 
             <TextBlock Grid.Row="2" Grid.Column="0" Height="18" Margin="5,0,0,0" Width="82">Примечание</TextBlock>
 
-            <TextBox x:Name="PrimTB" Text="{Binding Rashod.Prim}" Grid.Row="2" Grid.Column="1" Margin="5,5,5,5" Grid.RowSpan="2" MinHeight="20" VerticalAlignment="Stretch" TextWrapping="Wrap"/>
+            <TextBox x:Name="PrimTB" Text="{Binding Rashod.Prim, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" Margin="5,5,5,5" Grid.RowSpan="2" MinHeight="20" VerticalAlignment="Stretch" TextWrapping="Wrap"/>
 
-            <Grid Grid.Row="0" Grid.Column="3" Grid.RowSpan="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50"></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <TextBlock VerticalAlignment="Center" Text="Имя" Grid.Row="0" Grid.Column="0"/>
-                <TextBlock VerticalAlignment="Center" Text="Номер" Grid.Row="1" Grid.Column="0"/>
-                <ComboBox VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" IsEditable="True"/>
-                <TextBox VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Text="{Binding Rashod.Second_phone}"/>
-            </Grid>
+            <TextBox Grid.Row="0" Grid.Column="4" hc:InfoElement.Title="Имя" Text="{Binding Rashod.Name_kontact_person, UpdateSourceTrigger=PropertyChanged}"/>
+            <hc:TextBox Grid.Row="1" Grid.Column="4" hc:InfoElement.Title="Номер">
+                <hc:TextBox.Text>
+                    <Binding Path="Rashod.Second_phone" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <hc:RegexRule Type="Phone"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </hc:TextBox.Text>
+            </hc:TextBox>
 
-            <CheckBox Content="Товар оплачен" IsChecked="{Binding Rashod.IsTovOpl}" Grid.Row="5" Grid.Column="3" Height="28"/>
-            <CheckBox Content="Передано в распил" IsChecked="{Binding Rashod.На_производство}" Grid.Row="5" Grid.Column="4" Height="28"/>
-            <CheckBox Content="Распилено" IsChecked="{Binding Rashod.На_производство}" Grid.Row="5" Grid.Column="5" Height="28"/>
+            <CheckBox Content="Товар оплачен" IsChecked="{Binding Rashod.Is_tov_opl}" Grid.Row="5" Grid.Column="3" Height="28"/>
+            <CheckBox Content="Передано в распил" IsChecked="{Binding Rashod.Na_raspile}" Grid.Row="5" Grid.Column="4" Height="28"/>
+            <CheckBox Content="Распилено" IsChecked="{Binding Rashod.Raspileno}" Grid.Row="5" Grid.Column="5" Height="28"/>
             <CheckBox Content="Отгружено" IsChecked="{Binding Rashod.Otgruzheno}" Grid.Row="5" Grid.Column="6" Height="28"/>
 
-            <usercontrols:ToolBarControl Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" AddClick="AddBN_Click" SaveClick="SaveBN_Click" DeleteClick="ToolBarControl_DeleteClick" UpdateClick="ToolBarControl_UpdateClick" HorizontalAlignment="Left" Width="194"/>
+            <ComboBox IsEditable="False" Grid.Column="6" Grid.Row="1"
+                          hc:InfoElement.Title="Отпустил"
+                          ItemsSource="{Binding Users}" DisplayMemberPath="Surname" SelectedValuePath="Id" 
+                          SelectedValue="{Binding Rashod.Id_polz}"/>
+            
+            <usercontrols:ToolBarControl Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" AddClick="AddBN_Click" SaveClick="SaveBN_Click" DeleteClick="ToolBarControl_DeleteClick" UpdateClick="ToolBarControl_UpdateClick" HorizontalAlignment="Left" />
         </Grid>
 
 
         <DataGrid x:Name="datagridRashods" SelectionUnit="CellOrRowHeader" AutoGenerateColumns="False" Grid.Row="1" ItemsSource="{Binding Path=Rashod.Sklad_rashod_tov, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" CanUserAddRows="False" CellEditEnding="datagridRashods_CellEditEnding">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="№" x:Name="nom" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Tovar.naim2}" Header="№" x:Name="tovar" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Tovar.Naim2}" Header="Товар" x:Name="tovar" IsReadOnly="True"></DataGridTextColumn>
                 <DataGridTemplateColumn IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -100,7 +97,7 @@
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Binding="{Binding Count, StringFormat=\{0:N0\}}" Header="Кол-во" x:Name="count"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Zena}" Header="Цена" x:Name="zena"/>
-                <DataGridTextColumn Binding="{Binding Summa}" Header="Сумма" x:Name="summa"/>
+                <DataGridTextColumn Binding="{Binding Summa}" Header="Сумма" x:Name="summa" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding Nom_prih}" Header="Приход" x:Name="prih"/>
                 <DataGridTextColumn Binding="{Binding Pribyl}" Header="Прибыль" x:Name="pribyl"/>
             </DataGrid.Columns>
@@ -139,10 +136,10 @@
             </StackPanel>
 
             <UniformGrid Columns="2" Rows="2" Grid.Column="4" hc:TitleElement.TitleWidth="100">
-                <TextBox hc:InfoElement.Title="Сумма б/нал" Text="{Binding Rashod.Summa}"/>
-                <TextBox hc:InfoElement.Title="Сумма нал" Text="{Binding Rashod.Summa}"/>
-                <TextBox hc:InfoElement.Title="Долг" Text="{Binding Rashod.Summa}"/>
-                <TextBox hc:InfoElement.Title="Сумма нал" Text="{Binding Rashod.Summa}"/>
+                <TextBox hc:InfoElement.Title="Сумма б/нал" Text="{Binding Rashod.Summa_beznal}"/>
+                <TextBox hc:InfoElement.Title="Сумма нал" Text="{Binding Rashod.Summa_nal}"/>
+                <TextBox hc:InfoElement.Title="Долг" Text="{Binding Rashod.Dolg}"/>
+                <TextBox hc:InfoElement.Title="Сумма карта" Text="{Binding Rashod.Summa_karta}"/>
             </UniformGrid>
 
             <Grid Grid.Column="5">
@@ -151,14 +148,14 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" TextWrapping="Wrap">
+                <!--<TextBlock Grid.Row="0" TextWrapping="Wrap">
                     <Run Text="Последние изменения вносил пользователь "></Run>
                     <Run Text="{Binding Rashod.Last_polz, TargetNullValue=null}" FontWeight="Bold"/>
                     <Run Text=" с устройства "/>
                     <Run Text="{Binding Rashod.Last_machiname, TargetNullValue=null}" FontWeight="Bold"/>
                     <Run Text=" в "/>
                     <Run Text="{Binding Rashod.Last_changes_date, TargetNullValue=null}" FontWeight="Bold"/>
-                </TextBlock>
+                </TextBlock>-->
                 <TextBlock Grid.Row="1" Text="{Binding Rashod.SummaAll, StringFormat=Общая сумма {0}, TargetNullValue=0, FallbackValue=0}" FontSize="18" FontWeight="Bold"/>
                 <UniformGrid Grid.Row="2" Columns="2">
                     <Button x:Name="PdfBTN" Content="PDF" Click="PdfBTN_Click"/>
