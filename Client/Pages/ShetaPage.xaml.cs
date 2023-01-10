@@ -34,8 +34,8 @@ namespace Client.Pages
         {
             if (datagridSheta.SelectedItem != null)
             {
-                /*RashodPage rashod = new RashodPage((datagridRashods.SelectedItem as Sklad_rashod).Kod_zap);
-                Global.MainWin.ShowPage(new PagesContainer("Расход №" + (datagridRashods.SelectedItem as Sklad_rashod).Nom_rash, rashod));*/
+                ShetPage shet = new ShetPage((datagridSheta.SelectedItem as Shet).kod_zap);
+                Global.MainWin.ShowPage(new PagesContainer("Счет №" + (datagridSheta.SelectedItem as Shet).nom_shet, shet));
             }
         }
 

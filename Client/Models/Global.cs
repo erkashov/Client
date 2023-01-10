@@ -40,6 +40,7 @@ namespace Client
             if (message == "Невозможно соединиться с удаленным сервером") ShowNotif(message, "Повторите операцию", NotificationType.Error);
             else if (message.Contains("Unauthorized"))
             {
+                Global.ShowNotif("Внимание", "Требуется авторизация" + message.ToString(), NotificationType.Warning); ;
                 MainWin.Hide();
                 (new AuthWindow()).Show();
             }

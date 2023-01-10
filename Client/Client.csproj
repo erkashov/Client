@@ -163,6 +163,9 @@
     <Compile Include="Pages\ShetaPage.xaml.cs">
       <DependentUpon>ShetaPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ShetPage.xaml.cs">
+      <DependentUpon>ShetPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Sklad\OstatkiPage.xaml.cs">
       <DependentUpon>OstatkiPage.xaml</DependentUpon>
     </Compile>
@@ -197,6 +200,7 @@
     <Compile Include="ViewModels\RashodViewModel.cs" />
     <Compile Include="ViewModels\RashodyViewModel.cs" />
     <Compile Include="ViewModels\ShetaViewModel.cs" />
+    <Compile Include="ViewModels\ShetViewModel.cs" />
     <Compile Include="ViewModels\TovaryViewModel.cs" />
     <Compile Include="Windows\AuthWindow.xaml.cs">
       <DependentUpon>AuthWindow.xaml</DependentUpon>
@@ -218,6 +222,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\ShetaPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ShetPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

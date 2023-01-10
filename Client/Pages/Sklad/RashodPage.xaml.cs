@@ -51,10 +51,6 @@ namespace Client.Pages.Sklad
         private async void AddBN_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.AddTovar();
-            /*Sklad_rashod_tov tov = new Sklad_rashod_tov();
-            tov.Kod_rashoda = (int)ViewModel.Rashod.Kod_zap;
-            await HttpRequests<Sklad_rashod_tov>.PostRequest("api/Sklad_rashod/Tov", tov);
-            ViewModel.Rashod = await HttpRequests<Sklad_rashod>.GetRequestAsync("api/Sklad_rashod/" + Convert.ToInt32(Id), ViewModel.Rashod);*/
         }
 
         private async void SaveBN_Click(object sender, RoutedEventArgs e)
@@ -89,11 +85,6 @@ namespace Client.Pages.Sklad
                     GetVM();
                 }
             }
-        }
-
-        private void ToolBarControl_UpdateClick(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void TovBtn_Click(object sender, RoutedEventArgs e)
@@ -134,7 +125,6 @@ namespace Client.Pages.Sklad
 
         private void ContentControl_GotFocus(object sender, RoutedEventArgs e)
         {
-            //GetVM();
         }
 
         private void PdfBTN_Click(object sender, RoutedEventArgs e)
