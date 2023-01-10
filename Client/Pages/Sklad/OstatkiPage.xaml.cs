@@ -67,5 +67,10 @@ namespace Client.Pages.Sklad
                 }
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (Global.DialogWindow != null) Global.DialogWindow.Close();
+        }
     }
 }

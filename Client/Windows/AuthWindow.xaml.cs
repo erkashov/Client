@@ -1,4 +1,6 @@
-﻿using HandyControl.Tools;
+﻿using Client.Pages;
+using HandyControl.Controls;
+using HandyControl.Tools;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -15,6 +17,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Window = System.Windows.Window;
 
 namespace Client.Windows
 {
@@ -25,13 +28,21 @@ namespace Client.Windows
     {
         public AuthWindow()
         {
-            if(Global.client.BaseAddress == null)
+            try
             {
-                Global.client.BaseAddress = new Uri(Global.Api);
-                Global.client.DefaultRequestHeaders.Accept.Clear();
-                Global.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                Global.client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.Token);
+                if (Global.client.BaseAddress == null)
+                {
+                    Global.Api = Properties.Settings.Default.URL;
+                    Global.client.BaseAddress = new Uri(Global.Api);
+                    Global.client.DefaultRequestHeaders.Accept.Clear();
+                    Global.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    Global.client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.Token);
+                }
                 ConfigHelper.Instance.SetLang("ru");
+            }
+            catch (Exception ex)
+            {
+                Global.ErrorLog(ex.Message);
             }
             InitializeComponent();
             loginTB.Text = Properties.Settings.Default.Login;
@@ -72,6 +83,15 @@ namespace Client.Windows
             catch (Exception ex)
             {
                 Global.ErrorLog(ex.Message);
+            }
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.SystemKey == Key.F10)
+            {
+                InputTextPage win = new InputTextPage();
+                Global.DialogWindow = Dialog.Show(win);
             }
         }
     }

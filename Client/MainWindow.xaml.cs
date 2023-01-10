@@ -5,6 +5,7 @@ using Client.Pages.Sklad;
 using Client.ViewModels;
 using Client.Windows;
 using ControlzEx.Theming;
+using HandyControl.Controls;
 using HandyControl.Tools;
 using Newtonsoft.Json;
 using System;
@@ -26,6 +27,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Window = System.Windows.Window;
 
 namespace Client
 {

@@ -8,5 +8,8 @@
     <Setting Name="Token" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="URL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://26.187.80.25:7082/</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

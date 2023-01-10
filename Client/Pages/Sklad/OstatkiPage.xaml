@@ -13,7 +13,7 @@
             <RowDefinition Height="130"/>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Button Width="22" Height="22" Visibility="{Binding CloseBTNVisible}" Command="hc:ControlCommands.Close" Style="{StaticResource ButtonIcon}" Foreground="{DynamicResource PrimaryBrush}" Panel.ZIndex="99" hc:IconElement.Geometry="{StaticResource ErrorGeometry}" Padding="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,4,4,0"/>
+        <Button Click="Button_Click" Width="22" Height="22" Visibility="{Binding CloseBTNVisible}" Command="hc:ControlCommands.Close" Style="{StaticResource ButtonIcon}" Foreground="{DynamicResource PrimaryBrush}" Panel.ZIndex="99" hc:IconElement.Geometry="{StaticResource ErrorGeometry}" Padding="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,4,4,0"/>
 
         <usercontrols:CategoryNavControl Margin="5"  UpdateClick="navControl_UpdateClick" x:Name="tabControl"/>
 

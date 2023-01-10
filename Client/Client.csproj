@@ -52,7 +52,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Images\logoMasterWood.ico</ApplicationIcon>
+    <ApplicationIcon>Images\logoMini.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ControlzEx, Version=4.0.0.0, Culture=neutral, PublicKeyToken=69f1c32f803d307e, processorArchitecture=MSIL">
@@ -157,6 +157,9 @@
     <Compile Include="Models\Sklad_rashod.cs" />
     <Compile Include="Models\Tovary.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Pages\InputTextPage.xaml.cs">
+      <DependentUpon>InputTextPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ShetaPage.xaml.cs">
       <DependentUpon>ShetaPage.xaml</DependentUpon>
     </Compile>
@@ -210,6 +213,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\InputTextPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\ShetaPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -310,6 +317,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\logoMasterWood.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\logoMini.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\logoMini.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Text.Json.6.0.0\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.0\build\System.Text.Json.targets')" />

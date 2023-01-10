@@ -1,0 +1,15 @@
+﻿<ContentControl x:Class="Client.Pages.InputTextPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Client.Pages"
+      mc:Ignorable="d" 
+>
+
+    <StackPanel Width="300" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White">
+        <TextBlock Text="Введите текст"/>
+        <TextBox x:Name="textTB"/>
+        <Button x:Name="btnSave" Content="Сохранить" Style="{StaticResource ButtonSuccess}" Padding="3" Click="btnSave_Click"/>
+    </StackPanel>
+</ContentControl>

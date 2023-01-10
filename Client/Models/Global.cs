@@ -20,7 +20,7 @@ namespace Client
 {
     public static class Global
     {
-        public static string Api = "https://localhost:7082/";
+        public static string Api { get; set; } = "http://26.187.80.25:7082/";
         public static HttpClient client = new HttpClient();
         public static Frame MainFrame { get; set; }
         public static MainWindow MainWin { get; set; }
