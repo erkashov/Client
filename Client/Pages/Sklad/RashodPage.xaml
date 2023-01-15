@@ -10,19 +10,18 @@
 
     <Grid Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="250"></RowDefinition>
+            <RowDefinition Height="230"></RowDefinition>
             <RowDefinition/>
-            <RowDefinition Height="200"></RowDefinition>
+            <RowDefinition Height="150"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="45"></RowDefinition>
-                <RowDefinition Height="42"></RowDefinition>
-                <RowDefinition Height="42"></RowDefinition>
-                <RowDefinition Height="40"></RowDefinition>
-                <RowDefinition Height="40"></RowDefinition>
                 <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="42"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="170"></ColumnDefinition>
@@ -135,7 +134,7 @@
                 <TextBox Grid.Row="2" Grid.Column="1" hc:InfoElement.Title="Пачек" Text="0"/>
             </StackPanel>
 
-            <UniformGrid Columns="2" Rows="2" Grid.Column="4" hc:TitleElement.TitleWidth="100">
+            <UniformGrid Columns="2" Rows="2" Grid.Column="4" hc:TitleElement.TitleWidth="100" VerticalAlignment="Top">
                 <TextBox hc:InfoElement.Title="Сумма б/нал" Text="{Binding Rashod.Summa_beznal}"/>
                 <TextBox hc:InfoElement.Title="Сумма нал" Text="{Binding Rashod.Summa_nal}"/>
                 <TextBox hc:InfoElement.Title="Долг" Text="{Binding Rashod.Dolg}"/>

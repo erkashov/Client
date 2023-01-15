@@ -9,7 +9,7 @@
       xmlns:hc="https://handyorg.github.io/handycontrol" 
                 xmlns:usercontrols="clr-namespace:Client.UserControls" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:viewmodels="clr-namespace:Client.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:RashodyViewModel}">
 
-    <Grid Background="White">
+    <Grid Background="White"  hc:InfoElement.TitleWidth="100">
         <Grid.RowDefinitions>
             <RowDefinition Height="300"></RowDefinition>
             <RowDefinition/>
@@ -34,8 +34,8 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <DatePicker Grid.Row="1" Grid.Column="0" x:Name="datePickerStart" hc:InfoElement.Title="С" Width="200" SelectedDate="{Binding DateStart}"/>
-            <DatePicker Grid.Row="2" Grid.Column="0" x:Name="datePickerEnd" hc:InfoElement.Title="По" Width="200" SelectedDate="{Binding DateEnd}"/>
+            <DatePicker Grid.Row="1" Grid.Column="0" x:Name="datePickerStart" hc:InfoElement.Title="С" hc:InfoElement.TitleWidth="50" Width="200" SelectedDate="{Binding DateStart}"/>
+            <DatePicker Grid.Row="2" Grid.Column="0" x:Name="datePickerEnd" hc:InfoElement.Title="По" hc:InfoElement.TitleWidth="50" Width="200" SelectedDate="{Binding DateEnd}"/>
 
             <hc:SearchBar Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Margin="5"/>
 
@@ -45,7 +45,7 @@
             <hc:ComboBox hc:InfoElement.TitlePlacement="Left"  x:Name="TipOplatyCB" ShowClearButton="True"  Grid.Row="1" Grid.Column="3" hc:InfoElement.Title="Тип оплаты" IsEditable="False" SelectedItem="{Binding SelectedTipOpl}" ItemsSource="{Binding Spr_Oplat_Sklad}" DisplayMemberPath="naim"/>
             <ComboBox x:Name="OtgruzhenoCB" Grid.Row="0" Grid.Column="4" hc:InfoElement.Title="Отгружено" IsEditable="False" 
                       SelectedItem="{Binding SelectedOtgruzheno}" ItemsSource="{Binding EnumVseDaNet}"/>
-            <ComboBox x:Name="OplachenCB" Grid.Row="1" Grid.Column="4" hc:InfoElement.Title="Товар оплачен" IsEditable="False" 
+            <ComboBox x:Name="OplachenCB" Grid.Row="1" Grid.Column="4" hc:InfoElement.Title="Оплачено" IsEditable="False" 
                       SelectedItem="{Binding SelectedOplachen}" ItemsSource="{Binding EnumVseDaNet}"/>
             
         </Grid>
@@ -66,7 +66,7 @@
                 <DataGridCheckBoxColumn Binding="{Binding Is_tov_opl}" Header="Товар оплачен" x:Name="oplach"/>
                 <DataGridCheckBoxColumn Binding="{Binding IsDostOpl}" Header="Дост. опл" x:Name="oplach_dost"/>
                 <DataGridCheckBoxColumn Binding="{Binding Otgruzheno}" Header="Отгружено" x:Name="otgruz"/>
-                <DataGridTextColumn Binding="{Binding Sheta.nom_1C}" Header="Счет" x:Name="shet" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Sheta.nom_shet}" Header="Счет" x:Name="shet" IsReadOnly="True"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Summa_nal, StringFormat=N2}" Header="Нал" x:Name="summa_nal" IsReadOnly="True"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Summa_karta, StringFormat=N2}" Header="Карта" x:Name="summa_karta" IsReadOnly="True"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Summa_beznal, StringFormat=N2}" Header="Безнал" x:Name="summa_beznal" IsReadOnly="True"></DataGridTextColumn>

@@ -36,6 +36,16 @@
                     <Style TargetType="{x:Type ComboBox}"  BasedOn="{StaticResource ComboBoxExtend}">
                         <Setter Property="VerticalAlignment" Value="Center"/>
                         <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                        <Setter Property="Margin" Value="5"/>
+                        <Setter Property="FontFamily" Value="Segoe UI"/>
+                        <Setter Property="FontSize" Value="10"/>
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Setter Property="hc:InfoElement.TitlePlacement" Value="Left"/>
+                    </Style>
+                    <Style TargetType="{x:Type hc:ComboBox}"  BasedOn="{StaticResource ComboBoxExtend}">
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
                         <Setter Property="Margin" Value="2"/>
                         <Setter Property="FontFamily" Value="Segoe UI"/>
                         <Setter Property="FontSize" Value="10"/>

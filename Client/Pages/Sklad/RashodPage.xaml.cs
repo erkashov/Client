@@ -146,5 +146,10 @@ namespace Client.Pages.Sklad
                 Process.Start(path);
             }
         }
+
+        private void ToolBarControl_UpdateClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
