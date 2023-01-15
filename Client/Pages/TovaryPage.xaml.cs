@@ -77,7 +77,7 @@ namespace Client.Pages
             {
                 if (datagridTovary.SelectedItem != null)
                 {
-                    Global.Kod_Tov = (decimal)(datagridTovary.SelectedItem as Tovary).kod_tovara;
+                    Global.Kod_Tov = (datagridTovary.SelectedItem as Tovary).kod_tovara;
                     Global.SelectedTovar = (datagridTovary.SelectedItem as Tovary);
                     if (Global.DialogWindow != null) Global.DialogWindow.Close();
                     if (CloseAction != null) CloseAction();

@@ -17,7 +17,8 @@ namespace Client.ViewModels
     public class ShetViewModel : INotifyPropertyChanged
     {
         private int kod_zap;
-        private Shet _shet;
+        private Shet _shet; 
+        bool IsDataLoaded = false;
         public Shet Shet { get { return _shet; } set { _shet = value; OnPropertyChanged(nameof(Shet)); } }
         public ObservableCollection<User> Users { get { return Enums.Users; } set { OnPropertyChanged(nameof(Users)); } }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -30,11 +31,47 @@ namespace Client.ViewModels
         public ShetViewModel(int kod_zap)
         {
             this.kod_zap = kod_zap;
+            
             Update();
         }
         public async Task Update()
         {
+            IsDataLoaded = false;
             Shet = await HttpRequests<Shet>.GetRequestAsync("api/Sheta/" + kod_zap, Shet);
+            IsDataLoaded = true;
+        }
+        public void AddTovar()
+        {
+            if (Shet.Sheta_tov == null) Shet.Sheta_tov = new ObservableCollection<Sheta_tov>();
+            Shet.Sheta_tov.Add(new Sheta_tov() { kod_sheta = Shet.kod_zap });
+        }
+        public async Task Save()
+        {
+            IsDataLoaded = false;
+            foreach (Sheta_tov tov in Shet.Sheta_tov) tov.Sheta = null;
+            try
+            {
+                await HttpRequests<Shet>.PutRequest("api/Sheta/" + Shet.kod_zap, Shet);
+            }
+            catch (Exception ex)
+            {
+                Global.ErrorLog(ex.Message);
+            }
+            Update();
+            IsDataLoaded = true;
+        }
+
+        public async Task DeleteTovar(int kod_zap)
+        {
+            try
+            {
+                await HttpRequests<Sheta_tov>.DeleteRequest("api/Sheta/Tov?id=" + kod_zap);
+            }
+            catch (Exception ex)
+            {
+                Global.ErrorLog(ex.Message);
+            }
+            Update();
         }
     }
 }

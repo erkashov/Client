@@ -6,7 +6,6 @@
       xmlns:local="clr-namespace:Client.Pages"
       xmlns:hc="https://handyorg.github.io/handycontrol" 
       mc:Ignorable="d" xmlns:usercontrols="clr-namespace:Client.UserControls" xmlns:viewmodels="clr-namespace:Client.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:ShetViewModel}"
-
       d:DesignHeight="1080" d:DesignWidth="1600">
 
     <Grid Background="White">
@@ -54,7 +53,7 @@
         </Grid>
 
 
-        <DataGrid x:Name="datagridTovars" SelectionUnit="CellOrRowHeader" AutoGenerateColumns="False" Grid.Row="1" CanUserAddRows="False" 
+        <DataGrid x:Name="datagridTovars" AutoGenerateColumns="False" Grid.Row="1" CanUserAddRows="False" RowHeaderWidth="70" SelectionMode="Extended"
                   ItemsSource="{Binding Path=Shet.Sheta_tov, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" CellEditEnding="datagridRashods_CellEditEnding">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Tovar.Naim2}" Header="Товар" x:Name="tovar" IsReadOnly="True"></DataGridTextColumn>
@@ -70,6 +69,12 @@
                 <DataGridTextColumn Binding="{Binding Summa, StringFormat=\{0:N0\}}" Header="Сумма" x:Name="summa" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding summa_nds, StringFormat=\{0:N0\}}" Header="НДС" x:Name="summa_nds" Visibility="Collapsed"/>
             </DataGrid.Columns>
+
+            <DataGrid.RowHeaderTemplate>
+                <DataTemplate>
+                    <CheckBox IsChecked="{Binding IsSelected,RelativeSource={RelativeSource AncestorType=DataGridRow}}"/>
+                </DataTemplate>
+            </DataGrid.RowHeaderTemplate>
         </DataGrid>
 
         <Grid Grid.Row="2">
