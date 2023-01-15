@@ -60,7 +60,7 @@ namespace Client.Pages.Sklad
             {
                 if(ostatkiDataGrid.SelectedItem != null)
                 {
-                    VM.SelectedTovar = Global.Kod_Tov = (decimal)(ostatkiDataGrid.SelectedItem as Sklad_tov_OSTATKI).kod_tovara;
+                    VM.SelectedTovar = Global.Kod_Tov = (ostatkiDataGrid.SelectedItem as Sklad_tov_OSTATKI).kod_tovara;
                     Global.SelectedTovar = (ostatkiDataGrid.SelectedItem as Sklad_tov_OSTATKI).Tovar;
                     if (Global.DialogWindow != null) Global.DialogWindow.Close();
                     if(CloseAction != null) CloseAction();

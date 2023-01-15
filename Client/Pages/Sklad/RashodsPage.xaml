@@ -66,7 +66,7 @@
                 <DataGridCheckBoxColumn Binding="{Binding Is_tov_opl}" Header="Товар оплачен" x:Name="oplach"/>
                 <DataGridCheckBoxColumn Binding="{Binding IsDostOpl}" Header="Дост. опл" x:Name="oplach_dost"/>
                 <DataGridCheckBoxColumn Binding="{Binding Otgruzheno}" Header="Отгружено" x:Name="otgruz"/>
-                <DataGridTextColumn Binding="{Binding Sheta.nom_1C}" Header="Счет" x:Name="shet" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Sheta.nom_shet}" Header="Счет" x:Name="shet" IsReadOnly="True"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Summa_nal, StringFormat=N2}" Header="Нал" x:Name="summa_nal" IsReadOnly="True"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Summa_karta, StringFormat=N2}" Header="Карта" x:Name="summa_karta" IsReadOnly="True"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Summa_beznal, StringFormat=N2}" Header="Безнал" x:Name="summa_beznal" IsReadOnly="True"></DataGridTextColumn>

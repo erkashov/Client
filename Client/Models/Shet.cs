@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Client.Models
@@ -9,7 +10,7 @@ namespace Client.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Shet()
         {
-            this.Sheta_tov = new HashSet<Sheta_tov>();
+            //this.Sheta_tov = new ObservableCollection<Sheta_tov>();
         }
         [Key]
         public int kod_zap { get; set; }
@@ -24,6 +25,6 @@ namespace Client.Models
         public bool sklad { get; set; }
         public bool prim_is_plat { get; set; }
         public Nullable<System.DateTime> date_oplaty { get; set; }
-        public virtual ICollection<Sheta_tov> Sheta_tov { get; set; }
+        public ObservableCollection<Sheta_tov> Sheta_tov { get; set; }
     }
 }

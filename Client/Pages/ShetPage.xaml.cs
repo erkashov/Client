@@ -1,4 +1,9 @@
-﻿using Client.ViewModels;
+﻿using Client.Models;
+using Client.Models.Sklad;
+using Client.Pages.Sklad;
+using Client.ViewModels;
+using HandyControl.Controls;
+using Notifications.Wpf.ViewModels.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,12 +36,26 @@ namespace Client.Pages
 
         private void datagridRashods_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-
+            
         }
 
         private void TovBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            if (datagridTovars.CurrentItem != null)
+            {
+                OstatkiPage win = new OstatkiPage(true, UpdateTovar);
+                win.Width = 1200;
+                win.Height = 800;
+                Global.DialogWindow = Dialog.Show(win);
+            }
+        }
+        public void UpdateTovar()
+        {
+            if (Global.Kod_Tov != 0 && datagridTovars.SelectedItem != null)
+            {
+                (datagridTovars.SelectedItem as Sheta_tov).kod_tovara = Global.Kod_Tov;
+                (datagridTovars.SelectedItem as Sheta_tov).Tovar = Global.SelectedTovar;
+            }
         }
 
         private void PdfBTN_Click(object sender, RoutedEventArgs e)
@@ -51,22 +70,28 @@ namespace Client.Pages
 
         private void AddBN_Click(object sender, RoutedEventArgs e)
         {
-
+            ShetVM.AddTovar();
         }
 
         private void SaveBN_Click(object sender, RoutedEventArgs e)
         {
-
+            ShetVM.Save();
         }
 
         private void ToolBarControl_DeleteClick(object sender, RoutedEventArgs e)
         {
-
+            if (datagridTovars.CurrentItem != null)
+            {
+                if (datagridTovars.CurrentItem is Sheta_tov)
+                {
+                    ShetVM.DeleteTovar((datagridTovars.CurrentItem as Sheta_tov).kod_zap);
+                }
+            }
         }
 
         private void ToolBarControl_UpdateClick(object sender, RoutedEventArgs e)
         {
-
+            ShetVM.Update();
         }
     }
 }

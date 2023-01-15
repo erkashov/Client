@@ -25,7 +25,7 @@ namespace Client
         public static Frame MainFrame { get; set; }
         public static MainWindow MainWin { get; set; }
         public static Dialog DialogWindow { get; set; }
-        public static decimal Kod_Tov = 0;
+        public static int Kod_Tov = 0;
         public static Tovary SelectedTovar;
 
         public static NotificationManager notificationManager = new NotificationManager();
@@ -40,7 +40,7 @@ namespace Client
             if (message == "Невозможно соединиться с удаленным сервером") ShowNotif(message, "Повторите операцию", NotificationType.Error);
             else if (message.Contains("Unauthorized"))
             {
-                Global.ShowNotif("Внимание", "Требуется авторизация" + message.ToString(), NotificationType.Warning); ;
+                Global.ShowNotif("Внимание", "Требуется авторизация" + message.ToString(), NotificationType.Warning);
                 MainWin.Hide();
                 (new AuthWindow()).Show();
             }
