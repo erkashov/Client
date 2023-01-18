@@ -43,12 +43,6 @@
             <CheckBox Content="Склад" IsChecked="{Binding Shet.sklad}" Grid.Row="5" Grid.Column="4" Height="28" Visibility="Collapsed"/>
             <CheckBox Content="Корр" IsChecked="{Binding Shet.korr}" Grid.Row="5" Grid.Column="5" Height="28"/>
             <CheckBox Content="Прим как плат" IsChecked="{Binding Shet.prim_is_plat}" Grid.Row="5" Grid.Column="6" Height="28" Visibility="Collapsed"/>
-
-            <ComboBox IsEditable="False" Grid.Column="6" Grid.Row="1"
-                          hc:InfoElement.Title="Отпустил"
-                          ItemsSource="{Binding Users}" DisplayMemberPath="Surname" SelectedValuePath="Id" 
-                          SelectedValue="{Binding Shet.id_polz}"/>
-
             <usercontrols:ToolBarControl Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" AddClick="AddBN_Click" SaveClick="SaveBN_Click" DeleteClick="ToolBarControl_DeleteClick" UpdateClick="ToolBarControl_UpdateClick" HorizontalAlignment="Left" />
         </Grid>
 

@@ -31,7 +31,7 @@ namespace Client.Models
         {
             get
             {
-                if(Sheta_tov!= null) return Sheta_tov.Sum(p=>p.kol*p.Zena);
+                if(Sheta_tov!= null) return Sheta_tov.Sum(p=>p.Kol*p.Zena);
                 return 0;
             }
         }
