@@ -55,14 +55,14 @@
                   ItemsSource="{Binding Path=Sheta, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" 
                   CanUserAddRows="False" MouseDoubleClick="datagridRashods_MoseDoubleClick" hc:DataGridAttach.ShowRowNumber="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding kod_zap}" Header="Код" x:Name="kod_zap" Visibility="Collapsed"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding ID}" Header="Код" x:Name="kod_zap" Visibility="Collapsed"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding nom_shet}" Header="№" x:Name="nom_rash" IsReadOnly="True"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding date_sheta, StringFormat=dd.MM.yyyy}" Header="Дата" x:Name="data_rash" IsReadOnly="True"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding date_oplaty, StringFormat=dd.MM.yyyy}" Header="Дата опл." x:Name="data_otgr" IsReadOnly="True"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Polz.Surname}" Header="Отпустил" x:Name="otgr" IsReadOnly="True"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Prim}" Header="Прим" x:Name="prim"></DataGridTextColumn>
                 <DataGridCheckBoxColumn Binding="{Binding oplachen}" Header="Товар оплачен" x:Name="oplach"/>
-                <DataGridTextColumn Binding="{Binding summa, StringFormat=N2}" Header="Сумма" x:Name="summa_nal" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding SummaAll, StringFormat=N2}" Header="Сумма" x:Name="summa_nal" IsReadOnly="True"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

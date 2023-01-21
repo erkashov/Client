@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="500"/>
         </Grid.ColumnDefinitions>
 
         <usercontrols:ToolBarControl AddClick="ToolBarControl_AddClick" DeleteClick="ToolBarControl_DeleteClick" SaveClick="ToolBarControl_SaveClick" UpdateClick="ToolBarControl_UpdateClick"/>
@@ -27,10 +27,6 @@
                   AutoGenerateColumns="False" Grid.Row="1" x:Name="datagridTovary" RowHeaderWidth="70" MouseDoubleClick="datagridTovary_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Наим" Binding="{Binding Naim2}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Кол-во листов в пачке" Binding="{Binding kol_list_v_pachke}"/>
-                <DataGridTextColumn Header="Кол-во пачек в фуре" Binding="{Binding kol_pachek_v20fut}"/>
-                <DataGridTextColumn Header="Класс емиссии" Binding="{Binding klass_emis}"/>
-                <DataGridTextColumn Header="Категория" Binding="{Binding kod_categ}"/>
             </DataGrid.Columns>
 
             <DataGrid.RowHeaderTemplate>
@@ -40,17 +36,18 @@
             </DataGrid.RowHeaderTemplate>
         </DataGrid>
 
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" hc:InfoElement.TitleWidth="150">
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" hc:InfoElement.TitleWidth="200">
             <TextBox Text="{Binding SelectedTovar.naim, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Наименование" hc:InfoElement.Necessary="True"/>
             <TextBox Text="{Binding SelectedTovar.nazn, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Назначение" hc:InfoElement.Necessary="True"/>
             <TextBox Text="{Binding SelectedTovar.sort, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Сорт" hc:InfoElement.Necessary="True"/>
-            <hc:NumericUpDown Value="{Binding SelectedTovar.dlina}" hc:InfoElement.Title="Длина" hc:InfoElement.Necessary="True"/>
-            <hc:NumericUpDown Value="{Binding SelectedTovar.shir}" hc:InfoElement.Title="Ширина" hc:InfoElement.Necessary="True"/>
-            <hc:NumericUpDown Value="{Binding SelectedTovar.tol}" hc:InfoElement.Title="Толщина" hc:InfoElement.Necessary="True"/>
+            <hc:NumericUpDown Value="{Binding SelectedTovar.dlina}" hc:InfoElement.Title="Длина" hc:InfoElement.Necessary="True" Margin="5"/>
+            <hc:NumericUpDown Value="{Binding SelectedTovar.shir}" hc:InfoElement.Title="Ширина" hc:InfoElement.Necessary="True" Margin="5"/>
+            <hc:NumericUpDown Value="{Binding SelectedTovar.tol}" hc:InfoElement.Title="Толщина" hc:InfoElement.Necessary="True" Margin="5"/>
             <TextBox Text="{Binding SelectedTovar.dekor, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Декор"/>
             <TextBox Text="{Binding SelectedTovar.material, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Материал"/>
-            <TextBox Text="{Binding SelectedTovar.gor_otgr, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Город отгрузки"/>
             <TextBox Text="{Binding SelectedTovar.zvet, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Цвет"/>
+            <hc:ComboBox SelectedValue="{Binding SelectedTovar.CategoryID}"  Margin="5" SelectedValuePath="ID" DisplayMemberPath="short_name" ItemsSource="{Binding Categories}" hc:InfoElement.Title="Категория"/>
+            <hc:NumericUpDown Value="{Binding SelectedTovar.kol_list_v_pachke}" hc:InfoElement.Title="Кол-во листов в пачке" hc:InfoElement.Necessary="True"/>
 
         </StackPanel>
         

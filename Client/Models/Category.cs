@@ -11,20 +11,19 @@ namespace Client.Models
     public class Category
     {
         [Key]
-        public int kod_zap { get; set; }
+        public int ID { get; set; }
         public string name { get; set; }
         public string short_name { get; set; }
-        public string color { get; set; }
-        public Nullable<int> parent_kod_zap { get; set; }
+        public Nullable<int> parentID { get; set; }
 
-        [ForeignKey("parent_kod_zap")]
+        [ForeignKey("parentID")]
         public Category Parent { get; set; }
 
         public List<Category> Children
         {
             get
             {
-                return Enums.Spr_category.Where(p=>p.parent_kod_zap ==  kod_zap).ToList();
+                return Enums.Spr_category.Where(p=>p.parentID ==  ID).ToList();
             }
         }
     }

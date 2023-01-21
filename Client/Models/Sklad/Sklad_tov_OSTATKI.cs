@@ -28,6 +28,6 @@ namespace Client.Models.Sklad
         public Nullable<decimal> kod_tov { get; set; }
 
         [ForeignKey("kod_tovara")]
-        public virtual Tovary Tovar { get; set; }
+        public virtual Product Tovar { get; set; }
     }
 }

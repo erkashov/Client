@@ -17,7 +17,6 @@ namespace Client.ViewModels
     {
         bool IsDataLoaded = false;
         public ObservableCollection<User> Spr_Managers_Filter { get { return Enums.Users; } set { OnPropertyChanged(nameof(Spr_Managers_Filter)); } }
-
         private ObservableCollection<Shet> _sheta;
         public ObservableCollection<Shet> Sheta
         {
@@ -65,7 +64,7 @@ namespace Client.ViewModels
                     queryParams.SelectedOplachen = false;
                     break;
             }
-            Sheta = new ObservableCollection<Shet>(await HttpPostRequests<List<Shet>, RashodyQueryParams>.PostRequest("api/Sheta/Filter", new List<Shet>(), queryParams));
+            Sheta = new ObservableCollection<Shet>(await HttpPostRequests<List<Shet>, RashodyQueryParams>.PostRequest("api/Shets/Filter", new List<Shet>(), queryParams));
             IsDataLoaded = true;
         }
         public async Task Save()
@@ -74,7 +73,7 @@ namespace Client.ViewModels
             {
                 try
                 {
-                    await HttpRequests<Shet>.PutRequest("api/Sheta/" + Convert.ToInt32(shet.kod_zap), shet);
+                    await HttpRequests<Shet>.PutRequest("api/Shets/" + Convert.ToInt32(shet.ID), shet);
                 }
                 catch (Exception ex)
                 {

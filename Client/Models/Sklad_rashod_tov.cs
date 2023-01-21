@@ -94,8 +94,8 @@ namespace Client.Models
 
         [ForeignKey("kod_rashoda")]
         public virtual Sklad_rashod Sklad_rashod { get; set; }
-        private Tovary _tovar;
+        private Product _tovar;
         [ForeignKey("tov")]
-        public Tovary Tovar { get { return _tovar; } set { _tovar = value; OnPropertyChanged(nameof(Tovar)); } }
+        public Product Tovar { get { return _tovar; } set { _tovar = value; OnPropertyChanged(nameof(Tovar)); } }
     }
 }

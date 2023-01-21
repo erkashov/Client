@@ -33,7 +33,7 @@ namespace Client.UserControls
         public CategoryNavControl()
         {
             InitializeComponent();
-            tabs = new ObservableCollection<Category>(Enums.Spr_category.Where(p=>p.parent_kod_zap is null)/*.Where(p=>p.kod_zap > 52 && p.kod_zap < 63)*/);
+            tabs = new ObservableCollection<Category>(Enums.Spr_category.Where(p=>p.parentID is null)/*.Where(p=>p.kod_zap > 52 && p.kod_zap < 63)*/);
             this.DataContext = this;
         }
 
@@ -43,7 +43,7 @@ namespace Client.UserControls
             {
                 if((sender as Button).DataContext != null)
                 {
-                    Selected = ((sender as Button).DataContext as Category).kod_zap;
+                    Selected = ((sender as Button).DataContext as Category).ID;
                     UpdateClick(sender, e);
                 }
             }
@@ -55,7 +55,7 @@ namespace Client.UserControls
             {
                 if ((sender as TextBlock).DataContext != null)
                 {
-                    Selected = ((sender as TextBlock).DataContext as Category).kod_zap;
+                    Selected = ((sender as TextBlock).DataContext as Category).ID;
                     UpdateClick(sender, e);
                 }
             }

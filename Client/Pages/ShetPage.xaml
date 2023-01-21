@@ -40,9 +40,7 @@
                      Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,5,5,5" Grid.RowSpan="2" VerticalAlignment="Stretch" TextWrapping="Wrap"/>
 
             <CheckBox Content="Оплачен" IsChecked="{Binding Shet.oplachen}" Grid.Row="5" Grid.Column="3" Height="28"/>
-            <CheckBox Content="Склад" IsChecked="{Binding Shet.sklad}" Grid.Row="5" Grid.Column="4" Height="28" Visibility="Collapsed"/>
-            <CheckBox Content="Корр" IsChecked="{Binding Shet.korr}" Grid.Row="5" Grid.Column="5" Height="28"/>
-            <CheckBox Content="Прим как плат" IsChecked="{Binding Shet.prim_is_plat}" Grid.Row="5" Grid.Column="6" Height="28" Visibility="Collapsed"/>
+            <CheckBox Content="Корр" IsChecked="{Binding Shet.is_korr}" Grid.Row="5" Grid.Column="5" Height="28"/>
             <usercontrols:ToolBarControl Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" AddClick="AddBN_Click" SaveClick="SaveBN_Click" DeleteClick="ToolBarControl_DeleteClick" UpdateClick="ToolBarControl_UpdateClick" HorizontalAlignment="Left" />
         </Grid>
 
@@ -58,10 +56,9 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Binding="{Binding Kol}" Header="Кол-во" x:Name="kol"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Zena, StringFormat=\{0:N0\}}" Header="Цена" x:Name="zena"/>
+                <DataGridTextColumn Binding="{Binding Count}" Header="Кол-во" x:Name="kol"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Price, StringFormat=\{0:N0\}}" Header="Цена" x:Name="zena"/>
                 <DataGridTextColumn Binding="{Binding Summa, StringFormat=\{0:N0\}}" Header="Сумма" x:Name="summa" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding summa_nds, StringFormat=\{0:N0\}}" Header="НДС" x:Name="summa_nds" Visibility="Collapsed"/>
             </DataGrid.Columns>
 
             <DataGrid.RowHeaderTemplate>
@@ -81,7 +78,7 @@
             <ComboBox IsEditable="False" Grid.Column="0" Grid.Row="1"
                           hc:InfoElement.Title="Отпустил"
                           ItemsSource="{Binding Users}" DisplayMemberPath="Surname" SelectedValuePath="Id" 
-                          SelectedValue="{Binding Shet.id_polz}"/>
+                          SelectedValue="{Binding Shet.userID}"/>
 
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>

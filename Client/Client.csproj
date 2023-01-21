@@ -147,7 +147,7 @@
     <Compile Include="Models\MainPage.cs" />
     <Compile Include="Models\RelayCommad.cs" />
     <Compile Include="Models\Shet.cs" />
-    <Compile Include="Models\Sheta_tov.cs" />
+    <Compile Include="Models\Shet_prods.cs" />
     <Compile Include="Models\Sklad\Karta.cs" />
     <Compile Include="Models\Sklad\RashodyQueryParams.cs" />
     <Compile Include="Models\Sklad\Sklad_prihod.cs" />
@@ -155,7 +155,7 @@
     <Compile Include="Models\Sklad\Sklad_tov_OSTATKI.cs" />
     <Compile Include="Models\Sklad_dostavki.cs" />
     <Compile Include="Models\Sklad_rashod.cs" />
-    <Compile Include="Models\Tovary.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Pages\InputTextPage.xaml.cs">
       <DependentUpon>InputTextPage.xaml</DependentUpon>

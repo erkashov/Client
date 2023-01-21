@@ -53,8 +53,8 @@ namespace Client.Pages
         {
             if (Global.Kod_Tov != 0 && datagridTovars.SelectedItem != null)
             {
-                (datagridTovars.SelectedItem as Sheta_tov).kod_tovara = Global.Kod_Tov;
-                (datagridTovars.SelectedItem as Sheta_tov).Tovar = Global.SelectedTovar;
+                (datagridTovars.SelectedItem as Shet_prods).productID = Global.Kod_Tov;
+                (datagridTovars.SelectedItem as Shet_prods).Tovar = Global.SelectedTovar;
             }
         }
 
@@ -82,9 +82,9 @@ namespace Client.Pages
         {
             if (datagridTovars.CurrentItem != null)
             {
-                if (datagridTovars.CurrentItem is Sheta_tov)
+                if (datagridTovars.CurrentItem is Shet_prods)
                 {
-                    ShetVM.DeleteTovar((datagridTovars.CurrentItem as Sheta_tov).kod_zap);
+                    ShetVM.DeleteTovar((datagridTovars.CurrentItem as Shet_prods).ID);
                 }
             }
         }

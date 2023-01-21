@@ -37,21 +37,21 @@ namespace Client.ViewModels
         public async Task Update()
         {
             IsDataLoaded = false;
-            Shet = await HttpRequests<Shet>.GetRequestAsync("api/Sheta/" + kod_zap, Shet);
+            Shet = await HttpRequests<Shet>.GetRequestAsync("api/Shets/" + kod_zap, Shet);
             IsDataLoaded = true;
         }
         public void AddTovar()
         {
-            if (Shet.Sheta_tov == null) Shet.Sheta_tov = new ObservableCollection<Sheta_tov>();
-            Shet.Sheta_tov.Add(new Sheta_tov() { kod_sheta = Shet.kod_zap });
+            if (Shet.Sheta_tov == null) Shet.Sheta_tov = new ObservableCollection<Shet_prods>();
+            Shet.Sheta_tov.Add(new Shet_prods() { shetID = Shet.ID });
         }
         public async Task Save()
         {
             IsDataLoaded = false;
-            foreach (Sheta_tov tov in Shet.Sheta_tov) tov.Sheta = null;
+            foreach (Shet_prods tov in Shet.Sheta_tov) tov.Sheta = null;
             try
             {
-                await HttpRequests<Shet>.PutRequest("api/Sheta/" + Shet.kod_zap, Shet);
+                await HttpRequests<Shet>.PutRequest("api/Shets/" + Shet.ID, Shet);
             }
             catch (Exception ex)
             {
@@ -65,7 +65,7 @@ namespace Client.ViewModels
         {
             try
             {
-                await HttpRequests<Sheta_tov>.DeleteRequest("api/Sheta/Tov?id=" + kod_zap);
+                await HttpRequests<Shet_prods>.DeleteRequest("api/Shets/Tov?id=" + kod_zap);
             }
             catch (Exception ex)
             {

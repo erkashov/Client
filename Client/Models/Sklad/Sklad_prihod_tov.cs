@@ -37,7 +37,7 @@ namespace Client.Models.Sklad
         [ForeignKey("kod_prihoda")]
         public Sklad_prihod Sklad_prihod { get; set; }
         [ForeignKey("kod_tovara")]
-        public Tovary Tovar { get; set; }
+        public Product Tovar { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -13,10 +13,11 @@ namespace Client.ViewModels
 {
     public class TovaryViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<Tovary> _tovaryList;
-        public ObservableCollection<Tovary> TovaryList { get { return _tovaryList; } set { _tovaryList = value; OnPropertyChanged(nameof(TovaryList)); } }
-        private Tovary _selectedTovar;
-        public Tovary SelectedTovar { get { return _selectedTovar; }
+        private ObservableCollection<Product> _tovaryList;
+        public ObservableCollection<Product> TovaryList { get { return _tovaryList; } set { _tovaryList = value; OnPropertyChanged(nameof(TovaryList)); } }
+        public ObservableCollection<Category> Categories { get { return Enums.Spr_category; } set { OnPropertyChanged(nameof(Categories)); } }
+        private Product _selectedTovar;
+        public Product SelectedTovar { get { return _selectedTovar; }
             set { _selectedTovar = value; OnPropertyChanged(nameof(SelectedTovar)); } }
 
         public bool IsReturn { get; set; }
@@ -31,7 +32,7 @@ namespace Client.ViewModels
 
         public async Task Filter()
         {
-            TovaryList = await HttpRequests<ObservableCollection<Tovary>>.GetRequestAsync("api/Tovary", TovaryList);
+            TovaryList = await HttpRequests<ObservableCollection<Product>>.GetRequestAsync("api/Tovary", TovaryList);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -43,7 +44,7 @@ namespace Client.ViewModels
 
         public async Task Save()
         {
-            foreach (Tovary tov in TovaryList)
+            foreach (Product tov in TovaryList)
             {
                 if(!tov.IsValid)
                 {
@@ -52,7 +53,7 @@ namespace Client.ViewModels
                 }
                 try
                 {
-                    await HttpRequests<Tovary>.PutRequest("api/Tovary/" + Convert.ToInt32(tov.kod_tovara), tov);
+                    await HttpRequests<Product>.PutRequest("api/Tovary/" + Convert.ToInt32(tov.ID), tov);
                 }
                 catch (Exception ex)
                 {

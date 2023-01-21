@@ -39,18 +39,18 @@ namespace Client.Pages
         }
         private async void ToolBarControl_AddClick(object sender, RoutedEventArgs e)
         {
-            VM.TovaryList.Add(new Tovary());
+            VM.TovaryList.Add(new Product() {});
         }
 
         private async void ToolBarControl_DeleteClick(object sender, RoutedEventArgs e)
         {
             if(datagridTovary.CurrentItem != null)
             {
-                if(datagridTovary.CurrentItem is Tovary)
+                if(datagridTovary.CurrentItem is Product)
                 {
                     try
                     {
-                        await HttpRequests<Sklad_rashod>.DeleteRequest("api/Tovary/" + (datagridTovary.CurrentItem as Tovary).kod_tovara);
+                        await HttpRequests<Sklad_rashod>.DeleteRequest("api/Tovary/" + (datagridTovary.CurrentItem as Product).ID);
                     }
                     catch (Exception ex)
                     {
@@ -77,8 +77,8 @@ namespace Client.Pages
             {
                 if (datagridTovary.SelectedItem != null)
                 {
-                    Global.Kod_Tov = (datagridTovary.SelectedItem as Tovary).kod_tovara;
-                    Global.SelectedTovar = (datagridTovary.SelectedItem as Tovary);
+                    Global.Kod_Tov = (datagridTovary.SelectedItem as Product).ID;
+                    Global.SelectedTovar = (datagridTovary.SelectedItem as Product);
                     if (Global.DialogWindow != null) Global.DialogWindow.Close();
                     if (CloseAction != null) CloseAction();
                 }

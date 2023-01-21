@@ -34,7 +34,7 @@ namespace Client.Pages
         {
             if (datagridSheta.SelectedItem != null)
             {
-                ShetPage shet = new ShetPage((datagridSheta.SelectedItem as Shet).kod_zap);
+                ShetPage shet = new ShetPage((datagridSheta.SelectedItem as Shet).ID);
                 Global.MainWin.ShowPage(new PagesContainer("Счет №" + (datagridSheta.SelectedItem as Shet).nom_shet, shet));
             }
         }
@@ -47,7 +47,7 @@ namespace Client.Pages
                 {
                     try
                     {
-                        await HttpRequests<Sklad_rashod>.DeleteRequest("api/Sheta/" + (datagridSheta.CurrentItem as Shet).kod_zap);
+                        await HttpRequests<Sklad_rashod>.DeleteRequest("api/Shets/" + (datagridSheta.CurrentItem as Shet).ID);
                     }
                     catch (Exception ex)
                     {
@@ -71,7 +71,7 @@ namespace Client.Pages
         private async void AddBN_Click(object sender, RoutedEventArgs e)
         {
             Shet shet = new Shet();
-            await HttpRequests<Shet>.PostRequest("api/Sheta/", shet);
+            await HttpRequests<Shet>.PostRequest("api/Shets/", shet);
             ShetaVM.Filter();
         }
     }

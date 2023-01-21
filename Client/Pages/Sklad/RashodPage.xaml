@@ -51,7 +51,7 @@
                 <StackPanel Orientation="Horizontal" Visibility="{Binding Rashod.ShetVisibility}">
                     <TextBlock VerticalAlignment="Center">Счет №</TextBlock>
                     <TextBox x:Name="ShetTB" Text="{Binding Rashod.Sheta.nom_shet}" Grid.Row="2" Grid.Column="1" Margin="5" Grid.RowSpan="2" MinHeight="20" MinWidth="50"/>
-                    <TextBlock VerticalAlignment="Center" Text="{Binding Rashod.Sheta.pok}" MinWidth="50"/>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding Rashod.Sheta.contractorID}" MinWidth="50"/>
                 </StackPanel>
             </StackPanel>
 

@@ -27,7 +27,7 @@ namespace Client.Pages.Sklad
     public partial class PrihodPage : ContentControl, INotifyPropertyChanged
     {
         private bool IsLoaded = false;
-        public ObservableCollection<Tovary> TovaryList { get; set; }
+        public ObservableCollection<Product> TovaryList { get; set; }
         private Sklad_prihod _sklad_prihod;
         public Sklad_prihod Prihod { get { return _sklad_prihod; } set { _sklad_prihod = value; OnPropertyChanged(nameof(Prihod)); } }
         private int Kod_zap = 0;
@@ -41,7 +41,7 @@ namespace Client.Pages.Sklad
         }
         public async Task GetPrihod()
         {
-            TovaryList = HttpRequests<ObservableCollection<Tovary>>.GetRequest("api/Tovary", TovaryList);
+            TovaryList = HttpRequests<ObservableCollection<Product>>.GetRequest("api/Tovary", TovaryList);
             Prihod = await HttpRequests<Sklad_prihod>.GetRequestAsync("api/Sklad_prihod/" + Kod_zap, Prihod);
             foreach(Sklad_prihod_tov tov in Prihod.Sklad_prihod_tov) tov.Sklad_prihod = Prihod;
         }
