@@ -10,7 +10,7 @@ namespace Client.Models
 {
     public class User : INotifyPropertyChanged
     {
-        public int Id { get; set; }
+        public int ID { get; set; }
         private string surname;
         public string Surname { get { return surname; } set { surname = value; OnPropertyChanged(nameof(Surname)); } }
         public string Name { get; set; }

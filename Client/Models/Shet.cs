@@ -8,7 +8,6 @@ namespace Client.Models
 {
     public partial class Shet
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Shet()
         {
             this.Sheta_tov = new ObservableCollection<Shet_prods>();
@@ -23,6 +22,9 @@ namespace Client.Models
         public bool is_korr { get; set; }
         public bool oplachen { get; set; }
         public Nullable<System.DateTime> date_oplaty { get; set; }
+        public virtual Contractor Contractor { get; set; }
+        public virtual User Polz { get; set; }
+
         public virtual ObservableCollection<Shet_prods> Sheta_tov { get; set; }
         public double SummaAll
         {

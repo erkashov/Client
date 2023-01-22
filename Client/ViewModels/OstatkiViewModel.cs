@@ -18,8 +18,8 @@ namespace Client.ViewModels
     {
         private decimal _selectedTovar;
         public decimal SelectedTovar { get { return _selectedTovar; } set { _selectedTovar = value; OnPropertyChanged(nameof(SelectedTovar)); } }
-        private ObservableCollection<Sklad_tov_OSTATKI> _ostatki;
-        public ObservableCollection<Sklad_tov_OSTATKI> Ostatki
+        private ObservableCollection<Product_stock> _ostatki;
+        public ObservableCollection<Product_stock> Ostatki
         {
             get { return _ostatki; }
             set { _ostatki = value; OnPropertyChanged(nameof(Ostatki)); }
@@ -33,14 +33,14 @@ namespace Client.ViewModels
         public OstatkiViewModel(bool _IsReturn = false)
         {
             Header = "Остатки";
-            Ostatki = new ObservableCollection<Sklad_tov_OSTATKI>();
+            Ostatki = new ObservableCollection<Product_stock>();
             IsReturn = true;
             CloseBTNVisible = IsReturn ? Visibility.Visible : Visibility.Collapsed;
         }
         public OstatkiViewModel()
         {
             Header = "Остатки";
-            Ostatki = new ObservableCollection<Sklad_tov_OSTATKI>();
+            Ostatki = new ObservableCollection<Product_stock>();
             IsReturn = true;
             CloseBTNVisible = IsReturn ? Visibility.Visible : Visibility.Collapsed;
         }

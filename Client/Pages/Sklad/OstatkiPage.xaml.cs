@@ -44,7 +44,7 @@ namespace Client.Pages.Sklad
 
         private async void navControl_UpdateClick(object sender, RoutedEventArgs e)
         {
-            VM.Ostatki = await HttpRequests<ObservableCollection<Sklad_tov_OSTATKI>>.GetRequestAsync($"api/Sklad_tov_OSTATKI/categ/{tabControl.Selected}", VM.Ostatki);
+            VM.Ostatki = await HttpRequests<ObservableCollection<Product_stock>>.GetRequestAsync($"api/Sklad_tov_OSTATKI/categ/{tabControl.Selected}", VM.Ostatki);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -60,8 +60,8 @@ namespace Client.Pages.Sklad
             {
                 if(ostatkiDataGrid.SelectedItem != null)
                 {
-                    VM.SelectedTovar = Global.Kod_Tov = (ostatkiDataGrid.SelectedItem as Sklad_tov_OSTATKI).kod_tovara;
-                    Global.SelectedTovar = (ostatkiDataGrid.SelectedItem as Sklad_tov_OSTATKI).Tovar;
+                    VM.SelectedTovar = Global.Kod_Tov = (ostatkiDataGrid.SelectedItem as Product_stock).productID;
+                    Global.SelectedTovar = (ostatkiDataGrid.SelectedItem as Product_stock).Tovar;
                     if (Global.DialogWindow != null) Global.DialogWindow.Close();
                     if(CloseAction != null) CloseAction();
                 }

@@ -16,7 +16,7 @@ namespace Client.ViewModels
     public class RashodyViewModel : INotifyPropertyChanged
     {
         bool IsDataLoaded = false;
-        public ObservableCollection<Spr_oplat_sklad> Spr_Oplat_Sklad { get { return Enums.Spr_Oplat_Sklad; } set { OnPropertyChanged(nameof(Spr_Oplat_Sklad)); } }
+        public ObservableCollection<Type_oplaty> Spr_Oplat_Sklad { get { return Enums.Spr_Oplat_Sklad; } set { OnPropertyChanged(nameof(Spr_Oplat_Sklad)); } }
 
         public ObservableCollection<Spr_period_filtr> Spr_Periods_Filter { get { return Enums.Spr_Periods_Filter; } set { OnPropertyChanged(nameof(Spr_Periods_Filter)); } }
         
@@ -37,8 +37,8 @@ namespace Client.ViewModels
         private string search;
         public string Search { get { return search; } set { search = value; OnPropertyChanged(nameof(Search)); Filter(); } }
 
-        private Spr_oplat_sklad _selectedTipOpl;
-        public Spr_oplat_sklad SelectedTipOpl { get { return _selectedTipOpl; } set { _selectedTipOpl = value; OnPropertyChanged(nameof(SelectedTipOpl)); Filter(); } }
+        private Type_oplaty _selectedTipOpl;
+        public Type_oplaty SelectedTipOpl { get { return _selectedTipOpl; } set { _selectedTipOpl = value; OnPropertyChanged(nameof(SelectedTipOpl)); Filter(); } }
 
         private User _selectedManager;
         public User SelectedManager { get { return _selectedManager; } set { _selectedManager = value; OnPropertyChanged(nameof(SelectedManager)); Filter(); } }
@@ -97,7 +97,7 @@ namespace Client.ViewModels
             {
                 try
                 {
-                    await HttpRequests<Sklad_rashod>.PutRequest("api/Sklad_rashod/" + Convert.ToInt32(rashod.Kod_zap), rashod);
+                    await HttpRequests<Sklad_rashod>.PutRequest("api/Sklad_rashod/" + Convert.ToInt32(rashod.ID), rashod);
                 }
                 catch (Exception ex)
                 {

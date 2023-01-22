@@ -20,8 +20,8 @@
         <DataGrid x:Name="ostatkiDataGrid" ItemsSource="{Binding Ostatki, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="DataGrid_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Товар" Binding="{Binding Tovar.Naim2}"/>
-                <DataGridTextColumn Header="В наличии" Binding="{Binding OSTATOK}"/>
-                <DataGridTextColumn Header="В пути" Binding="{Binding not_in_sklad}"/>
+                <DataGridTextColumn Header="В наличии" Binding="{Binding total_stock}"/>
+                <DataGridTextColumn Header="В пути" Binding="{Binding coming_stock}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

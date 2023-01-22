@@ -42,8 +42,8 @@ namespace Client.Pages.Sklad
         public async Task GetPrihod()
         {
             TovaryList = HttpRequests<ObservableCollection<Product>>.GetRequest("api/Tovary", TovaryList);
-            Prihod = await HttpRequests<Sklad_prihod>.GetRequestAsync("api/Sklad_prihod/" + Kod_zap, Prihod);
-            foreach(Sklad_prihod_tov tov in Prihod.Sklad_prihod_tov) tov.Sklad_prihod = Prihod;
+            Prihod = await HttpRequests<Sklad_prihod>.GetRequestAsync("api/Sklad_prihods/" + Kod_zap, Prihod);
+            foreach(Sklad_prihod_prods tov in Prihod.Sklad_prihod_tov) tov.Sklad_prihod = Prihod;
         }
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
@@ -54,16 +54,16 @@ namespace Client.Pages.Sklad
 
         private void ToolBarControl_AddClick(object sender, RoutedEventArgs e)
         {
-            Prihod.Sklad_prihod_tov.Add(new Sklad_prihod_tov() { Kod_prihoda = Kod_zap });
+            Prihod.Sklad_prihod_tov.Add(new Sklad_prihod_prods() { PrihodID = Kod_zap });
         }
 
         private async void ToolBarControl_SaveClick(object sender, RoutedEventArgs e)
         {
             IsLoaded = false;
-            foreach (Sklad_prihod_tov tov in Prihod.Sklad_prihod_tov) tov.Sklad_prihod = null;
+            foreach (Sklad_prihod_prods tov in Prihod.Sklad_prihod_tov) tov.Sklad_prihod = null;
             try
             {
-                await HttpRequests<Sklad_prihod>.PutRequest("api/Sklad_prihod/" + Prihod.Kod_zap, Prihod);
+                await HttpRequests<Sklad_prihod>.PutRequest("api/Sklad_prihods/" + Prihod.ID, Prihod);
             }
             catch (Exception ex)
             {
@@ -77,11 +77,11 @@ namespace Client.Pages.Sklad
         {
             if (datagridTovars.CurrentItem != null)
             {
-                if (datagridTovars.CurrentItem is Sklad_prihod_tov)
+                if (datagridTovars.CurrentItem is Sklad_prihod_prods)
                 {
                     try
                     {
-                        await HttpRequests<Sklad_prihod_tov>.DeleteRequest("api/Sklad_prihod/Tov?id=" + (datagridTovars.CurrentItem as Sklad_prihod_tov).Kod_zap);
+                        await HttpRequests<Sklad_prihod_prods>.DeleteRequest("api/Sklad_prihods/Tov?id=" + (datagridTovars.CurrentItem as Sklad_prihod_prods).ID);
                     }
                     catch (Exception ex)
                     {
@@ -116,8 +116,8 @@ namespace Client.Pages.Sklad
         {
             if (Global.Kod_Tov != 0 && datagridTovars.SelectedItem != null)
             {
-                (datagridTovars.SelectedItem as Sklad_prihod_tov).Kod_tovara = Convert.ToInt32(Global.Kod_Tov);
-                (datagridTovars.SelectedItem as Sklad_prihod_tov).Tovar = Global.SelectedTovar;
+                (datagridTovars.SelectedItem as Sklad_prihod_prods).ProductID = Convert.ToInt32(Global.Kod_Tov);
+                (datagridTovars.SelectedItem as Sklad_prihod_prods).Tovar = Global.SelectedTovar;
             }
         }
     }

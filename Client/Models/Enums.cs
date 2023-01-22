@@ -12,18 +12,17 @@ namespace Client.Models
 {
     public class Enums
     {
-        private static ObservableCollection<Spr_oplat_sklad> _spr_Oplat_Sklad;
+        private static ObservableCollection<Type_oplaty> _spr_Oplat_Sklad;
         private static ObservableCollection<Spr_period_filtr> _spr_Periods_Filter;
-        private static ObservableCollection<Karta> _spr_karty;
         private static ObservableCollection<Category> _spr_category;
         private static ObservableCollection<int> _rashodyYears;
         private static ObservableCollection<User> _users;
 
-        public static ObservableCollection<Spr_oplat_sklad> Spr_Oplat_Sklad
+        public static ObservableCollection<Type_oplaty> Spr_Oplat_Sklad
         {
             get
             {
-                return _spr_Oplat_Sklad = GetEnum<ObservableCollection<Spr_oplat_sklad>>.Get("api/Enum/Oplaty", _spr_Oplat_Sklad);
+                return _spr_Oplat_Sklad = GetEnum<ObservableCollection<Type_oplaty>>.Get("api/Enum/Oplaty", _spr_Oplat_Sklad);
             }
         }
 
@@ -32,14 +31,6 @@ namespace Client.Models
             get
             {
                 return _spr_Periods_Filter = GetEnum<ObservableCollection<Spr_period_filtr>>.Get("api/Enum/Periods", _spr_Periods_Filter);
-            }
-        }
-
-        public static ObservableCollection<Karta> Spr_karty
-        {
-            get
-            {
-                return _spr_karty = GetEnum<ObservableCollection<Karta>>.Get("api/Enum/Karty", _spr_karty);
             }
         }
 

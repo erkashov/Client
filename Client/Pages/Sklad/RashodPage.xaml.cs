@@ -58,7 +58,7 @@ namespace Client.Pages.Sklad
             IsLoaded = false;
             try
             {
-                await HttpRequests<Sklad_rashod>.PutRequest("api/Sklad_rashod/" + ViewModel.Rashod.Kod_zap, ViewModel.Rashod);
+                await HttpRequests<Sklad_rashod>.PutRequest("api/Sklad_rashod/" + ViewModel.Rashod.ID, ViewModel.Rashod);
             }
             catch (Exception ex)
             {
@@ -72,11 +72,11 @@ namespace Client.Pages.Sklad
         {
             if(datagridRashods.CurrentItem != null)
             {
-                if(datagridRashods.CurrentItem is Sklad_rashod_tov)
+                if(datagridRashods.CurrentItem is Sklad_rashod_prods)
                 {
                     try
                     {
-                        await HttpRequests<Sklad_rashod_tov>.DeleteRequest("api/Sklad_rashod/Tov?id=" + (int)((datagridRashods.CurrentItem as Sklad_rashod_tov).Kod_zap));
+                        await HttpRequests<Sklad_rashod_prods>.DeleteRequest("api/Sklad_rashod/Tov?id=" + (int)((datagridRashods.CurrentItem as Sklad_rashod_prods).ID));
                     }
                     catch (Exception ex)
                     {
@@ -103,8 +103,8 @@ namespace Client.Pages.Sklad
         {
             if (Global.Kod_Tov != 0 && SelectedItem != null)
             {
-                ViewModel.Rashod.Sklad_rashod_tov.Where(p=>p.Kod_zap ==  (SelectedItem as Sklad_rashod_tov).Kod_zap).FirstOrDefault().Kod_tovara = Convert.ToInt32(Global.Kod_Tov);
-                ViewModel.Rashod.Sklad_rashod_tov.Where(p=>p.Kod_zap ==  (SelectedItem as Sklad_rashod_tov).Kod_zap).FirstOrDefault().Tovar = Global.SelectedTovar;
+                ViewModel.Rashod.Sklad_rashod_tov.Where(p=>p.ID ==  (SelectedItem as Sklad_rashod_prods).ID).FirstOrDefault().ProductID = Convert.ToInt32(Global.Kod_Tov);
+                ViewModel.Rashod.Sklad_rashod_tov.Where(p=>p.ID ==  (SelectedItem as Sklad_rashod_prods).ID).FirstOrDefault().Tovar = Global.SelectedTovar;
                 SelectedItem = null;
             } 
         }
@@ -117,7 +117,7 @@ namespace Client.Pages.Sklad
                 {
                     if(datagridRashods.CurrentItem != null)
                     {
-                        await (datagridRashods.CurrentItem as Sklad_rashod_tov).UpdateZena();
+                        await (datagridRashods.CurrentItem as Sklad_rashod_prods).UpdateZena();
                     }
                 }
             }
@@ -140,7 +140,7 @@ namespace Client.Pages.Sklad
         private async void print_file(string format)
         {
             string path = "";
-            path = await HttpRequests<string>.GetRequestAsync($"api/Sklad_rashod/File?id={ViewModel.Rashod.Kod_zap}&format={format}&printZeny=true&printBeznal=true", path);
+            path = await HttpRequests<string>.GetRequestAsync($"api/Sklad_rashod/File?id={ViewModel.Rashod.ID}&format={format}&printZeny=true&printBeznal=true", path);
             if(path != "")
             {
                 Process.Start(path);

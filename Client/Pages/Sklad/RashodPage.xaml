@@ -47,7 +47,7 @@
                 <ComboBox x:Name="OplataCB" IsEditable="False" MinWidth="60"  Width="200"
                           hc:InfoElement.Title="Оплата" hc:InfoElement.ContentHeight="40" Padding="0"
                           ItemsSource="{Binding Spr_Oplat_Sklad}" DisplayMemberPath="naim" SelectedValuePath="kod_zap" 
-                          SelectedValue="{Binding Rashod.Oplata}"/>
+                          SelectedValue="{Binding Rashod.Type_oplatyID}"/>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding Rashod.ShetVisibility}">
                     <TextBlock VerticalAlignment="Center">Счет №</TextBlock>
                     <TextBox x:Name="ShetTB" Text="{Binding Rashod.Sheta.nom_shet}" Grid.Row="2" Grid.Column="1" Margin="5" Grid.RowSpan="2" MinHeight="20" MinWidth="50"/>
@@ -70,15 +70,13 @@
                 </hc:TextBox.Text>
             </hc:TextBox>
 
-            <CheckBox Content="Товар оплачен" IsChecked="{Binding Rashod.Is_tov_opl}" Grid.Row="5" Grid.Column="3" Height="28"/>
-            <CheckBox Content="Передано в распил" IsChecked="{Binding Rashod.Na_raspile}" Grid.Row="5" Grid.Column="4" Height="28"/>
-            <CheckBox Content="Распилено" IsChecked="{Binding Rashod.Raspileno}" Grid.Row="5" Grid.Column="5" Height="28"/>
+            <CheckBox Content="Товар оплачен" IsChecked="{Binding Rashod.Oplacheno}" Grid.Row="5" Grid.Column="3" Height="28"/>
             <CheckBox Content="Отгружено" IsChecked="{Binding Rashod.Otgruzheno}" Grid.Row="5" Grid.Column="6" Height="28"/>
 
             <ComboBox IsEditable="False" Grid.Column="6" Grid.Row="1"
                           hc:InfoElement.Title="Отпустил"
                           ItemsSource="{Binding Users}" DisplayMemberPath="Surname" SelectedValuePath="Id" 
-                          SelectedValue="{Binding Rashod.Id_polz}"/>
+                          SelectedValue="{Binding Rashod.UserID}"/>
             
             <usercontrols:ToolBarControl Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" AddClick="AddBN_Click" SaveClick="SaveBN_Click" DeleteClick="ToolBarControl_DeleteClick" UpdateClick="ToolBarControl_UpdateClick" HorizontalAlignment="Left" />
         </Grid>
@@ -95,10 +93,8 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Binding="{Binding Count, StringFormat=\{0:N0\}}" Header="Кол-во" x:Name="count"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Zena}" Header="Цена" x:Name="zena"/>
+                <DataGridTextColumn Binding="{Binding Price}" Header="Цена" x:Name="zena"/>
                 <DataGridTextColumn Binding="{Binding Summa}" Header="Сумма" x:Name="summa" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Nom_prih}" Header="Приход" x:Name="prih"/>
-                <DataGridTextColumn Binding="{Binding Pribyl}" Header="Прибыль" x:Name="pribyl"/>
             </DataGrid.Columns>
         </DataGrid>
 
@@ -111,35 +107,12 @@
                 <ColumnDefinition Width="400"></ColumnDefinition>
                 <ColumnDefinition Width="300"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <GroupBox Header="Доставки" Grid.Column="0">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50"></RowDefinition>
-                        <RowDefinition Height="50"></RowDefinition>
-                        <RowDefinition Height="50"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <TextBlock FontSize="15">
-                        <Run Text="Всего доставок"/>
-                        <Run Text="{Binding Rashod.CountDost, FallbackValue=0, TargetNullValue=0, Mode=OneWay}"/>
-                        <LineBreak/>
-                        <Run Text="На сумму"/>
-                        <Run Text="{Binding Rashod.SummaDost, FallbackValue=0, TargetNullValue=0, Mode=OneWay}"/>
-                    </TextBlock>
-                    <Button x:Name="btnOpenDost" Content="Открыть" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1"/>
-                </Grid>
-            </GroupBox>
+            
             <StackPanel Grid.Column="1" hc:TitleElement.TitleWidth="80">
-                <TextBox Grid.Row="0" Grid.Column="1" hc:InfoElement.Title="Вес" Text="{Binding Rashod.Weight, TargetNullValue=0}"/>
-                <TextBox Grid.Row="1" Grid.Column="1" hc:InfoElement.Title="Объем" Text="{Binding Rashod.Volume, TargetNullValue=0}"/>
-                <TextBox Grid.Row="2" Grid.Column="1" hc:InfoElement.Title="Пачек" Text="0"/>
+                <TextBox Grid.Row="0" Grid.Column="1" hc:InfoElement.Title="Вес" Text="{Binding Rashod.Weight, TargetNullValue=0, Mode=OneWay}" IsReadOnly="True"/>
+                <TextBox Grid.Row="1" Grid.Column="1" hc:InfoElement.Title="Объем" Text="{Binding Rashod.Volume, TargetNullValue=0, Mode=OneWay}" IsReadOnly="True"/>
+                <TextBox Grid.Row="2" Grid.Column="1" hc:InfoElement.Title="Пачек" Text="0" IsReadOnly="True"/>
             </StackPanel>
-
-            <UniformGrid Columns="2" Rows="2" Grid.Column="4" hc:TitleElement.TitleWidth="100" VerticalAlignment="Top">
-                <TextBox hc:InfoElement.Title="Сумма б/нал" Text="{Binding Rashod.Summa_beznal}"/>
-                <TextBox hc:InfoElement.Title="Сумма нал" Text="{Binding Rashod.Summa_nal}"/>
-                <TextBox hc:InfoElement.Title="Долг" Text="{Binding Rashod.Dolg}"/>
-                <TextBox hc:InfoElement.Title="Сумма карта" Text="{Binding Rashod.Summa_karta}"/>
-            </UniformGrid>
 
             <Grid Grid.Column="5">
                 <Grid.RowDefinitions>

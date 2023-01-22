@@ -46,7 +46,7 @@ namespace Client.Pages.Sklad
             IsDataLoaded = false;
             RashodyQueryParams queryParams = new RashodyQueryParams(DateStart, DateEnd, "");
 
-            Sklad_prihods = new ObservableCollection<Sklad_prihod>(await HttpPostRequests<List<Sklad_prihod>, RashodyQueryParams>.PostRequest("api/Sklad_prihod/Filter", new List<Sklad_prihod>(), queryParams));
+            Sklad_prihods = new ObservableCollection<Sklad_prihod>(await HttpPostRequests<List<Sklad_prihod>, RashodyQueryParams>.PostRequest("api/Sklad_prihods/Filter", new List<Sklad_prihod>(), queryParams));
             IsDataLoaded = true;
         }
 
@@ -65,8 +65,8 @@ namespace Client.Pages.Sklad
         private async void ToolBarControl_AddClick(object sender, RoutedEventArgs e)
         {
             Sklad_prihod prihod = new Sklad_prihod();
-            prihod.Id_polz = 1;
-            prihod = await HttpRequests<Sklad_prihod>.PostRequest("api/Sklad_prihod/", prihod);
+            prihod.UserID = 1;
+            prihod = await HttpRequests<Sklad_prihod>.PostRequest("api/Sklad_prihods/", prihod);
             Filter();
         }
 
@@ -74,7 +74,7 @@ namespace Client.Pages.Sklad
         {
             if (datagridPrihods.SelectedItem != null)
             {
-                PrihodPage rashod = new PrihodPage((datagridPrihods.SelectedItem as Sklad_prihod).Kod_zap);
+                PrihodPage rashod = new PrihodPage((datagridPrihods.SelectedItem as Sklad_prihod).ID);
                 Global.MainWin.ShowPage(new PagesContainer("Приход №" + (datagridPrihods.SelectedItem as Sklad_prihod).Nom_prih, rashod));
             }
         }
@@ -85,7 +85,7 @@ namespace Client.Pages.Sklad
             {
                 try
                 {
-                    await HttpRequests<Sklad_prihod>.PutRequest("api/Sklad_prihod/" + prihod.Kod_zap, prihod);
+                    await HttpRequests<Sklad_prihod>.PutRequest("api/Sklad_prihods/" + prihod.ID, prihod);
                 }
                 catch (Exception ex)
                 {
@@ -103,7 +103,7 @@ namespace Client.Pages.Sklad
                 {
                     try
                     {
-                        await HttpRequests<Sklad_prihod_tov>.DeleteRequest("api/Sklad_prihod/" + (datagridPrihods.CurrentItem as Sklad_prihod).Kod_zap);
+                        await HttpRequests<Sklad_prihod_prods>.DeleteRequest("api/Sklad_prihods/" + (datagridPrihods.CurrentItem as Sklad_prihod).ID);
                     }
                     catch (Exception ex)
                     {

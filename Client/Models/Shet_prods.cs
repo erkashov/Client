@@ -35,7 +35,7 @@ namespace Client.Models
         }
         public virtual Shet Sheta { get; set; }
         private Product tovar;
-        public Product Tovar { get { return tovar; } set { tovar = value; UpdateZena(); OnPropertyChanged(nameof(Tovar)); } }
+        public Product Tovar { get { return tovar; } set { tovar = value; /*UpdateZena();*/ OnPropertyChanged(nameof(Tovar)); } }
 
         public Shet_prods()
         {

@@ -16,7 +16,6 @@ namespace Client.Models
         public string short_name { get; set; }
         public Nullable<int> parentID { get; set; }
 
-        [ForeignKey("parentID")]
         public Category Parent { get; set; }
 
         public List<Category> Children

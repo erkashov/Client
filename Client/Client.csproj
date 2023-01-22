@@ -142,18 +142,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Contractor.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\Error_HTTP.cs" />
     <Compile Include="Models\MainPage.cs" />
     <Compile Include="Models\RelayCommad.cs" />
     <Compile Include="Models\Shet.cs" />
     <Compile Include="Models\Shet_prods.cs" />
-    <Compile Include="Models\Sklad\Karta.cs" />
     <Compile Include="Models\Sklad\RashodyQueryParams.cs" />
     <Compile Include="Models\Sklad\Sklad_prihod.cs" />
-    <Compile Include="Models\Sklad\Sklad_prihod_tov.cs" />
-    <Compile Include="Models\Sklad\Sklad_tov_OSTATKI.cs" />
-    <Compile Include="Models\Sklad_dostavki.cs" />
+    <Compile Include="Models\Sklad\Sklad_prihod_prods.cs" />
+    <Compile Include="Models\Sklad\Product_stock.cs" />
     <Compile Include="Models\Sklad_rashod.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\User.cs" />
@@ -276,8 +275,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Global.cs" />
-    <Compile Include="Models\Sklad_rashod_tov.cs" />
-    <Compile Include="Models\Spr_oplat_sklad.cs" />
+    <Compile Include="Models\Sklad_rashod_prods.cs" />
+    <Compile Include="Models\Type_oplaty.cs" />
     <Compile Include="Models\Spr_period_filtr.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

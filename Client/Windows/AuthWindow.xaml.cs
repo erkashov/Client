@@ -59,7 +59,8 @@ namespace Client.Windows
                 if (response.IsSuccessStatusCode)
                 {
                     Properties.Settings.Default.Token = JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result);
-                    if(Global.MainWin == null) (new MainWindow()).Show();
+                    Properties.Settings.Default.Save();
+                    if (Global.MainWin == null) (new MainWindow()).Show();
                     else Global.MainWin.Show();
                     this.Close();
                 }

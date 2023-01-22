@@ -44,7 +44,7 @@ namespace Client.Pages.Sklad
         {
             if (datagridRashods.SelectedItem != null)
             {
-                RashodPage rashod = new RashodPage((datagridRashods.SelectedItem as Sklad_rashod).Kod_zap);
+                RashodPage rashod = new RashodPage((datagridRashods.SelectedItem as Sklad_rashod).ID);
                 Global.MainWin.ShowPage(new PagesContainer("Расход №" + (datagridRashods.SelectedItem as Sklad_rashod).Nom_rash, rashod));
             }
         }
@@ -57,7 +57,7 @@ namespace Client.Pages.Sklad
                 {
                     try
                     {
-                        await HttpRequests<Sklad_rashod>.DeleteRequest("api/Sklad_rashod/" + (datagridRashods.CurrentItem as Sklad_rashod).Kod_zap);
+                        await HttpRequests<Sklad_rashod>.DeleteRequest("api/Sklad_rashod/" + (datagridRashods.CurrentItem as Sklad_rashod).ID);
                     }
                     catch (Exception ex)
                     {
@@ -81,6 +81,7 @@ namespace Client.Pages.Sklad
         private async void AddBN_Click(object sender, RoutedEventArgs e)
         {
             Sklad_rashod rashod = new Sklad_rashod();
+            //rashod.Date_sozdania = DateTime.Now;
             await HttpRequests<Sklad_rashod>.PostRequest("api/Sklad_rashod/", rashod);
             RashodyViewModel.Filter();
         }

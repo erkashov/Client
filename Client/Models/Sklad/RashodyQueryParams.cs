@@ -20,7 +20,7 @@ namespace Client.Models.Sklad
         public string Search { get; set; }
         public bool? SelectedOplachen { get; set; }
         public bool? SelectedOtgruzheno { get; set; }
-        public Spr_oplat_sklad SelectedTipOpl { get; set; }
+        public Type_oplaty SelectedTipOpl { get; set; }
         public User SelectedManager { get; set; }
         //public Tovary SearchTovar { get; set; }
 

@@ -2,10 +2,9 @@
 
 namespace Client.Models
 {
-    public class Spr_oplat_sklad
+    public class Type_oplaty
     {
-        [Key]
-        public int kod_zap { get; set; }
+        public int ID { get; set; }
         public string naim { get; set; }
     }
 }
