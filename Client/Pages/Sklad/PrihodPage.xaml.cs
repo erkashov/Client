@@ -28,6 +28,7 @@ namespace Client.Pages.Sklad
     {
         private bool IsLoaded = false;
         public ObservableCollection<Product> TovaryList { get; set; }
+        public ObservableCollection<Contractor> Contractors { get { return Enums.Contractors; } set { OnPropertyChanged(nameof(Contractors)); } }
         private Sklad_prihod _sklad_prihod;
         public Sklad_prihod Prihod { get { return _sklad_prihod; } set { _sklad_prihod = value; OnPropertyChanged(nameof(Prihod)); } }
         private int Kod_zap = 0;
@@ -116,8 +117,9 @@ namespace Client.Pages.Sklad
         {
             if (Global.Kod_Tov != 0 && datagridTovars.SelectedItem != null)
             {
-                (datagridTovars.SelectedItem as Sklad_prihod_prods).ProductID = Convert.ToInt32(Global.Kod_Tov);
+                (datagridTovars.SelectedItem as Sklad_prihod_prods).ProductID = Global.Kod_Tov;
                 (datagridTovars.SelectedItem as Sklad_prihod_prods).Tovar = Global.SelectedTovar;
+                (datagridTovars.SelectedItem as Sklad_prihod_prods).Sklad_prihod = Prihod;
             }
         }
     }

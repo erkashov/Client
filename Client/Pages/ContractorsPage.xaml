@@ -1,0 +1,55 @@
+﻿<ContentControl x:Class="Client.Pages.ContractorsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Client.Pages"
+      mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="1300"
+      xmlns:hc="https://handyorg.github.io/handycontrol" 
+                xmlns:usercontrols="clr-namespace:Client.UserControls" xmlns:viewmodels="clr-namespace:Client.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:ContractorViewModel}">
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="500"/>
+        </Grid.ColumnDefinitions>
+
+        <usercontrols:ToolBarControl AddClick="ToolBarControl_AddClick" DeleteClick="ToolBarControl_DeleteClick" SaveClick="ToolBarControl_SaveClick" UpdateClick="ToolBarControl_UpdateClick"/>
+
+        <Button Width="22" Height="22" Visibility="{Binding CloseBTNVisible}" Command="hc:ControlCommands.Close" Style="{StaticResource ButtonIcon}" Foreground="{DynamicResource PrimaryBrush}" Panel.ZIndex="99" hc:IconElement.Geometry="{StaticResource ErrorGeometry}" Padding="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,4,4,0"/>
+
+        <DataGrid ItemsSource="{Binding ContractorList}" SelectionMode="Extended" SelectedItem="{Binding SelectedContractor, Mode=TwoWay}" 
+                  AutoGenerateColumns="False" Grid.Row="1" x:Name="datagridContractors" RowHeaderWidth="70" MouseDoubleClick="datagridTovary_MouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Наим" Binding="{Binding name}" IsReadOnly="True"/>
+            </DataGrid.Columns>
+
+            <DataGrid.RowHeaderTemplate>
+                <DataTemplate>
+                    <CheckBox IsChecked="{Binding IsSelected,RelativeSource={RelativeSource AncestorType=DataGridRow}}"/>
+                </DataTemplate>
+            </DataGrid.RowHeaderTemplate>
+        </DataGrid>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" hc:InfoElement.TitleWidth="200">
+            <TextBox Text="{Binding SelectedContractor.name, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Наименование" hc:InfoElement.Necessary="True"/>
+            <TextBox Text="{Binding SelectedContractor.short_name, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Кр. наим" hc:InfoElement.Necessary="True"/>
+            <TextBox Text="{Binding SelectedContractor.INN, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="ИНН" hc:InfoElement.Necessary="True"/>
+            <TextBox Text="{Binding SelectedContractor.KPP, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="КПП" hc:InfoElement.Necessary="True"/>
+            <TextBox Text="{Binding SelectedContractor.OGRN, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="ОГРН" hc:InfoElement.Necessary="True"/>
+            <TextBox Text="{Binding SelectedContractor.ur_adres, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Юр. адрес" hc:InfoElement.Necessary="True"/>
+            <TextBox Text="{Binding SelectedContractor.rukovod, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Руководитель"/>
+            <TextBox Text="{Binding SelectedContractor.phone, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Телефон"/>
+            <TextBox Text="{Binding SelectedContractor.email, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Почта"/>
+            <TextBox Text="{Binding SelectedContractor.rashet_shet, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Расч. счет"/>
+            <TextBox Text="{Binding SelectedContractor.korr_shet, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Корр. счет"/>
+            <TextBox Text="{Binding SelectedContractor.BIK, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="БИК"/>
+
+        </StackPanel>
+
+    </Grid>
+</ContentControl>

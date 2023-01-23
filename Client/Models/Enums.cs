@@ -17,6 +17,8 @@ namespace Client.Models
         private static ObservableCollection<Category> _spr_category;
         private static ObservableCollection<int> _rashodyYears;
         private static ObservableCollection<User> _users;
+        private static ObservableCollection<Manufacture> _manufactures;
+        private static ObservableCollection<Contractor> _contractors;
 
         public static ObservableCollection<Type_oplaty> Spr_Oplat_Sklad
         {
@@ -63,6 +65,22 @@ namespace Client.Models
             get
             {
                 return _users = GetEnum<ObservableCollection<User>>.Get("api/Enum/Users", _users);
+            }
+        }
+
+        public static ObservableCollection<Manufacture> Manufactures
+        {
+            get
+            {
+                return _manufactures = GetEnum<ObservableCollection<Manufacture>>.Get("api/Manufactures", _manufactures);
+            }
+        }
+
+        public static ObservableCollection<Contractor> Contractors
+        {
+            get
+            {
+                return _contractors = GetEnum<ObservableCollection<Contractor>>.Get("api/Contractors", _contractors);
             }
         }
     }

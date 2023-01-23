@@ -53,12 +53,13 @@ namespace Client.Models
         }
 
         public Category Category { get; set; }
+        public Manufacture Manufact { get; set; }
 
         public string Naim2
         {
             get
             {
-                return $"{naim} {material} {dlina} {shir} {tol} {nazn} {sort} {dekor}";
+                return $"{naim} {material} {dlina}*{shir}*{tol} {nazn} {sort} {dekor} {Manufact?.Name}";
             }
         }
     }

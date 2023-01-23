@@ -93,6 +93,16 @@ namespace Client
         {
             ShowPage(new PagesContainer("Счета", new ShetaPage()));
         }
+
+        private void manufM_Click(object sender, RoutedEventArgs e)
+        {
+            ShowPage(new PagesContainer("Производители", new ManufacturesPage()));
+        }
+
+        private void contractorM_Click(object sender, RoutedEventArgs e)
+        {
+            ShowPage(new PagesContainer("Контрагенты", new ContractorsPage()));
+        }
     }
 
     public class PagesContainer

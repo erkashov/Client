@@ -75,7 +75,7 @@
 
             <ComboBox IsEditable="False" Grid.Column="6" Grid.Row="1"
                           hc:InfoElement.Title="Отпустил"
-                          ItemsSource="{Binding Users}" DisplayMemberPath="Surname" SelectedValuePath="Id" 
+                          ItemsSource="{Binding Users}" DisplayMemberPath="surname" SelectedValuePath="Id" 
                           SelectedValue="{Binding Rashod.UserID}"/>
             
             <usercontrols:ToolBarControl Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" AddClick="AddBN_Click" SaveClick="SaveBN_Click" DeleteClick="ToolBarControl_DeleteClick" UpdateClick="ToolBarControl_UpdateClick" HorizontalAlignment="Left" />

@@ -30,14 +30,12 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Date_prih, StringFormat=dd.MM.yyyy}" Header="Дата" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding Nom_prih}" Header="№"/>
-                <DataGridTextColumn Binding="{Binding Polz.Surname}" Header="Принял" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Polz.surname}" Header="Принял" IsReadOnly="True"/>
                 <DataGridCheckBoxColumn CanUserResize="False" Binding="{Binding Is_in_sklad}" Header="На складе"/>
                 <DataGridTextColumn Binding="{Binding Cost}" Header="Стоим без дост" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding Cost_with_dost}" Header="Стоим с дост" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Kod_poluch}" Header="Получатель" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Kod_shet}" Header="№ счета" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Kod_perevoz}" Header="Перевозчик" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Cost_dost}" Header="Сумма дост" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Contractor.short_name}" Header="Получатель" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Deliv_cost}" Header="Сумма дост" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

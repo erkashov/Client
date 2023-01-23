@@ -1,4 +1,5 @@
-﻿using Client.Models.Sklad;
+﻿using Client.Models;
+using Client.Models.Sklad;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -32,10 +33,12 @@ namespace Client.Pages.Sklad
 
         private ObservableCollection<Sklad_prihod> _sklad_prihods;
         public ObservableCollection<Sklad_prihod> Sklad_prihods { get { return _sklad_prihods; } set { _sklad_prihods = value; OnPropertyChanged(nameof(Sklad_prihods)); } }
+
         public PrihodsPage()
         {
             InitializeComponent();
-            DateEnd = DateStart = DateTime.Now;
+            DateStart = DateTime.Now.AddDays(-7);
+            DateEnd = DateTime.Now;
             IsDataLoaded = true;
             Filter();
             this.DataContext = this;

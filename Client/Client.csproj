@@ -146,6 +146,7 @@
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\Error_HTTP.cs" />
     <Compile Include="Models\MainPage.cs" />
+    <Compile Include="Models\Manufacture.cs" />
     <Compile Include="Models\RelayCommad.cs" />
     <Compile Include="Models\Shet.cs" />
     <Compile Include="Models\Shet_prods.cs" />
@@ -156,8 +157,14 @@
     <Compile Include="Models\Sklad_rashod.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Pages\ContractorsPage.xaml.cs">
+      <DependentUpon>ContractorsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\InputTextPage.xaml.cs">
       <DependentUpon>InputTextPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ManufacturesPage.xaml.cs">
+      <DependentUpon>ManufacturesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ShetaPage.xaml.cs">
       <DependentUpon>ShetaPage.xaml</DependentUpon>
@@ -195,6 +202,8 @@
     <Compile Include="UserControls\ToolBarControl.xaml.cs">
       <DependentUpon>ToolBarControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ContractorViewModel.cs" />
+    <Compile Include="ViewModels\ManufViewModel.cs" />
     <Compile Include="ViewModels\OstatkiViewModel.cs" />
     <Compile Include="ViewModels\RashodViewModel.cs" />
     <Compile Include="ViewModels\RashodyViewModel.cs" />
@@ -216,7 +225,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\ContractorsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\InputTextPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ManufacturesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

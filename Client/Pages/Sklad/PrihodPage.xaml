@@ -27,8 +27,8 @@
         </Grid.ColumnDefinitions>
 
         <TextBox Text="{Binding Prihod.Nom_prih}" Grid.Column="0" Grid.Row="0" hc:InfoElement.Title="Номер"/>
-        <ComboBox Grid.Column="1" ItemsSource="{Binding TovaryList}" DisplayMemberPath="naim" hc:InfoElement.Title="Получатель" 
-                  SelectedValue="{Binding Prihodd.kod_poluch}"/>
+        <ComboBox Grid.Column="1" ItemsSource="{Binding Contractors}" DisplayMemberPath="short_name" SelectedValuePath="ID" hc:InfoElement.Title="Получатель" 
+                  SelectedValue="{Binding Prihod.ContractorID}"/>
 
         <DatePicker Grid.Row="1" Grid.Column="0" SelectedDate="{Binding Prihod.Date_prih}" hc:InfoElement.Title="Дата"/>
         <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding Prihod.Prim, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Примечание"/>

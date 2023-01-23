@@ -16,6 +16,7 @@ namespace Client.ViewModels
         private ObservableCollection<Product> _tovaryList;
         public ObservableCollection<Product> TovaryList { get { return _tovaryList; } set { _tovaryList = value; OnPropertyChanged(nameof(TovaryList)); } }
         public ObservableCollection<Category> Categories { get { return Enums.Spr_category; } set { OnPropertyChanged(nameof(Categories)); } }
+        public ObservableCollection<Manufacture> Manufactures { get { return Enums.Manufactures; } set { OnPropertyChanged(nameof(Manufactures)); } }
         private Product _selectedTovar;
         public Product SelectedTovar { get { return _selectedTovar; }
             set { _selectedTovar = value; OnPropertyChanged(nameof(SelectedTovar)); } }

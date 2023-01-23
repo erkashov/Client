@@ -21,6 +21,7 @@ namespace Client.ViewModels
         bool IsDataLoaded = false;
         public Shet Shet { get { return _shet; } set { _shet = value; OnPropertyChanged(nameof(Shet)); } }
         public ObservableCollection<User> Users { get { return Enums.Users; } set { OnPropertyChanged(nameof(Users)); } }
+        public ObservableCollection<Contractor> Contractors { get { return Enums.Contractors; } set { OnPropertyChanged(nameof(Contractors)); } }
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {

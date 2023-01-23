@@ -42,7 +42,7 @@
 
             <usercontrols:ToolBarControl Grid.Row="5" Grid.Column="0" AddClick="AddBN_Click" SaveClick="SaveBN_Click" DeleteClick="ToolBarControl_DeleteClick" UpdateClick="ToolBarControl_UpdateClick" HorizontalAlignment="Right" Width="400"/>
 
-            <hc:ComboBox hc:InfoElement.TitlePlacement="Left"  x:Name="ManagerCB" ShowClearButton="True" Grid.Row="0" Grid.Column="3" hc:InfoElement.Title="Отпустил" IsEditable="False" SelectedItem="{Binding SelectedManager}" ItemsSource="{Binding Spr_Managers_Filter}" DisplayMemberPath="Surname"/>
+            <hc:ComboBox hc:InfoElement.TitlePlacement="Left"  x:Name="ManagerCB" ShowClearButton="True" Grid.Row="0" Grid.Column="3" hc:InfoElement.Title="Отпустил" IsEditable="False" SelectedItem="{Binding SelectedManager}" ItemsSource="{Binding Spr_Managers_Filter}" DisplayMemberPath="surname"/>
             <ComboBox x:Name="OplachenCB" Grid.Row="0" Grid.Column="4" hc:InfoElement.Title="Товар оплачен" IsEditable="False" 
                       SelectedItem="{Binding SelectedOplachen}" ItemsSource="{Binding EnumVseDaNet}"/>
 
@@ -59,7 +59,7 @@
                 <DataGridTextColumn Binding="{Binding nom_shet}" Header="№" x:Name="nom_rash" IsReadOnly="True"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding date_sheta, StringFormat=dd.MM.yyyy}" Header="Дата" x:Name="data_rash" IsReadOnly="True"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding date_oplaty, StringFormat=dd.MM.yyyy}" Header="Дата опл." x:Name="data_otgr" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Polz.Surname}" Header="Отпустил" x:Name="otgr" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Polz.surname}" Header="Отпустил" x:Name="otgr" IsReadOnly="True"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Prim}" Header="Прим" x:Name="prim"></DataGridTextColumn>
                 <DataGridCheckBoxColumn Binding="{Binding oplachen}" Header="Товар оплачен" x:Name="oplach"/>
                 <DataGridTextColumn Binding="{Binding SummaAll, StringFormat=N2}" Header="Сумма" x:Name="summa_nal" IsReadOnly="True"></DataGridTextColumn>

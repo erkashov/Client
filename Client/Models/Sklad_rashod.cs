@@ -53,6 +53,7 @@ namespace Client.Models
         private int type_oplatyID;
         public int Type_oplatyID { get { return type_oplatyID; } set { type_oplatyID = value; OnPropertyChanged(nameof(Type_oplatyID)); OnPropertyChanged(nameof(ShetVisibility)); } }
 
+        public int? customerID { get; set; }
         public double SummaAll
         {
             get { return Sklad_rashod_tov != null ? Sklad_rashod_tov.Sum(p => Math.Ceiling(p.Summa)) : 0; }
@@ -76,8 +77,9 @@ namespace Client.Models
 
         public Type_oplaty Spr_oplat_sklad { get; set; }
         public User polz;
-        public User Polz { get { return polz; } set { polz = value; OnPropertyChanged(nameof(Polz)); } } 
-        
+        public User Polz { get { return polz; } set { polz = value; OnPropertyChanged(nameof(Polz)); } }
+        private User customer;
+        public virtual User Customer { get { return customer; } set { customer = value; OnPropertyChanged(nameof(Customer)); } }
         public Sklad_rashod()
         {
         }

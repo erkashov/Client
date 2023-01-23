@@ -37,10 +37,11 @@ namespace Client.Models.Sklad
         public Nullable<int> ContractorID {  get { return this.contractorID; } set { this.contractorID = value; OnPropertyChanged(nameof(ContractorID)); } }
         
         private Nullable<bool> transport_ot_post ;
-        public Nullable<bool> Transport_ot_post { get { return this.transport_ot_post; } set { this.transport_ot_post = value; OnPropertyChanged(nameof(Transport_ot_post)); OnPropertyChanged(nameof(Cost_Dost_Enable)); UpdateZenaDost(); } }
-        public bool Cost_Dost_Enable { get { return !(Transport_ot_post != null && Transport_ot_post.Value); } }
+        public bool Transport_ot_post { get { return this.transport_ot_post.HasValue ? this.transport_ot_post.Value : false; } 
+                set { this.transport_ot_post = value; if (value) Deliv_cost = 0; OnPropertyChanged(nameof(Transport_ot_post)); OnPropertyChanged(nameof(Cost_Dost_Enable)); UpdateZenaDost(); } }
+        public bool Cost_Dost_Enable { get { return !Transport_ot_post; } }
         private Nullable<bool> is_korr ;
-        public Nullable<bool> Is_korr { get { return this.is_korr; } set { this.is_korr = value; OnPropertyChanged(nameof(Is_korr)); } }
+        public bool Is_korr { get { return this.is_korr.HasValue ? this.is_korr.Value : false; } set { this.is_korr = value; OnPropertyChanged(nameof(Is_korr)); } }
 
         private bool is_in_sklad ;
         public bool Is_in_sklad { get { return this.is_in_sklad; } set { this.is_in_sklad = value; OnPropertyChanged(nameof(Is_in_sklad)); } }
@@ -69,22 +70,15 @@ namespace Client.Models.Sklad
         public void UpdateZenaDost()
         {
             double dost = (Deliv_cost != null && Cost_Dost_Enable ? Deliv_cost.Value : 0) + (Dop_rash != null ? Dop_rash.Value : 0);
-            /*double? kub = 0;
-            foreach(Sklad_prihod_tov tov in Sklad_prihod_tov)
-            {
-                if (tov.Tovar != null) kub += tov.Tovar.dlina * tov.Tovar.shir * tov.Tovar.tol;
-            }
-            if(kub.HasValue && kub.Value > 0)*/
             double countTotal = Sklad_prihod_tov.Sum(p=>p.Count);
             double dost_1 = 0;
             if(countTotal > 0)
             {
-                dost_1 = dost / countTotal;
+                dost_1 = Math.Round(dost / countTotal, 2);
             }
             foreach(Sklad_prihod_prods tov in Sklad_prihod_tov)
             {
-                if (Cost_Dost_Enable) tov.Price_with_deliv = tov.Price + dost_1;
-                //else tov.Zena = 0;
+                if (!Is_korr) tov.Price_with_deliv = tov.Price + dost_1;
             }
         }
 
