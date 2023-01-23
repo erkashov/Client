@@ -44,7 +44,7 @@ namespace Client.Pages.Sklad
 
         private async void navControl_UpdateClick(object sender, RoutedEventArgs e)
         {
-            VM.Ostatki = await HttpRequests<ObservableCollection<Product_stock>>.GetRequestAsync($"api/Sklad_tov_OSTATKI/categ/{tabControl.Selected}", VM.Ostatki);
+            VM.Ostatki = await HttpRequests<ObservableCollection<Product_stock>>.GetRequestAsync($"Sklad_tov_OSTATKI/categ/{tabControl.Selected}", VM.Ostatki);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

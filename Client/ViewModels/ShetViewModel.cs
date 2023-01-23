@@ -14,31 +14,24 @@ using System.Windows.Media;
 
 namespace Client.ViewModels
 {
-    public class ShetViewModel : INotifyPropertyChanged
+    public class ShetViewModel : BaseViewModel
     {
         private int kod_zap;
         private Shet _shet; 
-        bool IsDataLoaded = false;
         public Shet Shet { get { return _shet; } set { _shet = value; OnPropertyChanged(nameof(Shet)); } }
         public ObservableCollection<User> Users { get { return Enums.Users; } set { OnPropertyChanged(nameof(Users)); } }
         public ObservableCollection<Contractor> Contractors { get { return Enums.Contractors; } set { OnPropertyChanged(nameof(Contractors)); } }
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
 
         public ShetViewModel(int kod_zap)
         {
             this.kod_zap = kod_zap;
-            
+            Route = "Shets/";
             Update();
         }
-        public async Task Update()
+        public override async Task Update()
         {
             IsDataLoaded = false;
-            Shet = await HttpRequests<Shet>.GetRequestAsync("api/Shets/" + kod_zap, Shet);
+            Shet = await HttpRequests<Shet>.GetRequestAsync(Route + kod_zap, Shet);
             IsDataLoaded = true;
         }
         public void AddTovar()
@@ -46,13 +39,13 @@ namespace Client.ViewModels
             if (Shet.Sheta_tov == null) Shet.Sheta_tov = new ObservableCollection<Shet_prods>();
             Shet.Sheta_tov.Add(new Shet_prods() { shetID = Shet.ID });
         }
-        public async Task Save()
+        public override async Task Save()
         {
             IsDataLoaded = false;
             foreach (Shet_prods tov in Shet.Sheta_tov) tov.Sheta = null;
             try
             {
-                await HttpRequests<Shet>.PutRequest("api/Shets/" + Shet.ID, Shet);
+                await HttpRequests<Shet>.PutRequest(Route + Shet.ID, Shet);
             }
             catch (Exception ex)
             {
@@ -62,11 +55,11 @@ namespace Client.ViewModels
             IsDataLoaded = true;
         }
 
-        public async Task DeleteTovar(int kod_zap)
+        public override async Task Delete(int kod_zap)
         {
             try
             {
-                await HttpRequests<Shet_prods>.DeleteRequest("api/Shets/Tov?id=" + kod_zap);
+                await HttpRequests<Shet_prods>.DeleteRequest(Route + "Tov?id=" + kod_zap);
             }
             catch (Exception ex)
             {

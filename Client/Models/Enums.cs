@@ -24,7 +24,7 @@ namespace Client.Models
         {
             get
             {
-                return _spr_Oplat_Sklad = GetEnum<ObservableCollection<Type_oplaty>>.Get("api/Enum/Oplaty", _spr_Oplat_Sklad);
+                return _spr_Oplat_Sklad = GetEnum<ObservableCollection<Type_oplaty>>.Get("Enum/Oplaty", _spr_Oplat_Sklad);
             }
         }
 
@@ -32,7 +32,7 @@ namespace Client.Models
         {
             get
             {
-                return _spr_Periods_Filter = GetEnum<ObservableCollection<Spr_period_filtr>>.Get("api/Enum/Periods", _spr_Periods_Filter);
+                return _spr_Periods_Filter = GetEnum<ObservableCollection<Spr_period_filtr>>.Get("Enum/Periods", _spr_Periods_Filter);
             }
         }
 
@@ -40,7 +40,7 @@ namespace Client.Models
         {
             get
             {
-               return _spr_category = GetEnum<ObservableCollection<Category>>.Get(Global.Api + "api/Enum/Category", _spr_category);
+               return _spr_category = GetEnum<ObservableCollection<Category>>.Get("Enum/Category", _spr_category);
             }
         }
 
@@ -56,7 +56,7 @@ namespace Client.Models
         {
             get
             {
-                return _rashodyYears = GetEnum<ObservableCollection<int>>.Get("api/Enum/YearsRashods", _rashodyYears);
+                return _rashodyYears = GetEnum<ObservableCollection<int>>.Get("Enum/YearsRashods", _rashodyYears);
             }
         }
 
@@ -64,7 +64,7 @@ namespace Client.Models
         {
             get
             {
-                return _users = GetEnum<ObservableCollection<User>>.Get("api/Enum/Users", _users);
+                return _users = GetEnum<ObservableCollection<User>>.Get("Enum/Users", _users);
             }
         }
 
@@ -72,7 +72,7 @@ namespace Client.Models
         {
             get
             {
-                return _manufactures = GetEnum<ObservableCollection<Manufacture>>.Get("api/Manufactures", _manufactures);
+                return _manufactures = GetEnum<ObservableCollection<Manufacture>>.Get("Manufactures", _manufactures);
             }
         }
 
@@ -80,7 +80,7 @@ namespace Client.Models
         {
             get
             {
-                return _contractors = GetEnum<ObservableCollection<Contractor>>.Get("api/Contractors", _contractors);
+                return _contractors = GetEnum<ObservableCollection<Contractor>>.Get("Contractors", _contractors);
             }
         }
     }

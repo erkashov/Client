@@ -48,15 +48,7 @@ namespace Client.Pages
             {
                 if(datagridTovary.CurrentItem is Product)
                 {
-                    try
-                    {
-                        await HttpRequests<Sklad_rashod>.DeleteRequest("api/Tovary/" + (datagridTovary.CurrentItem as Product).ID);
-                    }
-                    catch (Exception ex)
-                    {
-                        Global.ErrorLog(ex.Message);
-                    }
-                    VM.Filter();
+                    VM.Delete((datagridTovary.CurrentItem as Product).ID);
                 }
             }
         }
@@ -68,7 +60,7 @@ namespace Client.Pages
 
         private void ToolBarControl_UpdateClick(object sender, RoutedEventArgs e)
         {
-            VM.Filter();
+            VM.Update();
         }
 
         private void datagridTovary_MouseDoubleClick(object sender, MouseButtonEventArgs e)

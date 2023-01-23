@@ -42,8 +42,8 @@ namespace Client.Pages.Sklad
         }
         public async Task GetPrihod()
         {
-            TovaryList = HttpRequests<ObservableCollection<Product>>.GetRequest("api/Tovary", TovaryList);
-            Prihod = await HttpRequests<Sklad_prihod>.GetRequestAsync("api/Sklad_prihods/" + Kod_zap, Prihod);
+            TovaryList = HttpRequests<ObservableCollection<Product>>.GetRequest("Tovary", TovaryList);
+            Prihod = await HttpRequests<Sklad_prihod>.GetRequestAsync("Sklad_prihods/" + Kod_zap, Prihod);
             foreach(Sklad_prihod_prods tov in Prihod.Sklad_prihod_tov) tov.Sklad_prihod = Prihod;
         }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -64,7 +64,7 @@ namespace Client.Pages.Sklad
             foreach (Sklad_prihod_prods tov in Prihod.Sklad_prihod_tov) tov.Sklad_prihod = null;
             try
             {
-                await HttpRequests<Sklad_prihod>.PutRequest("api/Sklad_prihods/" + Prihod.ID, Prihod);
+                await HttpRequests<Sklad_prihod>.PutRequest("Sklad_prihods/" + Prihod.ID, Prihod);
             }
             catch (Exception ex)
             {
@@ -82,7 +82,7 @@ namespace Client.Pages.Sklad
                 {
                     try
                     {
-                        await HttpRequests<Sklad_prihod_prods>.DeleteRequest("api/Sklad_prihods/Tov?id=" + (datagridTovars.CurrentItem as Sklad_prihod_prods).ID);
+                        await HttpRequests<Sklad_prihod_prods>.DeleteRequest("Sklad_prihods/Tov?id=" + (datagridTovars.CurrentItem as Sklad_prihod_prods).ID);
                     }
                     catch (Exception ex)
                     {

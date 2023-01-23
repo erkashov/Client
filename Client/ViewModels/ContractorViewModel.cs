@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 namespace Client.ViewModels
 {
-    public class ContractorViewModel : INotifyPropertyChanged
+    public class ContractorViewModel : BaseViewModel
     {
         private ObservableCollection<Contractor> _contractorList;
         public ObservableCollection<Contractor> ContractorList { get { return _contractorList; } set { _contractorList = value; OnPropertyChanged(nameof(ContractorList)); } }
@@ -24,26 +24,20 @@ namespace Client.ViewModels
         public bool IsReturn { get; set; }
         public Visibility CloseBTNVisible { get; set; }
 
-        public ContractorViewModel(bool _IsReturn = false)
+        public ContractorViewModel(bool _isReturn = false)
         {
-            Filter();
-            IsReturn = true;
+            Route = "Contractors/";
+            Update();
+            IsReturn = _isReturn;
             CloseBTNVisible = IsReturn ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        public async Task Filter()
+        public override async Task Update()
         {
-            ContractorList = await HttpRequests<ObservableCollection<Contractor>>.GetRequestAsync("api/Contractors", ContractorList);
+            ContractorList = await HttpRequests<ObservableCollection<Contractor>>.GetRequestAsync(Route, ContractorList);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
-
-        public async Task Save()
+        public override async Task Save()
         {
             foreach (Contractor contr in ContractorList)
             {
@@ -54,14 +48,14 @@ namespace Client.ViewModels
                 }*/
                 try
                 {
-                    await HttpRequests<Contractor>.PutRequest("api/Contractors/" + contr.ID, contr);
+                    await HttpRequests<Contractor>.PutRequest(Route + contr.ID, contr);
                 }
                 catch (Exception ex)
                 {
                     Global.ErrorLog(ex.Message);
                 }
             }
-            Filter();
+            Update();
         }
 
         public void Add()
@@ -69,18 +63,17 @@ namespace Client.ViewModels
             ContractorList.Add(new Contractor());
         }
 
-        public async Task Delete(int id)
+        public override async Task Delete(int id)
         {
             try
             {
-                await HttpRequests<Contractor>.DeleteRequest("api/Contractors/" + id);
+                await HttpRequests<Contractor>.DeleteRequest(Route + id);
             }
             catch (Exception ex)
             {
                 Global.ErrorLog(ex.Message);
             }
-            Filter();
-
+            Update();
         }
     }
 }

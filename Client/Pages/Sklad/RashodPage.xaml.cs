@@ -29,21 +29,20 @@ namespace Client.Pages.Sklad
         public string Header { get; set; }
         public bool IsLoaded = false;
         private object SelectedItem = null;
-        public RashodPage(decimal id)
+        public RashodPage(int id)
         {
             Id = id;
             this.DataContext = ViewModel;
             Header = "Расхлод №";
             InitializeComponent();
-            GetVM();
+            GetVM(id);
             IsLoaded = true;
         }
 
-        public async void GetVM()
+        public async void GetVM(int id)
         {
             IsLoaded = false;
-            ViewModel = new RashodViewModel();
-            ViewModel.Rashod = await HttpRequests<Sklad_rashod>.GetRequestAsync("api/Sklad_rashod/" + Convert.ToInt32(Id), ViewModel.Rashod);
+            ViewModel = new RashodViewModel(id);
             this.DataContext = ViewModel;
             IsLoaded = true;
         }
@@ -55,17 +54,7 @@ namespace Client.Pages.Sklad
 
         private async void SaveBN_Click(object sender, RoutedEventArgs e)
         {
-            IsLoaded = false;
-            try
-            {
-                await HttpRequests<Sklad_rashod>.PutRequest("api/Sklad_rashod/" + ViewModel.Rashod.ID, ViewModel.Rashod);
-            }
-            catch (Exception ex)
-            {
-                Global.ErrorLog(ex.Message);
-            }
-            GetVM();
-            IsLoaded = true;
+            ViewModel.Save();
         }
 
         private async void ToolBarControl_DeleteClick(object sender, RoutedEventArgs e)
@@ -74,15 +63,7 @@ namespace Client.Pages.Sklad
             {
                 if(datagridRashods.CurrentItem is Sklad_rashod_prods)
                 {
-                    try
-                    {
-                        await HttpRequests<Sklad_rashod_prods>.DeleteRequest("api/Sklad_rashod/Tov?id=" + (int)((datagridRashods.CurrentItem as Sklad_rashod_prods).ID));
-                    }
-                    catch (Exception ex)
-                    {
-                        Global.ErrorLog(ex.Message);
-                    }
-                    GetVM();
+                    ViewModel.Delete((datagridRashods.CurrentItem as Sklad_rashod_prods).ID);
                 }
             }
         }
@@ -140,7 +121,7 @@ namespace Client.Pages.Sklad
         private async void print_file(string format)
         {
             string path = "";
-            path = await HttpRequests<string>.GetRequestAsync($"api/Sklad_rashod/File?id={ViewModel.Rashod.ID}&format={format}&printZeny=true&printBeznal=true", path);
+            path = await HttpRequests<string>.GetRequestAsync($"Sklad_rashod/File?id={ViewModel.Rashod.ID}&format={format}&printZeny=true&printBeznal=true", path);
             if(path != "")
             {
                 Process.Start(path);

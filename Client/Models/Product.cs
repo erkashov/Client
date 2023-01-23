@@ -6,20 +6,11 @@ using System.Runtime.CompilerServices;
 
 namespace Client.Models
 {
-    public partial class Product : INotifyPropertyChanged
+    public partial class Product : BaseModel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
-        
         public Product()
         {
         }
-        [Key]
-        public int ID { get; set; }
         public string naim { get; set; }
         public double dlina { get; set; }
         public double shir { get; set; }

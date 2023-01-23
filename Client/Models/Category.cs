@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace Client.Models
 {
-    public class Category
+    public class Category : BaseModel
     {
-        [Key]
-        public int ID { get; set; }
         public string name { get; set; }
         public string short_name { get; set; }
         public Nullable<int> parentID { get; set; }

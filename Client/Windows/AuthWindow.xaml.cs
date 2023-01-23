@@ -33,7 +33,7 @@ namespace Client.Windows
                 if (Global.client.BaseAddress == null)
                 {
                     Global.Api = Properties.Settings.Default.URL;
-                    Global.client.BaseAddress = new Uri(Global.Api);
+                    Global.client.BaseAddress = new Uri(Global.Api + "api/");
                     Global.client.DefaultRequestHeaders.Accept.Clear();
                     Global.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     Global.client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.Token);
@@ -55,7 +55,7 @@ namespace Client.Windows
 
             try
             {
-                HttpResponseMessage response = Global.client.GetAsync($"api/Users/Token?username={loginTB.Text}&password={passwordTB.Text}").Result;
+                HttpResponseMessage response = Global.client.GetAsync($"Users/Token?username={loginTB.Text}&password={passwordTB.Text}").Result;
                 if (response.IsSuccessStatusCode)
                 {
                     Properties.Settings.Default.Token = JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result);

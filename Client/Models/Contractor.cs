@@ -8,15 +8,8 @@ using System.Threading.Tasks;
 
 namespace Client.Models
 {
-    public class Contractor : INotifyPropertyChanged
+    public class Contractor : BaseModel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
-        public int ID { get; set; }
         public string name { get; set; }
         public string short_name { get; set; }
         public string INN { get; set; }

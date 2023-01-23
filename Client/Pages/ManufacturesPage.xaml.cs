@@ -54,7 +54,7 @@ namespace Client.Pages
 
         private void ToolBarControl_UpdateClick(object sender, RoutedEventArgs e)
         {
-            ManufVM.Filter();
+            ManufVM.Update();
         }
     }
 }

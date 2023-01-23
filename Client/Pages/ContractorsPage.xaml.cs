@@ -46,7 +46,7 @@ namespace Client.Pages
 
         private void ToolBarControl_UpdateClick(object sender, RoutedEventArgs e)
         {
-            ContractorsVM.Filter();
+            ContractorsVM.Update();
         }
 
         private void datagridTovary_MouseDoubleClick(object sender, MouseButtonEventArgs e)

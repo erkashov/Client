@@ -141,6 +141,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Contractor.cs" />
     <Compile Include="Models\Enums.cs" />
@@ -202,6 +203,7 @@
     <Compile Include="UserControls\ToolBarControl.xaml.cs">
       <DependentUpon>ToolBarControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ContractorViewModel.cs" />
     <Compile Include="ViewModels\ManufViewModel.cs" />
     <Compile Include="ViewModels\OstatkiViewModel.cs" />

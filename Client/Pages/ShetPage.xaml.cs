@@ -84,7 +84,7 @@ namespace Client.Pages
             {
                 if (datagridTovars.CurrentItem is Shet_prods)
                 {
-                    ShetVM.DeleteTovar((datagridTovars.CurrentItem as Shet_prods).ID);
+                    ShetVM.Delete((datagridTovars.CurrentItem as Shet_prods).ID);
                 }
             }
         }

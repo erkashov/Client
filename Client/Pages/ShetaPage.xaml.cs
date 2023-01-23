@@ -45,22 +45,14 @@ namespace Client.Pages
             {
                 if (datagridSheta.CurrentItem is Shet)
                 {
-                    try
-                    {
-                        await HttpRequests<Sklad_rashod>.DeleteRequest("api/Shets/" + (datagridSheta.CurrentItem as Shet).ID);
-                    }
-                    catch (Exception ex)
-                    {
-                        Global.ErrorLog(ex.Message);
-                    }
-                    ShetaVM.Filter();
+                    ShetaVM.Delete((datagridSheta.CurrentItem as Shet).ID);
                 }
             }
         }
 
         private void ToolBarControl_UpdateClick(object sender, RoutedEventArgs e)
         {
-            ShetaVM.Filter();
+            ShetaVM.Update();
         }
 
         private async void SaveBN_Click(object sender, RoutedEventArgs e)
@@ -70,9 +62,7 @@ namespace Client.Pages
 
         private async void AddBN_Click(object sender, RoutedEventArgs e)
         {
-            Shet shet = new Shet();
-            await HttpRequests<Shet>.PostRequest("api/Shets/", shet);
-            ShetaVM.Filter();
+            ShetaVM.Add();
         }
     }
 }

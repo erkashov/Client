@@ -49,7 +49,7 @@ namespace Client.Pages.Sklad
             IsDataLoaded = false;
             RashodyQueryParams queryParams = new RashodyQueryParams(DateStart, DateEnd, "");
 
-            Sklad_prihods = new ObservableCollection<Sklad_prihod>(await HttpPostRequests<List<Sklad_prihod>, RashodyQueryParams>.PostRequest("api/Sklad_prihods/Filter", new List<Sklad_prihod>(), queryParams));
+            Sklad_prihods = new ObservableCollection<Sklad_prihod>(await HttpPostRequests<List<Sklad_prihod>, RashodyQueryParams>.PostRequest("Sklad_prihods/Filter", new List<Sklad_prihod>(), queryParams));
             IsDataLoaded = true;
         }
 
@@ -69,7 +69,7 @@ namespace Client.Pages.Sklad
         {
             Sklad_prihod prihod = new Sklad_prihod();
             prihod.UserID = 1;
-            prihod = await HttpRequests<Sklad_prihod>.PostRequest("api/Sklad_prihods/", prihod);
+            prihod = await HttpRequests<Sklad_prihod>.PostRequest("Sklad_prihods/", prihod);
             Filter();
         }
 
@@ -88,7 +88,7 @@ namespace Client.Pages.Sklad
             {
                 try
                 {
-                    await HttpRequests<Sklad_prihod>.PutRequest("api/Sklad_prihods/" + prihod.ID, prihod);
+                    await HttpRequests<Sklad_prihod>.PutRequest("Sklad_prihods/" + prihod.ID, prihod);
                 }
                 catch (Exception ex)
                 {
@@ -106,7 +106,7 @@ namespace Client.Pages.Sklad
                 {
                     try
                     {
-                        await HttpRequests<Sklad_prihod_prods>.DeleteRequest("api/Sklad_prihods/" + (datagridPrihods.CurrentItem as Sklad_prihod).ID);
+                        await HttpRequests<Sklad_prihod_prods>.DeleteRequest("Sklad_prihods/" + (datagridPrihods.CurrentItem as Sklad_prihod).ID);
                     }
                     catch (Exception ex)
                     {

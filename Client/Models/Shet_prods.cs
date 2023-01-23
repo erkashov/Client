@@ -44,7 +44,7 @@ namespace Client.Models
 
         public async Task UpdateZena()
         {
-            price = await HttpRequests<double>.GetRequestAsync($"api/Zen_roznichnie/Zena?id={productID}&tipOplaty=2&count={count}", new double());
+            price = await HttpRequests<double>.GetRequestAsync($"Zen_roznichnie/Zena?id={productID}&tipOplaty=2&count={count}", new double());
         }
     }
 }

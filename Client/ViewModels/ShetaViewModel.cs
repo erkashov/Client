@@ -13,9 +13,8 @@ using System.Windows.Media;
 
 namespace Client.ViewModels
 {
-    public class ShetaViewModel : INotifyPropertyChanged
+    public class ShetaViewModel : BaseViewModel
     {
-        bool IsDataLoaded = false;
         public ObservableCollection<User> Spr_Managers_Filter { get { return Enums.Users; } set { OnPropertyChanged(nameof(Spr_Managers_Filter)); } }
         private ObservableCollection<Shet> _sheta;
         public ObservableCollection<Shet> Sheta
@@ -25,29 +24,30 @@ namespace Client.ViewModels
         }
 
         private DateTime dateStart;
-        public DateTime DateStart { get { return dateStart; } set { dateStart = value; Filter(); } }
+        public DateTime DateStart { get { return dateStart; } set { dateStart = value; Update(); } }
         private DateTime dateEnd;
-        public DateTime DateEnd { get { return dateEnd; } set { dateEnd = value; Filter(); } }
+        public DateTime DateEnd { get { return dateEnd; } set { dateEnd = value; Update(); } }
         private string search;
-        public string Search { get { return search; } set { search = value; OnPropertyChanged(nameof(Search)); Filter(); } }
+        public string Search { get { return search; } set { search = value; OnPropertyChanged(nameof(Search)); Update(); } }
 
         private User _selectedManager;
-        public User SelectedManager { get { return _selectedManager; } set { _selectedManager = value; OnPropertyChanged(nameof(SelectedManager)); Filter(); } }
+        public User SelectedManager { get { return _selectedManager; } set { _selectedManager = value; OnPropertyChanged(nameof(SelectedManager)); Update(); } }
         public List<string> EnumVseDaNet { get { return new List<string>() { "Все", "Да", "Нет" }; } }
 
         private string _selectedOplachen;
-        public string SelectedOplachen { get { return _selectedOplachen; } set { _selectedOplachen = value; OnPropertyChanged(nameof(SelectedOplachen)); Filter(); } }
+        public string SelectedOplachen { get { return _selectedOplachen; } set { _selectedOplachen = value; OnPropertyChanged(nameof(SelectedOplachen)); Update(); } }
 
         public ShetaViewModel()
         {
+            Route = "Shets/";
             DateEnd = DateStart = DateTime.Now;
             SelectedOplachen = "Все";
             Search = "";
             IsDataLoaded = true;
-            Filter();
+            Update();
         }
 
-        public async Task Filter()
+        public async override Task Update()
         {
             if (!IsDataLoaded) return;
             IsDataLoaded = false;
@@ -64,30 +64,44 @@ namespace Client.ViewModels
                     queryParams.SelectedOplachen = false;
                     break;
             }
-            Sheta = new ObservableCollection<Shet>(await HttpPostRequests<List<Shet>, RashodyQueryParams>.PostRequest("api/Shets/Filter", new List<Shet>(), queryParams));
+            Sheta = new ObservableCollection<Shet>(await HttpPostRequests<List<Shet>, RashodyQueryParams>.PostRequest(Route + "Filter", new List<Shet>(), queryParams));
             IsDataLoaded = true;
         }
-        public async Task Save()
+
+        public async override Task Save()
         {
             foreach (Shet shet in Sheta)
             {
                 try
                 {
-                    await HttpRequests<Shet>.PutRequest("api/Shets/" + Convert.ToInt32(shet.ID), shet);
+                    await HttpRequests<Shet>.PutRequest(Route + Convert.ToInt32(shet.ID), shet);
                 }
                 catch (Exception ex)
                 {
                     Global.ErrorLog(ex.Message);
                 }
             }
-            Filter();
+            Update();
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        public async override Task Delete(int id)
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            try
+            {
+                await HttpRequests<Sklad_rashod>.DeleteRequest(Route + id);
+            }
+            catch (Exception ex)
+            {
+                Global.ErrorLog(ex.Message);
+            }
+            Update();
+        }
+
+        public async Task Add()
+        {
+            Sklad_rashod rashod = new Sklad_rashod();
+            await HttpRequests<Sklad_rashod>.PostRequest(Route, rashod);
+            Update();
         }
     }
 }

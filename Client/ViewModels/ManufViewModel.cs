@@ -11,42 +11,36 @@ using System.Windows;
 
 namespace Client.ViewModels
 {
-    public class ManufViewModel : INotifyPropertyChanged
+    public class ManufViewModel : BaseViewModel
     {
         private ObservableCollection<Manufacture> _manufList;
         public ObservableCollection<Manufacture>  ManufList { get { return _manufList; } set { _manufList = value; OnPropertyChanged(nameof(ManufList)); } }
 
         public ManufViewModel()
         {
-            Filter();
+            Route = "Manufactures/";
+            Update();
         }
 
-        public async Task Filter()
+        public async override Task Update()
         {
-            ManufList = await HttpRequests<ObservableCollection<Manufacture>>.GetRequestAsync("api/Manufactures", ManufList);
+            ManufList = await HttpRequests<ObservableCollection<Manufacture>>.GetRequestAsync(Route, ManufList);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
-
-        public async Task Save()
+        public async override Task Save()
         {
             foreach (Manufacture man in ManufList)
             {
                 try
                 {
-                    await HttpRequests<Manufacture>.PutRequest("api/Manufactures/" + man.ID, man);
+                    await HttpRequests<Manufacture>.PutRequest(Route + man.ID, man);
                 }
                 catch (Exception ex)
                 {
                     Global.ErrorLog(ex.Message);
                 }
             }
-            Filter();
+            Update();
         }
 
         public void Add()
@@ -54,17 +48,17 @@ namespace Client.ViewModels
             ManufList.Add(new Manufacture());
         }
 
-        public async Task Delete(int id)
+        public async override Task Delete(int id)
         {
             try
             {
-                await HttpRequests<Manufacture>.DeleteRequest("api/Manufactures/" + id);
+                await HttpRequests<Manufacture>.DeleteRequest(Route + id);
             }
             catch (Exception ex)
             {
                 Global.ErrorLog(ex.Message);
             }
-            Filter();
+            Update();
 
         }
     }

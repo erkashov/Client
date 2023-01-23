@@ -11,7 +11,7 @@ using System.Windows;
 
 namespace Client.ViewModels
 {
-    public class TovaryViewModel : INotifyPropertyChanged
+    public class TovaryViewModel : BaseViewModel
     {
         private ObservableCollection<Product> _tovaryList;
         public ObservableCollection<Product> TovaryList { get { return _tovaryList; } set { _tovaryList = value; OnPropertyChanged(nameof(TovaryList)); } }
@@ -26,24 +26,18 @@ namespace Client.ViewModels
 
         public TovaryViewModel(bool _IsReturn = false)
         {
-            Filter();
-            IsReturn = true;
+            Route = "Tovary/";
+            Update();
+            IsReturn = _IsReturn;
             CloseBTNVisible = IsReturn ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        public async Task Filter()
+        public override async Task Update()
         {
-            TovaryList = await HttpRequests<ObservableCollection<Product>>.GetRequestAsync("api/Tovary", TovaryList);
+            TovaryList = await HttpRequests<ObservableCollection<Product>>.GetRequestAsync(Route, TovaryList);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
-
-        public async Task Save()
+        public override async Task Save()
         {
             foreach (Product tov in TovaryList)
             {
@@ -54,14 +48,27 @@ namespace Client.ViewModels
                 }
                 try
                 {
-                    await HttpRequests<Product>.PutRequest("api/Tovary/" + Convert.ToInt32(tov.ID), tov);
+                    await HttpRequests<Product>.PutRequest(Route + Convert.ToInt32(tov.ID), tov);
                 }
                 catch (Exception ex)
                 {
                     Global.ErrorLog(ex.Message);
                 }
             }
-            Filter();
+            Update();
+        }
+
+        public override async Task Delete(int id)
+        {
+            try
+            {
+                await HttpRequests<Sklad_rashod>.DeleteRequest(Route + id);
+            }
+            catch (Exception ex)
+            {
+                Global.ErrorLog(ex.Message);
+            }
+            Update();
         }
     }
 }

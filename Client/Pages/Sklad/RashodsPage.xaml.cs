@@ -55,22 +55,14 @@ namespace Client.Pages.Sklad
             {
                 if (datagridRashods.CurrentItem is Sklad_rashod)
                 {
-                    try
-                    {
-                        await HttpRequests<Sklad_rashod>.DeleteRequest("api/Sklad_rashod/" + (datagridRashods.CurrentItem as Sklad_rashod).ID);
-                    }
-                    catch (Exception ex)
-                    {
-                        Global.ErrorLog(ex.Message);
-                    }
-                    RashodyViewModel.Filter();
+                    RashodyViewModel.Delete((datagridRashods.CurrentItem as Sklad_rashod).ID);
                 }
             }
         }
 
         private void ToolBarControl_UpdateClick(object sender, RoutedEventArgs e)
         {
-            RashodyViewModel.Filter();
+            RashodyViewModel.Update();
         }
 
         private async void SaveBN_Click(object sender, RoutedEventArgs e)
@@ -80,10 +72,7 @@ namespace Client.Pages.Sklad
 
         private async void AddBN_Click(object sender, RoutedEventArgs e)
         {
-            Sklad_rashod rashod = new Sklad_rashod();
-            //rashod.Date_sozdania = DateTime.Now;
-            await HttpRequests<Sklad_rashod>.PostRequest("api/Sklad_rashod/", rashod);
-            RashodyViewModel.Filter();
+            RashodyViewModel.Add();
         }
     }
 }
