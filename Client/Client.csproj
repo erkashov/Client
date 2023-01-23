@@ -207,6 +207,8 @@
     <Compile Include="ViewModels\ContractorViewModel.cs" />
     <Compile Include="ViewModels\ManufViewModel.cs" />
     <Compile Include="ViewModels\OstatkiViewModel.cs" />
+    <Compile Include="ViewModels\PrihodsViewModel.cs" />
+    <Compile Include="ViewModels\PrihodViewModel.cs" />
     <Compile Include="ViewModels\RashodViewModel.cs" />
     <Compile Include="ViewModels\RashodyViewModel.cs" />
     <Compile Include="ViewModels\ShetaViewModel.cs" />

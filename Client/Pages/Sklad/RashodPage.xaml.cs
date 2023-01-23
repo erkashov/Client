@@ -25,14 +25,14 @@ namespace Client.Pages.Sklad
     public partial class RashodPage : ContentControl
     {
         public decimal Id { get; set; }
-        public RashodViewModel ViewModel { get; set; }
+        public RashodViewModel RashodVM { get; set; }
         public string Header { get; set; }
         public bool IsLoaded = false;
         private object SelectedItem = null;
         public RashodPage(int id)
         {
             Id = id;
-            this.DataContext = ViewModel;
+            this.DataContext = RashodVM;
             Header = "Расхлод №";
             InitializeComponent();
             GetVM(id);
@@ -42,19 +42,19 @@ namespace Client.Pages.Sklad
         public async void GetVM(int id)
         {
             IsLoaded = false;
-            ViewModel = new RashodViewModel(id);
-            this.DataContext = ViewModel;
+            RashodVM = new RashodViewModel(id);
+            this.DataContext = RashodVM;
             IsLoaded = true;
         }
 
         private async void AddBN_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.AddTovar();
+            RashodVM.AddTovar();
         }
 
         private async void SaveBN_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.Save();
+            RashodVM.Save();
         }
 
         private async void ToolBarControl_DeleteClick(object sender, RoutedEventArgs e)
@@ -63,7 +63,7 @@ namespace Client.Pages.Sklad
             {
                 if(datagridRashods.CurrentItem is Sklad_rashod_prods)
                 {
-                    ViewModel.Delete((datagridRashods.CurrentItem as Sklad_rashod_prods).ID);
+                    RashodVM.Delete((datagridRashods.CurrentItem as Sklad_rashod_prods).ID);
                 }
             }
         }
@@ -84,8 +84,8 @@ namespace Client.Pages.Sklad
         {
             if (Global.Kod_Tov != 0 && SelectedItem != null)
             {
-                ViewModel.Rashod.Sklad_rashod_tov.Where(p=>p.ID ==  (SelectedItem as Sklad_rashod_prods).ID).FirstOrDefault().ProductID = Convert.ToInt32(Global.Kod_Tov);
-                ViewModel.Rashod.Sklad_rashod_tov.Where(p=>p.ID ==  (SelectedItem as Sklad_rashod_prods).ID).FirstOrDefault().Tovar = Global.SelectedTovar;
+                RashodVM.Rashod.Sklad_rashod_tov.Where(p=>p.ID ==  (SelectedItem as Sklad_rashod_prods).ID).FirstOrDefault().ProductID = Convert.ToInt32(Global.Kod_Tov);
+                RashodVM.Rashod.Sklad_rashod_tov.Where(p=>p.ID ==  (SelectedItem as Sklad_rashod_prods).ID).FirstOrDefault().Tovar = Global.SelectedTovar;
                 SelectedItem = null;
             } 
         }
@@ -121,7 +121,7 @@ namespace Client.Pages.Sklad
         private async void print_file(string format)
         {
             string path = "";
-            path = await HttpRequests<string>.GetRequestAsync($"Sklad_rashod/File?id={ViewModel.Rashod.ID}&format={format}&printZeny=true&printBeznal=true", path);
+            path = await HttpRequests<string>.GetRequestAsync($"Sklad_rashod/File?id={RashodVM.Rashod.ID}&format={format}&printZeny=true&printBeznal=true", path);
             if(path != "")
             {
                 Process.Start(path);

@@ -20,7 +20,6 @@
         <usercontrols:ToolBarControl Grid.Row="0" AddClick="ToolBarControl_AddClick" SaveClick="ToolBarControl_SaveClick" DeleteClick="ToolBarControl_DeleteClick" UpdateClick="ToolBarControl_UpdateClick"/>
 
         <hc:SearchBar Grid.Row="0" HorizontalAlignment="Center" Width="300"/>
-        <Calendar SelectionMode="SingleRange" Grid.Row="5" x:Name="calendarFilter" SelectedDatesChanged="calendarFilter_SelectedDatesChanged"/>
 
         <DatePicker Grid.Row="1" Grid.Column="0" x:Name="datePickerStart" hc:InfoElement.Title="С" Width="200" SelectedDate="{Binding DateStart}"/>
         <DatePicker Grid.Row="2" Grid.Column="0" x:Name="datePickerEnd" hc:InfoElement.Title="По" Width="200" SelectedDate="{Binding DateEnd}"/>

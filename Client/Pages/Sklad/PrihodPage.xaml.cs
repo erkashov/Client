@@ -1,5 +1,6 @@
 ﻿using Client.Models;
 using Client.Models.Sklad;
+using Client.ViewModels;
 using HandyControl.Controls;
 using System;
 using System.Collections.Generic;
@@ -24,54 +25,24 @@ namespace Client.Pages.Sklad
     /// <summary>
     /// Логика взаимодействия для PrihodPage.xaml
     /// </summary>
-    public partial class PrihodPage : ContentControl, INotifyPropertyChanged
+    public partial class PrihodPage : ContentControl
     {
-        private bool IsLoaded = false;
-        public ObservableCollection<Product> TovaryList { get; set; }
-        public ObservableCollection<Contractor> Contractors { get { return Enums.Contractors; } set { OnPropertyChanged(nameof(Contractors)); } }
-        private Sklad_prihod _sklad_prihod;
-        public Sklad_prihod Prihod { get { return _sklad_prihod; } set { _sklad_prihod = value; OnPropertyChanged(nameof(Prihod)); } }
-        private int Kod_zap = 0;
-        public PrihodPage(int kod_zap)
+        public PrihodViewModel PrihodVM { get; set; }
+        public PrihodPage(int id)
         {
             InitializeComponent();
-            Kod_zap = kod_zap;
-            GetPrihod();
-            this.DataContext = this;
-            IsLoaded = true;
-        }
-        public async Task GetPrihod()
-        {
-            TovaryList = HttpRequests<ObservableCollection<Product>>.GetRequest("Tovary", TovaryList);
-            Prihod = await HttpRequests<Sklad_prihod>.GetRequestAsync("Sklad_prihods/" + Kod_zap, Prihod);
-            foreach(Sklad_prihod_prods tov in Prihod.Sklad_prihod_tov) tov.Sklad_prihod = Prihod;
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            PrihodVM = new PrihodViewModel(id);
+            this.DataContext = PrihodVM;
         }
 
         private void ToolBarControl_AddClick(object sender, RoutedEventArgs e)
         {
-            Prihod.Sklad_prihod_tov.Add(new Sklad_prihod_prods() { PrihodID = Kod_zap });
+            PrihodVM.Add();
         }
 
         private async void ToolBarControl_SaveClick(object sender, RoutedEventArgs e)
         {
-            IsLoaded = false;
-            foreach (Sklad_prihod_prods tov in Prihod.Sklad_prihod_tov) tov.Sklad_prihod = null;
-            try
-            {
-                await HttpRequests<Sklad_prihod>.PutRequest("Sklad_prihods/" + Prihod.ID, Prihod);
-            }
-            catch (Exception ex)
-            {
-                Global.ErrorLog(ex.Message);
-            }
-            GetPrihod();
-            IsLoaded = true;
+            PrihodVM.Save();
         }
 
         private async void ToolBarControl_DeleteClick(object sender, RoutedEventArgs e)
@@ -80,27 +51,14 @@ namespace Client.Pages.Sklad
             {
                 if (datagridTovars.CurrentItem is Sklad_prihod_prods)
                 {
-                    try
-                    {
-                        await HttpRequests<Sklad_prihod_prods>.DeleteRequest("Sklad_prihods/Tov?id=" + (datagridTovars.CurrentItem as Sklad_prihod_prods).ID);
-                    }
-                    catch (Exception ex)
-                    {
-                        Global.ErrorLog(ex.Message);
-                    }
-                    GetPrihod();
+                    PrihodVM.Delete((datagridTovars.CurrentItem as Sklad_prihod_prods).ID);
                 }
             }
         }
 
         private void ToolBarControl_UpdateClick(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void datagridTovars_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-        {
-            //if (e.Column == zenaCol || e.Column == zenadostCol || e.Column == countCol) Prihod.UpdateZenaDost();
+            PrihodVM.Update();
         }
 
         private void TovBtn_Click(object sender, RoutedEventArgs e)
@@ -119,7 +77,7 @@ namespace Client.Pages.Sklad
             {
                 (datagridTovars.SelectedItem as Sklad_prihod_prods).ProductID = Global.Kod_Tov;
                 (datagridTovars.SelectedItem as Sklad_prihod_prods).Tovar = Global.SelectedTovar;
-                (datagridTovars.SelectedItem as Sklad_prihod_prods).Sklad_prihod = Prihod;
+                (datagridTovars.SelectedItem as Sklad_prihod_prods).Sklad_prihod = PrihodVM.Prihod;
             }
         }
     }

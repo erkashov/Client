@@ -74,7 +74,7 @@ namespace Client.ViewModels
             {
                 try
                 {
-                    await HttpRequests<Shet>.PutRequest(Route + Convert.ToInt32(shet.ID), shet);
+                    await HttpRequests<Shet>.PutRequest(Route + shet.ID, shet);
                 }
                 catch (Exception ex)
                 {

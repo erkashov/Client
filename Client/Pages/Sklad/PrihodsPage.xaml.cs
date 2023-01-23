@@ -1,5 +1,6 @@
 ﻿using Client.Models;
 using Client.Models.Sklad;
+using Client.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,54 +24,19 @@ namespace Client.Pages.Sklad
     /// <summary>
     /// Логика взаимодействия для PrihodsPage.xaml
     /// </summary>
-    public partial class PrihodsPage : ContentControl, INotifyPropertyChanged
+    public partial class PrihodsPage : ContentControl
     {
-        private bool IsDataLoaded = false;
-        private DateTime dateStart;
-        public DateTime DateStart { get { return dateStart; } set { dateStart = value; Filter(); } }
-        private DateTime dateEnd;
-        public DateTime DateEnd { get { return dateEnd; } set { dateEnd = value; Filter(); } }
-
-        private ObservableCollection<Sklad_prihod> _sklad_prihods;
-        public ObservableCollection<Sklad_prihod> Sklad_prihods { get { return _sklad_prihods; } set { _sklad_prihods = value; OnPropertyChanged(nameof(Sklad_prihods)); } }
-
+        PrihodsViewModel PrihodsVM { get; set; }
         public PrihodsPage()
         {
             InitializeComponent();
-            DateStart = DateTime.Now.AddDays(-7);
-            DateEnd = DateTime.Now;
-            IsDataLoaded = true;
-            Filter();
-            this.DataContext = this;
-        }
-        public async Task Filter()
-        {
-            if (!IsDataLoaded) return;
-            IsDataLoaded = false;
-            RashodyQueryParams queryParams = new RashodyQueryParams(DateStart, DateEnd, "");
-
-            Sklad_prihods = new ObservableCollection<Sklad_prihod>(await HttpPostRequests<List<Sklad_prihod>, RashodyQueryParams>.PostRequest("Sklad_prihods/Filter", new List<Sklad_prihod>(), queryParams));
-            IsDataLoaded = true;
-        }
-
-        private void calendarFilter_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
-        {
-           if(IsDataLoaded) Filter();
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            PrihodsVM = new PrihodsViewModel();
+            this.DataContext = PrihodsVM;
         }
 
         private async void ToolBarControl_AddClick(object sender, RoutedEventArgs e)
         {
-            Sklad_prihod prihod = new Sklad_prihod();
-            prihod.UserID = 1;
-            prihod = await HttpRequests<Sklad_prihod>.PostRequest("Sklad_prihods/", prihod);
-            Filter();
+            PrihodsVM.Add();
         }
 
         private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -84,18 +50,7 @@ namespace Client.Pages.Sklad
 
         private async void ToolBarControl_SaveClick(object sender, RoutedEventArgs e)
         {
-            foreach (Sklad_prihod prihod in Sklad_prihods)
-            {
-                try
-                {
-                    await HttpRequests<Sklad_prihod>.PutRequest("Sklad_prihods/" + prihod.ID, prihod);
-                }
-                catch (Exception ex)
-                {
-                    Global.ErrorLog(ex.Message);
-                }
-            }
-            Filter();
+            PrihodsVM.Save();
         }
 
         private async void ToolBarControl_DeleteClick(object sender, RoutedEventArgs e)
@@ -104,22 +59,14 @@ namespace Client.Pages.Sklad
             {
                 if (datagridPrihods.CurrentItem is Sklad_prihod)
                 {
-                    try
-                    {
-                        await HttpRequests<Sklad_prihod_prods>.DeleteRequest("Sklad_prihods/" + (datagridPrihods.CurrentItem as Sklad_prihod).ID);
-                    }
-                    catch (Exception ex)
-                    {
-                        Global.ErrorLog(ex.Message);
-                    }
-                    Filter();
+                    PrihodsVM.Delete((datagridPrihods.CurrentItem as Sklad_prihod).ID);
                 }
             }
         }
 
         private void ToolBarControl_UpdateClick(object sender, RoutedEventArgs e)
         {
-            Filter();
+            PrihodsVM.Update();
         }
     }
 }
