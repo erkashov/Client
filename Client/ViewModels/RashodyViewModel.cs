@@ -52,7 +52,8 @@ namespace Client.ViewModels
         public RashodyViewModel()
         {
             Route = "Sklad_rashod/";
-            DateEnd = DateStart = DateTime.Now;
+            DateStart = DateTime.Now.AddDays(-7);
+            DateEnd = DateTime.Now;
             SelectedOplachen = SelectedOtgruzheno = "Все";
             Search = "";
             IsDataLoaded = true;

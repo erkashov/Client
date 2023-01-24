@@ -22,6 +22,7 @@
                 <DataGridTextColumn Header="Товар" Binding="{Binding Tovar.Naim2}"/>
                 <DataGridTextColumn Header="В наличии" Binding="{Binding total_stock}"/>
                 <DataGridTextColumn Header="В пути" Binding="{Binding coming_stock}"/>
+                <DataGridTextColumn Header="Зарезервировано" Binding="{Binding rezerved_stock}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

@@ -148,6 +148,7 @@
     <Compile Include="Models\Error_HTTP.cs" />
     <Compile Include="Models\MainPage.cs" />
     <Compile Include="Models\Manufacture.cs" />
+    <Compile Include="Models\Price.cs" />
     <Compile Include="Models\RelayCommad.cs" />
     <Compile Include="Models\Shet.cs" />
     <Compile Include="Models\Shet_prods.cs" />
@@ -166,6 +167,9 @@
     </Compile>
     <Compile Include="Pages\ManufacturesPage.xaml.cs">
       <DependentUpon>ManufacturesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PricePage.xaml.cs">
+      <DependentUpon>PricePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ShetaPage.xaml.cs">
       <DependentUpon>ShetaPage.xaml</DependentUpon>
@@ -214,6 +218,7 @@
     <Compile Include="ViewModels\ShetaViewModel.cs" />
     <Compile Include="ViewModels\ShetViewModel.cs" />
     <Compile Include="ViewModels\TovaryViewModel.cs" />
+    <Compile Include="ViewModels\ZenViewModel.cs" />
     <Compile Include="Windows\AuthWindow.xaml.cs">
       <DependentUpon>AuthWindow.xaml</DependentUpon>
     </Compile>
@@ -238,6 +243,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\ManufacturesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PricePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -50,9 +50,6 @@
             
         </Grid>
 
-
-
-
         <DataGrid x:Name="datagridRashods" AutoGenerateColumns="False" Grid.Row="1" 
                   ItemsSource="{Binding Path=Rashods, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" 
                   CanUserAddRows="False" MouseDoubleClick="datagridRashods_MoseDoubleClick" hc:DataGridAttach.ShowRowNumber="True">

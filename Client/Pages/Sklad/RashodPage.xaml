@@ -59,7 +59,7 @@
 
             <TextBox x:Name="PrimTB" Text="{Binding Rashod.Prim, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" Margin="5,5,5,5" Grid.RowSpan="2" MinHeight="20" VerticalAlignment="Stretch" TextWrapping="Wrap"/>
 
-            <TextBox Grid.Row="0" Grid.Column="4" hc:InfoElement.Title="Имя" Text="{Binding Rashod.Name_kontact_person, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Row="0" Grid.Column="4" hc:InfoElement.Title="Имя" Text="{Binding Rashod.Customer., UpdateSourceTrigger=PropertyChanged}"/>
             <hc:TextBox Grid.Row="1" Grid.Column="4" hc:InfoElement.Title="Номер">
                 <hc:TextBox.Text>
                     <Binding Path="Rashod.Second_phone" UpdateSourceTrigger="PropertyChanged">
@@ -71,10 +71,10 @@
             </hc:TextBox>
 
             <CheckBox Content="Товар оплачен" IsChecked="{Binding Rashod.Oplacheno}" Grid.Row="5" Grid.Column="3" Height="28"/>
-            <CheckBox Content="Отгружено" IsChecked="{Binding Rashod.Otgruzheno}" Grid.Row="5" Grid.Column="6" Height="28"/>
+            <CheckBox Content="Отгружено" IsChecked="{Binding Rashod.Otgruzheno}" Grid.Row="5" Grid.Column="4" Height="28"/>
 
-            <ComboBox IsEditable="False" Grid.Column="6" Grid.Row="1"
-                          hc:InfoElement.Title="Отпустил"
+            <hc:ComboBox IsEditable="False" Grid.Column="6" Grid.Row="1"
+                          hc:InfoElement.Title="Отпустил" ShowClearButton="True" 
                           ItemsSource="{Binding Users}" DisplayMemberPath="surname" SelectedValuePath="Id" 
                           SelectedValue="{Binding Rashod.UserID}"/>
             
@@ -84,7 +84,7 @@
 
         <DataGrid x:Name="datagridRashods" SelectionUnit="CellOrRowHeader" AutoGenerateColumns="False" Grid.Row="1" ItemsSource="{Binding Path=Rashod.Sklad_rashod_tov, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" CanUserAddRows="False" CellEditEnding="datagridRashods_CellEditEnding">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Tovar.Naim2}" Header="Товар" x:Name="tovar" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Tovar.Naim2}" Header="Товар" Width="200" x:Name="tovar" IsReadOnly="True"></DataGridTextColumn>
                 <DataGridTemplateColumn IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -95,6 +95,7 @@
                 <DataGridTextColumn Binding="{Binding Count, StringFormat=\{0:N0\}}" Header="Кол-во" x:Name="count"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Price}" Header="Цена" x:Name="zena"/>
                 <DataGridTextColumn Binding="{Binding Summa}" Header="Сумма" x:Name="summa" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Weight}" Header="Вес" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
 
@@ -110,8 +111,8 @@
             
             <StackPanel Grid.Column="1" hc:TitleElement.TitleWidth="80">
                 <TextBox Grid.Row="0" Grid.Column="1" hc:InfoElement.Title="Вес" Text="{Binding Rashod.Weight, TargetNullValue=0, Mode=OneWay}" IsReadOnly="True"/>
-                <TextBox Grid.Row="1" Grid.Column="1" hc:InfoElement.Title="Объем" Text="{Binding Rashod.Volume, TargetNullValue=0, Mode=OneWay}" IsReadOnly="True"/>
-                <TextBox Grid.Row="2" Grid.Column="1" hc:InfoElement.Title="Пачек" Text="0" IsReadOnly="True"/>
+                <TextBox Grid.Row="1" Grid.Column="1" hc:InfoElement.Title="Объем" Text="{Binding Rashod.Volume, TargetNullValue=0, Mode=OneWay, StringFormat=N4}" IsReadOnly="True"/>
+                <TextBox Grid.Row="2" Grid.Column="1" hc:InfoElement.Title="Пачек" Text="{Binding Rashod.Pachek, TargetNullValue=0, Mode=OneWay, StringFormat=N2}" IsReadOnly="True"/>
             </StackPanel>
 
             <Grid Grid.Column="5">

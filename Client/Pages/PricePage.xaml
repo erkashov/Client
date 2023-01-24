@@ -1,0 +1,60 @@
+﻿<ContentControl x:Class="Client.Pages.PricePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Client.Pages"
+      mc:Ignorable="d"  d:DesignHeight="450" d:DesignWidth="1600"
+      xmlns:hc="https://handyorg.github.io/handycontrol" 
+      xmlns:usercontrols="clr-namespace:Client.UserControls" xmlns:viewmodels="clr-namespace:Client.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:PriceViewModel}">
+
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"></RowDefinition>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="300"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="180"></ColumnDefinition>
+                <ColumnDefinition Width="180"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <DatePicker Grid.Row="0" Grid.Column="0" x:Name="datePickerStart" hc:InfoElement.Title="С" Width="200" SelectedDate="{Binding DateStart}"/>
+            <DatePicker Grid.Row="1" Grid.Column="0" x:Name="datePickerEnd" hc:InfoElement.Title="По" Width="200" SelectedDate="{Binding DateEnd}"/>
+
+            <usercontrols:ToolBarControl Grid.Row="2" Grid.Column="0" AddClick="AddBN_Click" SaveClick="SaveBN_Click" DeleteClick="ToolBarControl_DeleteClick" UpdateClick="ToolBarControl_UpdateClick" HorizontalAlignment="Right" Width="400"/>
+        </Grid>
+
+
+
+
+        <DataGrid x:Name="datagridPrices" AutoGenerateColumns="False" Grid.Row="1" 
+                  ItemsSource="{Binding Path=PriceList, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" 
+                  CanUserAddRows="False" MouseDoubleClick="datagridPrices_MouseDoubleClick" hc:DataGridAttach.ShowRowNumber="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Tovar.Naim2}" Header="Товар" Width="250"></DataGridTextColumn>
+                <DataGridTemplateColumn IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="TovBtn" Content="..." HorizontalAlignment="Center" VerticalAlignment="Center" Click="TovBtn_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Binding="{Binding price_nal}" Header="Цена НАЛ"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding price_beznal}" Header="Цена БЕЗНАЛ"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+    </ContentControl>

@@ -49,6 +49,7 @@
             <hc:ComboBox SelectedValue="{Binding SelectedTovar.CategoryID}"  Margin="5" SelectedValuePath="ID" DisplayMemberPath="short_name" ItemsSource="{Binding Categories}" hc:InfoElement.Title="Категория"/>
             <hc:ComboBox SelectedValue="{Binding SelectedTovar.manufID}"  Margin="5" SelectedValuePath="ID" DisplayMemberPath="Name" ItemsSource="{Binding Manufactures}" hc:InfoElement.Title="Производитель"/>
             <hc:NumericUpDown Value="{Binding SelectedTovar.kol_list_v_pachke}" hc:InfoElement.Title="Кол-во листов в пачке" hc:InfoElement.Necessary="True"/>
+            <hc:NumericUpDown Value="{Binding SelectedTovar.ves_lista}" hc:InfoElement.Title="Вес листа" hc:InfoElement.Necessary="True"/>
 
         </StackPanel>
         

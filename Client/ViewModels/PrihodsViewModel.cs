@@ -18,11 +18,14 @@ namespace Client.ViewModels
         private ObservableCollection<Sklad_prihod> _sklad_prihods;
         public ObservableCollection<Sklad_prihod> Sklad_prihods { get { return _sklad_prihods; } set { _sklad_prihods = value; OnPropertyChanged(nameof(Sklad_prihods)); } }
 
+        private string search;
+        public string Search { get { return search; } set { search = value; OnPropertyChanged(nameof(Search)); Update(); } }
         public PrihodsViewModel()
         {
             Route = "Sklad_prihods/";
             DateStart = DateTime.Now.AddDays(-7);
             DateEnd = DateTime.Now;
+            Search = "";
             IsDataLoaded = true;
             Update();
         }
@@ -59,7 +62,7 @@ namespace Client.ViewModels
         {
             if (!IsDataLoaded) return;
             IsDataLoaded = false;
-            RashodyQueryParams queryParams = new RashodyQueryParams(DateStart, DateEnd, "");
+            RashodyQueryParams queryParams = new RashodyQueryParams(DateStart, DateEnd, Search);
 
             Sklad_prihods = new ObservableCollection<Sklad_prihod>(await HttpPostRequests<List<Sklad_prihod>, RashodyQueryParams>.PostRequest(Route + "Filter", new List<Sklad_prihod>(), queryParams));
             IsDataLoaded = true;
@@ -68,7 +71,6 @@ namespace Client.ViewModels
         public async Task Add()
         {
             Sklad_prihod prihod = new Sklad_prihod();
-            prihod.UserID = 1;
             prihod = await HttpRequests<Sklad_prihod>.PostRequest(Route, prihod);
             Update();
         }

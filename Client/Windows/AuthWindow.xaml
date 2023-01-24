@@ -14,7 +14,6 @@
         <TextBlock Text="Авторизация" HorizontalAlignment="Center" FontSize="20"/>
         <TextBox x:Name="loginTB" hc:InfoElement.Placeholder="Логин" Width="200"/>
         <TextBox x:Name="passwordTB" hc:InfoElement.Placeholder="Пароль" Text="admin" Width="200"/>
-        <CheckBox Content="Запомнить" IsChecked="True"/>
         <Button x:Name="authBtn" Content="Войти" Style="{StaticResource ButtonSuccess}" Padding="3" Click="authBtn_Click" Cursor="AppStarting"/>
     </StackPanel>
 </Window>

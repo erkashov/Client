@@ -103,6 +103,11 @@ namespace Client
         {
             ShowPage(new PagesContainer("Контрагенты", new ContractorsPage()));
         }
+
+        private void priceM_Click(object sender, RoutedEventArgs e)
+        {
+            ShowPage(new PagesContainer("Цены", new PricePage()));
+        }
     }
 
     public class PagesContainer

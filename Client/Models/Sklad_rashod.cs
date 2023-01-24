@@ -65,7 +65,12 @@ namespace Client.Models
         }
         public double Volume
         {
-            get { return Sklad_rashod_tov != null ? Sklad_rashod_tov.Sum(p => Math.Ceiling(p.Volume)) : 0; }
+            get { return Sklad_rashod_tov != null ? Sklad_rashod_tov.Sum(p => Math.Round(p.Volume, 4)) : 0; }
+        }
+
+        public double Pachek
+        {
+            get { return Sklad_rashod_tov != null ? Sklad_rashod_tov.Sum(p => Math.Round(p.Pachek, 2)) : 0; }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

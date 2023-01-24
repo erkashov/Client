@@ -26,6 +26,7 @@
                 <MenuItem Header="Приходы" x:Name="prihodsM" Click="prihodsM_Click"/>
                 <MenuItem Header="Расходы" x:Name="rashodsMя" Click="rashodsM_Click"/>
                 <MenuItem Header="Остатки" x:Name="ostatkiM" Click="ostatkiM_Click"/>
+                <MenuItem Header="Цены" x:Name="priceM" Click="priceM_Click"/>
             </MenuItem>
         </Menu>
 

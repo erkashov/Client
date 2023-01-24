@@ -42,13 +42,9 @@ namespace Client.Models
         public int Count
         {
             get { return count; }
-            set { count = value; OnPropertyChanged(nameof(Count)); OnPropertyChanged(nameof(Summa));}
+            set { count = value; OnPropertyChanged(nameof(Count)); OnPropertyChanged(nameof(Summa)); OnPropertyChanged(nameof(Sklad_rashod.Weight)); OnPropertyChanged(nameof(Sklad_rashod.Volume)); OnPropertyChanged(nameof(Sklad_rashod.Pachek)); OnPropertyChanged(nameof(Sklad_rashod)); }
         }
-        /*public Nullable<decimal> Count_pachek
-        {
-            get { return count_pachek is null ? 0 : (decimal)count_pachek; }
-            set { count_pachek = value; OnPropertyChanged(nameof(Count_pachek)); }
-        }*/
+
         public double Price
         {
             get { return price; }
@@ -60,7 +56,11 @@ namespace Client.Models
         }
         public double Volume
         {
-            get { return Tovar != null ? Tovar.dlina * Tovar.shir * Tovar.tol * Count : 0; }
+            get { return Tovar != null ? Tovar.dlina /1000 * Tovar.shir / 1000 * Tovar.tol / 1000 * Count : 0; }
+        }
+        public double Pachek
+        {
+            get { return Tovar != null && Tovar.kol_list_v_pachke != 0 ? (double)Count / Tovar.kol_list_v_pachke : 0; }
         }
         public async Task UpdateZena()
         {
@@ -73,8 +73,8 @@ namespace Client.Models
                 return Count * Price;
             }
         }
-
-        public virtual Sklad_rashod Sklad_rashod { get; set; }
+        private Sklad_rashod _sklad_rashod;
+        public Sklad_rashod Sklad_rashod { get { return _sklad_rashod; } set { _sklad_rashod = value; OnPropertyChanged(nameof(Sklad_rashod)); } }
 
         private Product _tovar;
         public Product Tovar { get { return _tovar; } set { _tovar = value; OnPropertyChanged(nameof(Tovar)); } }

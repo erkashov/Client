@@ -43,7 +43,7 @@
                         <Setter Property="BorderBrush" Value="Black"/>
                         <Setter Property="hc:InfoElement.TitlePlacement" Value="Left"/>
                     </Style>
-                    <Style TargetType="{x:Type hc:ComboBox}"  BasedOn="{StaticResource ComboBoxExtend}">
+                    <Style TargetType="{x:Type hc:ComboBox}"  BasedOn="{StaticResource ComboBoxPlusBaseStyle}">
                         <Setter Property="VerticalAlignment" Value="Center"/>
                         <Setter Property="HorizontalContentAlignment" Value="Left"/>
                         <Setter Property="Margin" Value="2"/>
@@ -52,6 +52,7 @@
                         <Setter Property="Padding" Value="0"/>
                         <Setter Property="BorderBrush" Value="Black"/>
                         <Setter Property="hc:InfoElement.TitlePlacement" Value="Left"/>
+                        <Setter Property="ShowClearButton" Value="True"/>
                     </Style>
                     <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource {x:Type RadioButton}}">
                         <Setter Property="VerticalAlignment" Value="Center"/>
