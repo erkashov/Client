@@ -34,9 +34,15 @@ namespace Client.Pages
             this.DataContext = ShetVM;
         }
 
-        private void datagridRashods_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        private async void datagridRashods_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            
+            if (e.Column == count)
+            {
+                if (datagridTovars.CurrentItem != null)
+                {
+                    await ShetVM.UpdateZena((datagridTovars.CurrentItem as Shet_prods).ID);
+                }
+            }
         }
 
         private void TovBtn_Click(object sender, RoutedEventArgs e)

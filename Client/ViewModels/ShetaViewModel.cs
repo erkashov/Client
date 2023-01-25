@@ -40,7 +40,8 @@ namespace Client.ViewModels
         public ShetaViewModel()
         {
             Route = "Shets/";
-            DateEnd = DateStart = DateTime.Now;
+            DateStart = DateTime.Now.AddDays(-7);
+            DateEnd = DateTime.Now;
             SelectedOplachen = "Все";
             Search = "";
             IsDataLoaded = true;

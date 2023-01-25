@@ -6,6 +6,7 @@ using Notification.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.SqlTypes;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -33,6 +34,11 @@ namespace Client
         public static void ShowNotif(string title, string Message, NotificationType type)
         {
             notificationManager.Show(title, Message, type/*, onClick: () => SomeAction()*/);
+        }
+
+        public static void ShowWarning(string message, string title = "Внимание")
+        {
+            Global.ShowNotif(title, message, NotificationType.Warning);
         }
 
         public static void ErrorLog(string message, string title = "Ошибка")
@@ -79,7 +85,7 @@ namespace Client
                 }
                 else
                 {
-                    Global.ErrorLog(response.StatusCode.ToString());
+                    Global.ErrorLog(response.StatusCode.ToString() + " " + await response.Content.ReadAsStringAsync());
                 }
             }
             catch (HttpRequestException ex)

@@ -34,6 +34,18 @@ namespace Client.ViewModels
             Shet = await HttpRequests<Shet>.GetRequestAsync(Route + kod_zap, Shet);
             IsDataLoaded = true;
         }
+
+        public async Task UpdateZena(int productID)
+        {
+            if (IsDataLoaded)
+            {
+                Shet_prods prod = Shet.Sheta_tov.Where(s => s.productID == productID).FirstOrDefault();
+                if(prod != null)
+                {
+                    prod.Price = await HttpRequests<double>.GetRequestAsync($"Zen_roznichnie/Zena?id={prod.productID}&tipOplaty=2&count={prod.Count}", prod.Price);
+                }
+            }
+        }
         public void AddTovar()
         {
             if (Shet.Sheta_tov == null) Shet.Sheta_tov = new ObservableCollection<Shet_prods>();
@@ -67,5 +79,7 @@ namespace Client.ViewModels
             }
             Update();
         }
+
+
     }
 }

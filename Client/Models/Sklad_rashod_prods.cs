@@ -64,7 +64,16 @@ namespace Client.Models
         }
         public async Task UpdateZena()
         {
-            Price = await HttpRequests<double>.GetRequestAsync($"Zen_roznichnie/Zena?id={ProductID}&tipOplaty=2&count={(int)Count}", Price);
+            Price = await HttpRequests<double>.GetRequestAsync($"Zen_roznichnie/Zena?id={ProductID}&tipOplaty={Sklad_rashod.Type_oplatyID}&count={Count}", Price);
+        }
+        public async Task CheckStock()
+        {
+            int stock = await HttpRequests<int>.GetRequestAsync($"Sklad_tov_OSTATKI/{ProductID}", new int());
+            if (stock < Count)
+            {
+                Count = stock;
+                Global.ShowWarning("Такого кол-ва нет в наличии");
+            }
         }
         public double Summa
         {

@@ -37,11 +37,19 @@ namespace Client.ViewModels
         public override async Task Update()
         {
             Rashod = await HttpRequests<Sklad_rashod>.GetRequestAsync(Route + ID, Rashod);
+            foreach(Sklad_rashod_prods prod in Rashod.Sklad_rashod_tov)
+            {
+                prod.Sklad_rashod = Rashod;
+            }
         }
 
         public override async Task Save()
         {
             IsDataLoaded = false;
+            foreach (Sklad_rashod_prods prod in Rashod.Sklad_rashod_tov)
+            {
+                prod.Sklad_rashod = null;
+            }
             try
             {
                 await HttpRequests<Sklad_rashod>.PutRequest(Route + Rashod.ID, Rashod);

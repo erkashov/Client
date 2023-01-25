@@ -98,6 +98,7 @@ namespace Client.Pages.Sklad
                 {
                     if(datagridRashods.CurrentItem != null)
                     {
+                        await (datagridRashods.CurrentItem as Sklad_rashod_prods).CheckStock();
                         await (datagridRashods.CurrentItem as Sklad_rashod_prods).UpdateZena();
                     }
                 }
@@ -131,6 +132,23 @@ namespace Client.Pages.Sklad
         private void ToolBarControl_UpdateClick(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private async void TextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                if (loginTB.Text != "")
+                {
+                    RashodVM.Rashod.Customer = await HttpRequests<User>.GetRequestAsync($"Users/" + loginTB.Text, RashodVM.Rashod.Customer);
+                    RashodVM.Rashod.customerID = RashodVM.Rashod.Customer.ID;
+                }
+                else
+                {
+                    RashodVM.Rashod.Customer = null;
+                    RashodVM.Rashod.customerID = null;
+                }
+            }
         }
     }
 }

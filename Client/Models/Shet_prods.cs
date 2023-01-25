@@ -27,7 +27,7 @@ namespace Client.Models
         private double? price { get; set; }
         public double Price
         {
-            get { return price != null ? price.Value : 0; } set { price = value; } 
+            get { return price != null ? price.Value : 0; } set { price = value; OnPropertyChanged(nameof(Price)); OnPropertyChanged(nameof(Summa)); OnPropertyChanged(nameof(Sheta.SummaAll)); } 
         }
         public double Summa
         {
@@ -35,7 +35,7 @@ namespace Client.Models
         }
         public virtual Shet Sheta { get; set; }
         private Product tovar;
-        public Product Tovar { get { return tovar; } set { tovar = value; /*UpdateZena();*/ OnPropertyChanged(nameof(Tovar)); } }
+        public Product Tovar { get { return tovar; } set { tovar = value; OnPropertyChanged(nameof(Tovar)); } }
 
         public Shet_prods()
         {
@@ -44,7 +44,7 @@ namespace Client.Models
 
         public async Task UpdateZena()
         {
-            price = await HttpRequests<double>.GetRequestAsync($"Zen_roznichnie/Zena?id={productID}&tipOplaty=2&count={count}", new double());
+            Price = await HttpRequests<double>.GetRequestAsync($"Zen_roznichnie/Zena?id={productID}&tipOplaty=2&count={count}", Price);
         }
     }
 }

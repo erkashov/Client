@@ -38,6 +38,14 @@ namespace Client.Windows
                     Global.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     Global.client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.Token);
                 }
+
+                HttpResponseMessage response = Global.client.GetAsync($"Users/CheckToken").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    if (Global.MainWin == null) (new MainWindow()).Show();
+                    else Global.MainWin.Show();
+                    this.Close();
+                }
                 ConfigHelper.Instance.SetLang("ru");
             }
             catch (Exception ex)
@@ -60,6 +68,12 @@ namespace Client.Windows
                 {
                     Properties.Settings.Default.Token = JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result);
                     Properties.Settings.Default.Save();
+
+                    Global.client = new HttpClient();
+                    Global.client.BaseAddress = new Uri(Global.Api + "api/");
+                    Global.client.DefaultRequestHeaders.Accept.Clear();
+                    Global.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    Global.client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.Token);
                     if (Global.MainWin == null) (new MainWindow()).Show();
                     else Global.MainWin.Show();
                     this.Close();

@@ -61,7 +61,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Binding="{Binding Count}" Header="Кол-во" x:Name="kol"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Count}" Header="Кол-во" x:Name="count"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Price, StringFormat=\{0:N0\}}" Header="Цена" x:Name="zena"/>
                 <DataGridTextColumn Binding="{Binding Summa, StringFormat=\{0:N0\}}" Header="Сумма" x:Name="summa" IsReadOnly="True"/>
             </DataGrid.Columns>
