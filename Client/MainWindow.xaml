@@ -28,6 +28,7 @@
                 <MenuItem Header="Остатки" x:Name="ostatkiM" Click="ostatkiM_Click"/>
                 <MenuItem Header="Цены" x:Name="priceM" Click="priceM_Click"/>
             </MenuItem>
+            <MenuItem Header="Пользователи" x:Name="usersM" Click="usersM_Click"/>
         </Menu>
 
         <hc:TabControl TabStripPlacement="Left" Grid.Row="2" ShowCloseButton="True" ItemsSource="{Binding PagesCont}"

@@ -33,7 +33,7 @@ namespace Client.Pages.Sklad
         {
             Id = id;
             this.DataContext = RashodVM;
-            Header = "Расхлод №";
+            Header = "Расход №";
             InitializeComponent();
             GetVM(id);
             IsLoaded = true;

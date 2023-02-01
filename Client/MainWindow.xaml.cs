@@ -108,6 +108,11 @@ namespace Client
         {
             ShowPage(new PagesContainer("Цены", new PricePage()));
         }
+
+        private void usersM_Click(object sender, RoutedEventArgs e)
+        {
+            ShowPage(new PagesContainer("Пользователи", new UsersPage()));
+        }
     }
 
     public class PagesContainer

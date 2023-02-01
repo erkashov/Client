@@ -1,4 +1,5 @@
-﻿using Client.Pages;
+﻿using Client.Models;
+using Client.Pages;
 using HandyControl.Controls;
 using HandyControl.Tools;
 using Newtonsoft.Json;
@@ -42,6 +43,7 @@ namespace Client.Windows
                 HttpResponseMessage response = Global.client.GetAsync($"Users/CheckToken").Result;
                 if (response.IsSuccessStatusCode)
                 {
+                    Global.CurrentUser  = JsonConvert.DeserializeObject<User>(response.Content.ReadAsStringAsync().Result);
                     if (Global.MainWin == null) (new MainWindow()).Show();
                     else Global.MainWin.Show();
                     this.Close();
@@ -74,9 +76,15 @@ namespace Client.Windows
                     Global.client.DefaultRequestHeaders.Accept.Clear();
                     Global.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     Global.client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.Token);
-                    if (Global.MainWin == null) (new MainWindow()).Show();
-                    else Global.MainWin.Show();
-                    this.Close();
+
+                    response = Global.client.GetAsync($"Users/CheckToken").Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Global.CurrentUser = JsonConvert.DeserializeObject<User>(response.Content.ReadAsStringAsync().Result);
+                        if (Global.MainWin == null) (new MainWindow()).Show();
+                        else Global.MainWin.Show();
+                        this.Close();
+                    }
                 }
                 else
                 {

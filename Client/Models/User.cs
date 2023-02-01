@@ -17,6 +17,10 @@ namespace Client.Models
         public string login { get; set; }
         public string password { get; set; }
         public string role { get; set; }
+        public string FIO
+        {
+            get { return (surname + " " + name + " " + papaname).Trim(); }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")

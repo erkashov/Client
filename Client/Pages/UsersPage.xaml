@@ -1,0 +1,52 @@
+﻿<ContentControl x:Class="Client.Pages.UsersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Client.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1300"
+      xmlns:hc="https://handyorg.github.io/handycontrol" 
+                xmlns:usercontrols="clr-namespace:Client.UserControls" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+                xmlns:viewmodels="clr-namespace:Client.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:UsersViewModel}">
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="500"/>
+            <ColumnDefinition Width="500"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+            <usercontrols:ToolBarControl HorizontalAlignment="Left" AddClick="ToolBarControl_AddClick" DeleteClick="ToolBarControl_DeleteClick" SaveClick="ToolBarControl_SaveClick" UpdateClick="ToolBarControl_UpdateClick"/>
+        </StackPanel>
+        
+        <DataGrid ItemsSource="{Binding UserList}" SelectionMode="Extended" SelectedItem="{Binding SelectedUser, Mode=TwoWay}" 
+                  AutoGenerateColumns="False" Grid.Row="1" x:Name="datagridUsers" RowHeaderWidth="70" MouseDoubleClick="datagridUsers_MouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ФИО" Binding="{Binding FIO}" IsReadOnly="True" Width="*"/>
+            </DataGrid.Columns>
+
+            <DataGrid.RowHeaderTemplate>
+                <DataTemplate>
+                    <CheckBox IsChecked="{Binding IsSelected,RelativeSource={RelativeSource AncestorType=DataGridRow}}"/>
+                </DataTemplate>
+            </DataGrid.RowHeaderTemplate>
+        </DataGrid>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" hc:InfoElement.TitleWidth="200">
+            <TextBox Text="{Binding SelectedUser.surname, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Фамилия" hc:InfoElement.Necessary="True"/>
+            <TextBox Text="{Binding SelectedUser.name, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Имя" hc:InfoElement.Necessary="True"/>
+            <TextBox Text="{Binding SelectedUser.papaname, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Отчество" hc:InfoElement.Necessary="True"/>
+            <TextBox Text="{Binding SelectedUser.login, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Логин"/>
+            <TextBox Text="{Binding SelectedUser.password, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Пароль"/>
+            <hc:ComboBox SelectedValue="{Binding SelectedUser.role}"  Margin="5" ItemsSource="{Binding Roles}" hc:InfoElement.Title="Роль"/>
+            
+        </StackPanel>
+
+    </Grid>
+    </ContentControl>

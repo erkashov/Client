@@ -28,6 +28,7 @@ namespace Client
         public static Dialog DialogWindow { get; set; }
         public static int Kod_Tov = 0;
         public static Product SelectedTovar;
+        public static User CurrentUser { get; set; }
 
         public static NotificationManager notificationManager = new NotificationManager();
 
