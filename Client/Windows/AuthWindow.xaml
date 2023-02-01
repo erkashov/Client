@@ -12,7 +12,7 @@
         <TextBox x:Name="logidnTB" hc:InfoElement.Placeholder="Логин" Width="0" MinHeight="0" Height="0" Visibility="Hidden"/>
         <Image Source="/Images/logoMasterWood.png" Width="250"/>
         <TextBlock Text="Авторизация" HorizontalAlignment="Center" FontSize="20"/>
-        <TextBox x:Name="loginTB" hc:InfoElement.Placeholder="Логин" Width="200"/>
+        <TextBox x:Name="loginTB" hc:InfoElement.Placeholder="Логин" Text="admin" Width="200"/>
         <TextBox x:Name="passwordTB" hc:InfoElement.Placeholder="Пароль" Text="admin" Width="200"/>
         <Button x:Name="authBtn" Content="Войти" Style="{StaticResource ButtonSuccess}" Padding="3" Click="authBtn_Click" Cursor="AppStarting"/>
     </StackPanel>

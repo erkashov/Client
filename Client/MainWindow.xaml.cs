@@ -48,6 +48,10 @@ namespace Client
             InitializeComponent();
             Global.MainWin = this;
             this.DataContext = this;
+            if(Global.CurrentUser.role == "manager")
+            {
+                usersM.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void rashodsM_Click(object sender, RoutedEventArgs e)

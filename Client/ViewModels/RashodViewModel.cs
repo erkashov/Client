@@ -37,9 +37,12 @@ namespace Client.ViewModels
         public override async Task Update()
         {
             Rashod = await HttpRequests<Sklad_rashod>.GetRequestAsync(Route + ID, Rashod);
-            foreach(Sklad_rashod_prods prod in Rashod.Sklad_rashod_tov)
+            if (Rashod.Sklad_rashod_tov != null)
             {
-                prod.Sklad_rashod = Rashod;
+                foreach (Sklad_rashod_prods prod in Rashod.Sklad_rashod_tov)
+                {
+                    prod.Sklad_rashod = Rashod;
+                }
             }
         }
 

@@ -33,21 +33,17 @@ namespace Client.Windows
             {
                 if (Global.client.BaseAddress == null)
                 {
-                    Global.Api = Properties.Settings.Default.URL;
-                    Global.client.BaseAddress = new Uri(Global.Api + "api/");
-                    Global.client.DefaultRequestHeaders.Accept.Clear();
-                    Global.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    Global.client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.Token);
+                    InitializeClient();
                 }
 
-                HttpResponseMessage response = Global.client.GetAsync($"Users/CheckToken").Result;
+                /*HttpResponseMessage response = Global.client.GetAsync($"Users/CheckToken").Result;
                 if (response.IsSuccessStatusCode)
                 {
                     Global.CurrentUser  = JsonConvert.DeserializeObject<User>(response.Content.ReadAsStringAsync().Result);
                     if (Global.MainWin == null) (new MainWindow()).Show();
                     else Global.MainWin.Show();
                     this.Close();
-                }
+                }*/
                 ConfigHelper.Instance.SetLang("ru");
             }
             catch (Exception ex)
@@ -55,13 +51,13 @@ namespace Client.Windows
                 Global.ErrorLog(ex.Message);
             }
             InitializeComponent();
-            loginTB.Text = Properties.Settings.Default.Login;
+            //loginTB.Text = Properties.Settings.Default.Login;
         }
 
         private void authBtn_Click(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.Login = loginTB.Text;
-            Properties.Settings.Default.Save();
+            /*Properties.Settings.Default.Login = loginTB.Text;
+            Properties.Settings.Default.Save();*/
 
             try
             {
@@ -71,16 +67,18 @@ namespace Client.Windows
                     Properties.Settings.Default.Token = JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result);
                     Properties.Settings.Default.Save();
 
-                    Global.client = new HttpClient();
-                    Global.client.BaseAddress = new Uri(Global.Api + "api/");
-                    Global.client.DefaultRequestHeaders.Accept.Clear();
-                    Global.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    Global.client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.Token);
+                    InitializeClient();
 
                     response = Global.client.GetAsync($"Users/CheckToken").Result;
                     if (response.IsSuccessStatusCode)
                     {
                         Global.CurrentUser = JsonConvert.DeserializeObject<User>(response.Content.ReadAsStringAsync().Result);
+                        if (Global.CurrentUser.role == "client")
+                        {
+                            HandyControl.Controls.MessageBox.Show("Перейдите на сайт masterwood.ru для оформления заказа");
+                            return;
+                        }
+
                         if (Global.MainWin == null) (new MainWindow()).Show();
                         else Global.MainWin.Show();
                         this.Close();
@@ -116,6 +114,15 @@ namespace Client.Windows
                 InputTextPage win = new InputTextPage();
                 Global.DialogWindow = Dialog.Show(win);
             }
+        }
+
+        private void InitializeClient()
+        {
+            Global.client = new HttpClient();
+            Global.client.BaseAddress = new Uri(Global.Api + "api/");
+            Global.client.DefaultRequestHeaders.Accept.Clear();
+            Global.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            Global.client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.Token);
         }
     }
 }

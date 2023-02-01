@@ -26,6 +26,10 @@ namespace Client.ViewModels
 
         public bool IsReturn { get; set; }
         public Visibility CloseBTNVisible { get; set; }
+        public bool IsChangeEnable
+        {
+            get { return !IsReturn && Global.CurrentUser.role == "admin"; }
+        }
 
         public TovaryViewModel(bool _IsReturn = false)
         {

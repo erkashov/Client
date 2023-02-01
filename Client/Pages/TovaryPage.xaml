@@ -21,7 +21,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" IsEnabled="{Binding IsChangeEnable}">
             <usercontrols:ToolBarControl HorizontalAlignment="Left" AddClick="ToolBarControl_AddClick" DeleteClick="ToolBarControl_DeleteClick" SaveClick="ToolBarControl_SaveClick" UpdateClick="ToolBarControl_UpdateClick"/>
             <Button x:Name="CopyBN" Padding="0" Margin="5 0" Width="35" Height="35" Click="CopyBN_Click">
                 <Border Background="#d9d9d9" CornerRadius="2" Padding="5">
@@ -29,7 +29,7 @@
                 </Border>
             </Button>
         </StackPanel>
-        <Button Width="22" Height="22" Visibility="{Binding CloseBTNVisible}" Command="hc:ControlCommands.Close" Style="{StaticResource ButtonIcon}" Foreground="{DynamicResource PrimaryBrush}" Panel.ZIndex="99" hc:IconElement.Geometry="{StaticResource ErrorGeometry}" Padding="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,4,4,0"/>
+        <Button Width="22" Grid.Column="2" Height="22" Visibility="{Binding CloseBTNVisible}" Command="hc:ControlCommands.Close" Style="{StaticResource ButtonIcon}" Foreground="{DynamicResource PrimaryBrush}" Panel.ZIndex="99" hc:IconElement.Geometry="{StaticResource ErrorGeometry}" Padding="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,4,4,0"/>
 
         <DataGrid ItemsSource="{Binding TovaryList}" SelectionMode="Extended" SelectedItem="{Binding SelectedTovar, Mode=TwoWay}" 
                   AutoGenerateColumns="False" Grid.Row="1" x:Name="datagridTovary" RowHeaderWidth="70" MouseDoubleClick="datagridTovary_MouseDoubleClick">
