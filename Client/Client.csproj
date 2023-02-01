@@ -195,6 +195,8 @@
     <Compile Include="Pages\TovaryPage.xaml.cs">
       <DependentUpon>TovaryPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\ProductRepository.cs" />
     <Compile Include="UserControls\CategoryNavControl.xaml.cs">
       <DependentUpon>CategoryNavControl.xaml</DependentUpon>
     </Compile>

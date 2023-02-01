@@ -1,4 +1,5 @@
 ﻿using Client.Models;
+using Client.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,6 +14,8 @@ namespace Client.ViewModels
 {
     public class TovaryViewModel : BaseViewModel
     {
+        SQLProductRepository ProductRepository { get; set; }
+
         private ObservableCollection<Product> _tovaryList;
         public ObservableCollection<Product> TovaryList { get { return _tovaryList; } set { _tovaryList = value; OnPropertyChanged(nameof(TovaryList)); } }
         public ObservableCollection<Category> Categories { get { return Enums.Spr_category; } set { OnPropertyChanged(nameof(Categories)); } }
@@ -27,6 +30,7 @@ namespace Client.ViewModels
         public TovaryViewModel(bool _IsReturn = false)
         {
             Route = "Tovary/";
+            ProductRepository = new SQLProductRepository(Route);
             Update();
             IsReturn = _IsReturn;
             CloseBTNVisible = IsReturn ? Visibility.Visible : Visibility.Collapsed;
@@ -34,21 +38,16 @@ namespace Client.ViewModels
 
         public override async Task Update()
         {
-            TovaryList = await HttpRequests<ObservableCollection<Product>>.GetRequestAsync(Route, TovaryList);
+            TovaryList = await ProductRepository.GetList();
         }
 
         public override async Task Save()
         {
             foreach (Product tov in TovaryList)
             {
-                if(!tov.IsValid)
-                {
-                    Global.ErrorLog($"У товара {tov.Naim2} не заполнены все необходимые поля");
-                    continue;
-                }
                 try
                 {
-                    await HttpRequests<Product>.PutRequest(Route + Convert.ToInt32(tov.ID), tov);
+                    await ProductRepository.Update(tov);
                 }
                 catch (Exception ex)
                 {
@@ -62,7 +61,7 @@ namespace Client.ViewModels
         {
             try
             {
-                await HttpRequests<Sklad_rashod>.DeleteRequest(Route + id);
+                await ProductRepository.Delete(id);
             }
             catch (Exception ex)
             {
@@ -75,7 +74,7 @@ namespace Client.ViewModels
         {
             try
             {
-                await HttpRequests<Product>.PostRequest(Route, new Product(TovaryList.Where(p => p.ID == id).FirstOrDefault()));
+                await ProductRepository.Create(new Product(TovaryList.Where(p => p.ID == id).FirstOrDefault()));
             }
             catch (Exception ex)
             {

@@ -81,7 +81,7 @@ namespace Client
                 HttpResponseMessage response = await Global.client.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
-                    responce = JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+                    return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
                 }
                 else
                 {
