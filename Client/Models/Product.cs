@@ -8,8 +8,22 @@ namespace Client.Models
 {
     public partial class Product : BaseModel
     {
-        public Product()
+        public Product() { }
+        public Product(Product product)
         {
+            this.naim = product.naim;
+            this.dlina = product.dlina;
+            this.shir = product.shir;
+            this.tol = product.tol;
+            this.nazn = product.nazn;
+            this.sort = product.sort;
+            this.dekor = product.dekor;
+            this.zvet = product.zvet;
+            this.material = product.material;
+            this.manufID = product.manufID;
+            this.ves_lista = product.ves_lista;
+            this.kol_list_v_pachke = product.kol_list_v_pachke;
+            this.CategoryID = product.CategoryID;
         }
         public string naim { get; set; }
         public double dlina { get; set; }

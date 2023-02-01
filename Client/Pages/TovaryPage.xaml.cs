@@ -44,11 +44,11 @@ namespace Client.Pages
 
         private async void ToolBarControl_DeleteClick(object sender, RoutedEventArgs e)
         {
-            if(datagridTovary.CurrentItem != null)
+            if(datagridTovary.SelectedItem != null)
             {
-                if(datagridTovary.CurrentItem is Product)
+                if(datagridTovary.SelectedItem is Product)
                 {
-                    VM.Delete((datagridTovary.CurrentItem as Product).ID);
+                    VM.Delete((datagridTovary.SelectedItem as Product).ID);
                 }
             }
         }
@@ -73,6 +73,17 @@ namespace Client.Pages
                     Global.SelectedTovar = (datagridTovary.SelectedItem as Product);
                     if (Global.DialogWindow != null) Global.DialogWindow.Close();
                     if (CloseAction != null) CloseAction();
+                }
+            }
+        }
+
+        private void CopyBN_Click(object sender, RoutedEventArgs e)
+        {
+            if (datagridTovary.SelectedItem != null)
+            {
+                if (datagridTovary.SelectedItem is Product)
+                {
+                    VM.Copy((datagridTovary.SelectedItem as Product).ID);
                 }
             }
         }

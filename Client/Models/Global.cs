@@ -195,11 +195,11 @@ namespace Client
     {
         public static T Get(string url, T e)
         {
-            if (e == null)
-            {
+            /*if (e == null)
+            {*/
 
                 e = HttpRequests<T>.GetRequest(url, e);
-            }
+            //}
             return e;
         }
 

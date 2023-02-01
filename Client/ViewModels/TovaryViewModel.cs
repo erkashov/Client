@@ -70,5 +70,21 @@ namespace Client.ViewModels
             }
             Update();
         }
+
+        public async Task Copy(int id)
+        {
+            try
+            {
+                await HttpRequests<Product>.PostRequest(Route, new Product(TovaryList.Where(p => p.ID == id).FirstOrDefault()));
+            }
+            catch (Exception ex)
+            {
+                Global.ErrorLog(ex.Message);
+            }
+            Update();/*
+            Product product = new Product(TovaryList.Where(p=>p.ID == id).FirstOrDefault());
+            product.ID = 0;
+            TovaryList.Add(product);*/
+        }
     }
 }

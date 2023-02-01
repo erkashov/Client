@@ -7,7 +7,8 @@
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1300"
       xmlns:hc="https://handyorg.github.io/handycontrol" 
-                xmlns:usercontrols="clr-namespace:Client.UserControls" xmlns:viewmodels="clr-namespace:Client.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:TovaryViewModel}">
+                xmlns:usercontrols="clr-namespace:Client.UserControls" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+                xmlns:viewmodels="clr-namespace:Client.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:TovaryViewModel}">
 
     <Grid Background="White">
         <Grid.RowDefinitions>
@@ -15,18 +16,25 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="500"/>
+            <ColumnDefinition Width="500"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <usercontrols:ToolBarControl AddClick="ToolBarControl_AddClick" DeleteClick="ToolBarControl_DeleteClick" SaveClick="ToolBarControl_SaveClick" UpdateClick="ToolBarControl_UpdateClick"/>
-
+        <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+            <usercontrols:ToolBarControl HorizontalAlignment="Left" AddClick="ToolBarControl_AddClick" DeleteClick="ToolBarControl_DeleteClick" SaveClick="ToolBarControl_SaveClick" UpdateClick="ToolBarControl_UpdateClick"/>
+            <Button x:Name="CopyBN" Padding="0" Margin="5 0" Width="35" Height="35" Click="CopyBN_Click">
+                <Border Background="#d9d9d9" CornerRadius="2" Padding="5">
+                    <materialDesign:PackIcon Kind="ContentCopy" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+            </Button>
+        </StackPanel>
         <Button Width="22" Height="22" Visibility="{Binding CloseBTNVisible}" Command="hc:ControlCommands.Close" Style="{StaticResource ButtonIcon}" Foreground="{DynamicResource PrimaryBrush}" Panel.ZIndex="99" hc:IconElement.Geometry="{StaticResource ErrorGeometry}" Padding="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,4,4,0"/>
 
         <DataGrid ItemsSource="{Binding TovaryList}" SelectionMode="Extended" SelectedItem="{Binding SelectedTovar, Mode=TwoWay}" 
                   AutoGenerateColumns="False" Grid.Row="1" x:Name="datagridTovary" RowHeaderWidth="70" MouseDoubleClick="datagridTovary_MouseDoubleClick">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Наим" Binding="{Binding Naim2}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Наим" Binding="{Binding Naim2}" IsReadOnly="True" Width="*"/>
             </DataGrid.Columns>
 
             <DataGrid.RowHeaderTemplate>

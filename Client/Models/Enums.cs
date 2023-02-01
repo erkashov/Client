@@ -72,7 +72,7 @@ namespace Client.Models
         {
             get
             {
-                return _manufactures = GetEnum<ObservableCollection<Manufacture>>.Get("Manufactures", _manufactures);
+                return HttpRequests<ObservableCollection<Manufacture>>.GetRequest("Manufactures", _manufactures);
             }
         }
 
