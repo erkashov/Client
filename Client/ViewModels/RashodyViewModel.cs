@@ -20,7 +20,7 @@ namespace Client.ViewModels
 
         public ObservableCollection<Spr_period_filtr> Spr_Periods_Filter { get { return Enums.Spr_Periods_Filter; } set { OnPropertyChanged(nameof(Spr_Periods_Filter)); } }
         
-        public ObservableCollection<User> Spr_Managers_Filter { get { return Enums.Users; } set { OnPropertyChanged(nameof(Spr_Managers_Filter)); } }
+        public ObservableCollection<User> Spr_Managers_Filter { get { return Enums.Employes; } set { OnPropertyChanged(nameof(Spr_Managers_Filter)); } }
 
 
         private ObservableCollection<Sklad_rashod> _rashods;

@@ -86,6 +86,8 @@ namespace Client.Pages.Sklad
             {
                 RashodVM.Rashod.Sklad_rashod_tov.Where(p=>p.ID ==  (SelectedItem as Sklad_rashod_prods).ID).FirstOrDefault().ProductID = Convert.ToInt32(Global.Kod_Tov);
                 RashodVM.Rashod.Sklad_rashod_tov.Where(p=>p.ID ==  (SelectedItem as Sklad_rashod_prods).ID).FirstOrDefault().Tovar = Global.SelectedTovar;
+                RashodVM.Rashod.Sklad_rashod_tov.Where(p=>p.ID ==  (SelectedItem as Sklad_rashod_prods).ID).FirstOrDefault().Sklad_rashod = RashodVM.Rashod;
+                RashodVM.Rashod.Sklad_rashod_tov.Where(p=>p.ID ==  (SelectedItem as Sklad_rashod_prods).ID).FirstOrDefault().RashodID = RashodVM.Rashod.ID;
                 SelectedItem = null;
             } 
         }
@@ -98,8 +100,15 @@ namespace Client.Pages.Sklad
                 {
                     if(datagridRashods.CurrentItem != null)
                     {
-                        await (datagridRashods.CurrentItem as Sklad_rashod_prods).CheckStock();
-                        await (datagridRashods.CurrentItem as Sklad_rashod_prods).UpdateZena();
+                        try
+                        {
+                            await (datagridRashods.CurrentItem as Sklad_rashod_prods).CheckStock();
+                            await (datagridRashods.CurrentItem as Sklad_rashod_prods).UpdateZena();
+                        }
+                        catch (Exception ex)
+                        {
+                            Global.ErrorLog(ex.ToString());
+                        }
                     }
                 }
             }

@@ -16,7 +16,7 @@ namespace Client.ViewModels
     public class RashodViewModel : BaseViewModel
     {
         public ObservableCollection<Type_oplaty> Spr_Oplat_Sklad { get { return Enums.Spr_Oplat_Sklad; } set { OnPropertyChanged(nameof(Spr_Oplat_Sklad)); } }
-        public ObservableCollection<User> Users { get { return Enums.Users; } set { OnPropertyChanged(nameof(Users)); } }
+        public ObservableCollection<User> Users { get { return Enums.Employes; } set { OnPropertyChanged(nameof(Users)); } }
 
         private Sklad_rashod _rashod;
         public Sklad_rashod Rashod { get { return _rashod; } set { _rashod = value; OnPropertyChanged(nameof(Rashod)); } }
@@ -55,14 +55,14 @@ namespace Client.ViewModels
                 {
                     prod.Sklad_rashod = null;
                 }
-                try
-                {
-                    await HttpRequests<Sklad_rashod>.PutRequest(Route + Rashod.ID, Rashod);
-                }
-                catch (Exception ex)
-                {
-                    Global.ErrorLog(ex.Message);
-                }
+            }
+            try
+            {
+                await HttpRequests<Sklad_rashod>.PutRequest(Route + Rashod.ID, Rashod);
+            }
+            catch (Exception ex)
+            {
+                Global.ErrorLog(ex.Message);
             }
             Update();
             IsDataLoaded = true;

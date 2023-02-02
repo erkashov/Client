@@ -14,8 +14,9 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="500"/>
+            <ColumnDefinition Width="500"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <usercontrols:ToolBarControl AddClick="ToolBarControl_AddClick" DeleteClick="ToolBarControl_DeleteClick" SaveClick="ToolBarControl_SaveClick" UpdateClick="ToolBarControl_UpdateClick"/>
@@ -25,7 +26,7 @@
         <DataGrid ItemsSource="{Binding ContractorList}" SelectionMode="Extended" SelectedItem="{Binding SelectedContractor, Mode=TwoWay}" 
                   AutoGenerateColumns="False" Grid.Row="1" x:Name="datagridContractors" RowHeaderWidth="70" MouseDoubleClick="datagridTovary_MouseDoubleClick">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Наим" Binding="{Binding name}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Наим" Binding="{Binding name}" IsReadOnly="True" Width="*"/>
             </DataGrid.Columns>
 
             <DataGrid.RowHeaderTemplate>
@@ -48,7 +49,6 @@
             <TextBox Text="{Binding SelectedContractor.rashet_shet, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Расч. счет"/>
             <TextBox Text="{Binding SelectedContractor.korr_shet, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Корр. счет"/>
             <TextBox Text="{Binding SelectedContractor.BIK, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="БИК"/>
-
         </StackPanel>
 
     </Grid>

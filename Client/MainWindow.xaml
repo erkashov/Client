@@ -20,6 +20,7 @@
                 <MenuItem Header="Товары" x:Name="toavryM" Click="toavryM_Click"/>
                 <MenuItem Header="Производители" x:Name="manufM" Click="manufM_Click"/>
                 <MenuItem Header="Контрагенты" x:Name="contractorM" Click="contractorM_Click"/>
+                <MenuItem Header="Категории товаров" x:Name="categoryM" Click="categoryM_Click"/>
             </MenuItem>
             <MenuItem Header="Счета" x:Name="shetaM" Click="shetaM_Click"/>
             <MenuItem Header="Склад">

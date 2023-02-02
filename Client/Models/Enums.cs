@@ -16,6 +16,7 @@ namespace Client.Models
         private static ObservableCollection<Spr_period_filtr> _spr_Periods_Filter;
         private static ObservableCollection<Category> _spr_category;
         private static ObservableCollection<int> _rashodyYears;
+        private static ObservableCollection<User> _employes;
         private static ObservableCollection<User> _users;
         private static ObservableCollection<Manufacture> _manufactures;
         private static ObservableCollection<Contractor> _contractors;
@@ -60,13 +61,21 @@ namespace Client.Models
             }
         }
 
-        public static ObservableCollection<User> Users
+        public static ObservableCollection<User> Employes
+        {
+            get
+            {
+                return _employes = GetEnum<ObservableCollection<User>>.Get("Users?isEmployee=true", _employes);
+            }
+        }
+
+       /* public static ObservableCollection<User> Users
         {
             get
             {
                 return _users = GetEnum<ObservableCollection<User>>.Get("Enum/Users", _users);
             }
-        }
+        }*/
 
         public static ObservableCollection<Manufacture> Manufactures
         {

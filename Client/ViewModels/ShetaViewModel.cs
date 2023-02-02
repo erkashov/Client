@@ -15,7 +15,7 @@ namespace Client.ViewModels
 {
     public class ShetaViewModel : BaseViewModel
     {
-        public ObservableCollection<User> Spr_Managers_Filter { get { return Enums.Users; } set { OnPropertyChanged(nameof(Spr_Managers_Filter)); } }
+        public ObservableCollection<User> Spr_Managers_Filter { get { return Enums.Employes; } set { OnPropertyChanged(nameof(Spr_Managers_Filter)); } }
         private ObservableCollection<Shet> _sheta;
         public ObservableCollection<Shet> Sheta
         {

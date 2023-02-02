@@ -117,6 +117,11 @@ namespace Client
         {
             ShowPage(new PagesContainer("Пользователи", new UsersPage()));
         }
+
+        private void categoryM_Click(object sender, RoutedEventArgs e)
+        {
+            ShowPage(new PagesContainer("Категории товаров", new CategoriesPage()));
+        }
     }
 
     public class PagesContainer

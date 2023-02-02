@@ -59,10 +59,10 @@
 
             <TextBox x:Name="PrimTB" Text="{Binding Rashod.Prim, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" Margin="5,5,5,5" Grid.RowSpan="2" MinHeight="20" VerticalAlignment="Stretch" TextWrapping="Wrap"/>
 
-            <TextBox x:Name="loginTB" Grid.Row="0" Grid.Column="4" hc:InfoElement.Title="Имя" Text="{Binding Rashod.Customer.login, UpdateSourceTrigger=PropertyChanged}" KeyDown="TextBox_KeyDown"/>
-            <hc:TextBox Grid.Row="1" Grid.Column="4" hc:InfoElement.Title="Номер" KeyDown="TextBox_KeyDown">
+            <TextBox Grid.Row="0" Grid.Column="4" hc:InfoElement.Title="Имя" Text="{Binding Rashod.Customer.FIO, Mode=OneWay}" KeyDown="TextBox_KeyDown"/>
+            <hc:TextBox x:Name="loginTB" Grid.Row="1" Grid.Column="4" hc:InfoElement.Title="Номер" KeyDown="TextBox_KeyDown">
                 <hc:TextBox.Text>
-                    <Binding Path="Rashod.Customer." UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="Rashod.Customer.login" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <hc:RegexRule Type="Phone"/>
                         </Binding.ValidationRules>

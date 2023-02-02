@@ -19,7 +19,7 @@ namespace Client.ViewModels
         private int kod_zap;
         private Shet _shet; 
         public Shet Shet { get { return _shet; } set { _shet = value; OnPropertyChanged(nameof(Shet)); } }
-        public ObservableCollection<User> Users { get { return Enums.Users; } set { OnPropertyChanged(nameof(Users)); } }
+        public ObservableCollection<User> Users { get { return Enums.Employes; } set { OnPropertyChanged(nameof(Users)); } }
         public ObservableCollection<Contractor> Contractors { get { return Enums.Contractors; } set { OnPropertyChanged(nameof(Contractors)); } }
 
         public ShetViewModel(int kod_zap)
