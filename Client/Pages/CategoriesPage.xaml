@@ -27,8 +27,8 @@
                   AutoGenerateColumns="False" Grid.Row="1" x:Name="datagridCat" RowHeaderWidth="70">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Наим" Binding="{Binding name}"/>
-                <DataGridTextColumn Header="Наим" Binding="{Binding short_name}"/>
-                <DataGridComboBoxColumn Header="Товар" ItemsSource="{Binding Source={StaticResource CategoryList}}" SelectedValuePath="ID" 
+                <DataGridTextColumn Header="Краткое наим" Binding="{Binding short_name}"/>
+                <DataGridComboBoxColumn Header="Родит. категория" ItemsSource="{Binding Source={StaticResource CategoryList}}" SelectedValuePath="ID" 
                                         SelectedValueBinding="{Binding parentID}" DisplayMemberPath="short_name"/>
 
             </DataGrid.Columns>

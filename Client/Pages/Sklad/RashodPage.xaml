@@ -46,12 +46,12 @@
             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                 <ComboBox x:Name="OplataCB" IsEditable="False" MinWidth="60"  Width="200"
                           hc:InfoElement.Title="Оплата" hc:InfoElement.ContentHeight="40" Padding="0"
-                          ItemsSource="{Binding Spr_Oplat_Sklad}" DisplayMemberPath="naim" SelectedValuePath="kod_zap" 
+                          ItemsSource="{Binding Spr_Oplat_Sklad}" DisplayMemberPath="naim" SelectedValuePath="ID" 
                           SelectedValue="{Binding Rashod.Type_oplatyID}"/>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding Rashod.ShetVisibility}">
                     <TextBlock VerticalAlignment="Center">Счет №</TextBlock>
-                    <TextBox x:Name="ShetTB" Text="{Binding Rashod.Sheta.nom_shet}" Grid.Row="2" Grid.Column="1" Margin="5" Grid.RowSpan="2" MinHeight="20" MinWidth="50"/>
-                    <TextBlock VerticalAlignment="Center" Text="{Binding Rashod.Sheta.contractorID}" MinWidth="50"/>
+                    <TextBox x:Name="ShetTB" Text="{Binding Rashod.Shet.nom_shet}" Grid.Row="2" Grid.Column="1" Margin="5" Grid.RowSpan="2" MinHeight="20" MinWidth="50" KeyDown="ShetTB_KeyDown"/>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding Rashod.Shet.contractorID}" MinWidth="50"/>
                 </StackPanel>
             </StackPanel>
 

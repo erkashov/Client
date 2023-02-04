@@ -7,29 +7,17 @@
              mc:Ignorable="d"
              d:DesignHeight="100" d:DesignWidth="100">
     <Grid Name="main">
-        <hc:TabControl ItemsSource="{Binding tabs}" x:Name="tabC" ShowCloseButton="False">
-            <TabControl.ItemTemplate>
+        <ListBox ItemsSource="{Binding CategoriesList}" SelectedItem="{Binding Selected, Mode=TwoWay}">
+            <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding name}" FontSize="20"/>
+                    <TextBlock Text="{Binding short_name}" HorizontalAlignment="Center" VerticalAlignment="Center" MouseDown="Button_Click" FontSize="17"/>
                 </DataTemplate>
-            </TabControl.ItemTemplate>
-            <TabControl.ContentTemplate>
-                <DataTemplate>
-                    <ListBox ItemsSource="{Binding Children}" SelectedItem="{Binding Selected, Mode=TwoWay}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding short_name}" HorizontalAlignment="Center" VerticalAlignment="Center" MouseDown="Button_Click" FontSize="17"/>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal" 
-                                           Width="{Binding ElementName=main, Path=Width}" />
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-                    </ListBox>
-                </DataTemplate>
-            </TabControl.ContentTemplate>
-        </hc:TabControl>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
     </Grid>
 </UserControl>

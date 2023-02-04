@@ -41,7 +41,7 @@
 
             <hc:ComboBox IsEditable="False" Grid.Column="2" Grid.Row="0"
                           hc:InfoElement.Title="Плательщик"
-                          ItemsSource="{Binding Contractors}" DisplayMemberPath="short_name" SelectedValuePath="Id" 
+                          ItemsSource="{Binding Contractors}" DisplayMemberPath="short_name" SelectedValuePath="ID" 
                           SelectedValue="{Binding Shet.contractorID}"/>
             
             <CheckBox Content="Оплачен" IsChecked="{Binding Shet.oplachen}" Grid.Row="5" Grid.Column="3" Height="28"/>

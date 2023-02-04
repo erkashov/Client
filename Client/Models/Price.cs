@@ -12,6 +12,7 @@ namespace Client.Models
         public int productID { get; set; }
         public double price_nal { get; set; }
         public double price_beznal { get; set; }
-        public virtual Product Tovar { get; set; }
+        private Product _tovar;
+        public virtual Product Tovar { get { return _tovar; } set { _tovar = value; OnPropertyChanged(nameof(Tovar)); } }
     }
 }

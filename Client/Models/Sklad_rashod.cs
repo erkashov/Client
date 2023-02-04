@@ -42,7 +42,7 @@ namespace Client.Models
        private Nullable<int> shetID;
         public Nullable<int> ShetID { get { return shetID; } set { shetID = value; OnPropertyChanged(nameof(ShetID)); } }
 
-        public virtual Shet Sheta { get; set; }
+        public virtual Shet Shet { get; set; }
 
         private bool otgruzheno;
         public bool Otgruzheno { get { return otgruzheno; } set { otgruzheno = value; OnPropertyChanged(nameof(Otgruzheno)); } }
@@ -80,7 +80,7 @@ namespace Client.Models
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
 
-        public Type_oplaty Spr_oplat_sklad { get; set; }
+        public Type_oplaty Type_oplaty { get; set; }
         public User polz;
         public User Polz { get { return polz; } set { polz = value; OnPropertyChanged(nameof(Polz)); } }
         private User customer;

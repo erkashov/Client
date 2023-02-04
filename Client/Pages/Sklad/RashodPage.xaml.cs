@@ -47,14 +47,14 @@ namespace Client.Pages.Sklad
             IsLoaded = true;
         }
 
-        private async void AddBN_Click(object sender, RoutedEventArgs e)
+        private void AddBN_Click(object sender, RoutedEventArgs e)
         {
             RashodVM.AddTovar();
         }
 
         private async void SaveBN_Click(object sender, RoutedEventArgs e)
         {
-            RashodVM.Save();
+            await RashodVM.Save();
         }
 
         private async void ToolBarControl_DeleteClick(object sender, RoutedEventArgs e)
@@ -63,7 +63,7 @@ namespace Client.Pages.Sklad
             {
                 if(datagridRashods.CurrentItem is Sklad_rashod_prods)
                 {
-                    RashodVM.Delete((datagridRashods.CurrentItem as Sklad_rashod_prods).ID);
+                    await RashodVM.Delete((datagridRashods.CurrentItem as Sklad_rashod_prods).ID);
                 }
             }
         }
@@ -156,6 +156,18 @@ namespace Client.Pages.Sklad
                 {
                     RashodVM.Rashod.Customer = null;
                     RashodVM.Rashod.customerID = null;
+                }
+            }
+        }
+
+        private async void ShetTB_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                int nom_shet = 0;
+                if(ShetTB.Text != "" && int.TryParse(ShetTB.Text, out nom_shet))
+                {
+                    await RashodVM.SetShet(nom_shet);
                 }
             }
         }

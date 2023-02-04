@@ -61,12 +61,10 @@
                 <DataGridTextColumn Binding="{Binding Polz.surname}" Header="Отпустил" x:Name="otgr" IsReadOnly="True"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Prim}" Header="Прим" x:Name="prim"></DataGridTextColumn>
                 <DataGridCheckBoxColumn Binding="{Binding Is_tov_opl}" Header="Товар оплачен" x:Name="oplach"/>
-                <DataGridCheckBoxColumn Binding="{Binding IsDostOpl}" Header="Дост. опл" x:Name="oplach_dost"/>
                 <DataGridCheckBoxColumn Binding="{Binding Otgruzheno}" Header="Отгружено" x:Name="otgruz"/>
-                <DataGridTextColumn Binding="{Binding Sheta.nom_shet}" Header="Счет" x:Name="shet" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Summa, StringFormat=N2}" Header="Нал" x:Name="summa_nal" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Dolg, StringFormat=N2}" Header="Долг" x:Name="summa_dolg" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Spr_oplat_sklad.naim}" Header="Оплата" x:Name="oplata"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Shet.nom_shet}" Header="Счет" x:Name="shet" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding SummaAll, StringFormat=N2}" Header="Сумма" x:Name="summa_nal" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Type_oplaty.naim}" Header="Оплата" x:Name="oplata"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

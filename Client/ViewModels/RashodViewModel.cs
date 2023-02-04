@@ -80,5 +80,16 @@ namespace Client.ViewModels
             }
             Update();
         }
+
+        public async Task SetShet(int nom_shet)
+        {
+            var shet = await HttpRequests<List<Shet>>.GetRequestAsync($"Shets?nom_shet={nom_shet}", new List<Shet>());
+            if (shet.Count() != 0)
+            {
+                Rashod.Shet = shet.LastOrDefault();
+                Rashod.ShetID = Rashod.Shet.ID;
+                await Save();
+            }
+        }
     }
 }

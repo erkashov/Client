@@ -11,14 +11,12 @@
 
     <Grid Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="200"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Margin="5">
             <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
                 <RowDefinition Height="50"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -30,9 +28,6 @@
                 <ColumnDefinition Width="180"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-
-            <DatePicker Grid.Row="0" Grid.Column="0" x:Name="datePickerStart" hc:InfoElement.Title="С" Width="200" SelectedDate="{Binding DateStart}"/>
-            <DatePicker Grid.Row="1" Grid.Column="0" x:Name="datePickerEnd" hc:InfoElement.Title="По" Width="200" SelectedDate="{Binding DateEnd}"/>
 
             <usercontrols:ToolBarControl Grid.Row="2" Grid.Column="0" AddClick="AddBN_Click" SaveClick="SaveBN_Click" DeleteClick="ToolBarControl_DeleteClick" UpdateClick="ToolBarControl_UpdateClick" HorizontalAlignment="Right" Width="400"/>
         </Grid>

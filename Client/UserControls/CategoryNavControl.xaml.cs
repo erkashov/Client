@@ -22,7 +22,7 @@ namespace Client.UserControls
     /// </summary>
     public partial class CategoryNavControl : UserControl
     {
-        public ObservableCollection<Category> tabs { get; set; }
+        public ObservableCollection<Category> CategoriesList { get; set; }
         public event RoutedEventHandler UpdateClick;
         private int _selected;
         public int Selected
@@ -33,7 +33,7 @@ namespace Client.UserControls
         public CategoryNavControl()
         {
             InitializeComponent();
-            tabs = new ObservableCollection<Category>(Enums.Spr_category.Where(p=>p.parentID is null)/*.Where(p=>p.kod_zap > 52 && p.kod_zap < 63)*/);
+            CategoriesList = new ObservableCollection<Category>(Enums.Spr_category.Where(p=>p.parentID != null)/*.Where(p=>p.kod_zap > 52 && p.kod_zap < 63)*/);
             this.DataContext = this;
         }
 
