@@ -33,17 +33,9 @@ namespace Client.Windows
             {
                 if (Global.client.BaseAddress == null)
                 {
-                    InitializeClient();
+                    Global. InitializeClient();
                 }
 
-                /*HttpResponseMessage response = Global.client.GetAsync($"Users/CheckToken").Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    Global.CurrentUser  = JsonConvert.DeserializeObject<User>(response.Content.ReadAsStringAsync().Result);
-                    if (Global.MainWin == null) (new MainWindow()).Show();
-                    else Global.MainWin.Show();
-                    this.Close();
-                }*/
                 ConfigHelper.Instance.SetLang("ru");
             }
             catch (Exception ex)
@@ -51,14 +43,10 @@ namespace Client.Windows
                 Global.ErrorLog(ex.Message);
             }
             InitializeComponent();
-            //loginTB.Text = Properties.Settings.Default.Login;
         }
 
         private void authBtn_Click(object sender, RoutedEventArgs e)
         {
-            /*Properties.Settings.Default.Login = loginTB.Text;
-            Properties.Settings.Default.Save();*/
-
             try
             {
                 HttpResponseMessage response = Global.client.GetAsync($"Users/Token?username={loginTB.Text}&password={passwordTB.Text}").Result;
@@ -67,7 +55,7 @@ namespace Client.Windows
                     Properties.Settings.Default.Token = JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result);
                     Properties.Settings.Default.Save();
 
-                    InitializeClient();
+                    Global.InitializeClient();
 
                     response = Global.client.GetAsync($"Users/CheckToken").Result;
                     if (response.IsSuccessStatusCode)
@@ -114,15 +102,6 @@ namespace Client.Windows
                 InputTextPage win = new InputTextPage();
                 Global.DialogWindow = Dialog.Show(win);
             }
-        }
-
-        private void InitializeClient()
-        {
-            Global.client = new HttpClient();
-            Global.client.BaseAddress = new Uri(Global.Api + "api/");
-            Global.client.DefaultRequestHeaders.Accept.Clear();
-            Global.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            Global.client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.Token);
         }
     }
 }

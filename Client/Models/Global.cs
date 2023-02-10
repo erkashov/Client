@@ -10,6 +10,7 @@ using System.Data.SqlTypes;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -31,7 +32,15 @@ namespace Client
         public static User CurrentUser { get; set; }
 
         public static NotificationManager notificationManager = new NotificationManager();
-
+        public static void InitializeClient()
+        {
+            Api = Properties.Settings.Default.URL;
+            Global.client = new HttpClient();
+            Global.client.BaseAddress = new Uri(Api + "api/");
+            Global.client.DefaultRequestHeaders.Accept.Clear();
+            Global.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            Global.client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.Token);
+        }
         public static void ShowNotif(string title, string Message, NotificationType type)
         {
             notificationManager.Show(title, Message, type/*, onClick: () => SomeAction()*/);

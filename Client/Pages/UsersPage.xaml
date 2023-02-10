@@ -42,9 +42,9 @@
             <TextBox Text="{Binding SelectedUser.surname, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Фамилия" hc:InfoElement.Necessary="True"/>
             <TextBox Text="{Binding SelectedUser.name, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Имя" hc:InfoElement.Necessary="True"/>
             <TextBox Text="{Binding SelectedUser.papaname, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Отчество" hc:InfoElement.Necessary="True"/>
-            <TextBox Text="{Binding SelectedUser.login, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Логин"/>
-            <TextBox Text="{Binding SelectedUser.password, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Пароль"/>
-            <hc:ComboBox SelectedValue="{Binding SelectedUser.role}"  Margin="5" ItemsSource="{Binding Roles}" hc:InfoElement.Title="Роль"/>
+            <TextBox Text="{Binding SelectedUser.login, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Логин" hc:InfoElement.Necessary="True"/>
+            <TextBox Text="{Binding SelectedUser.password, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.Title="Пароль" hc:InfoElement.Necessary="True"/>
+            <hc:ComboBox SelectedValue="{Binding SelectedUser.role}"  Margin="5" ItemsSource="{Binding Roles}" hc:InfoElement.Title="Роль" hc:InfoElement.Necessary="True"/>
             
         </StackPanel>
 

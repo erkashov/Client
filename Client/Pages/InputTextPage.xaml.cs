@@ -34,12 +34,7 @@ namespace Client.Pages
                 Properties.Settings.Default.Save();
                 if (Global.DialogWindow != null) Global.DialogWindow.Close();
 
-                Global.Api = Properties.Settings.Default.URL;
-                Global.client = new System.Net.Http.HttpClient();
-                Global.client.BaseAddress = new Uri(Global.Api);
-                Global.client.DefaultRequestHeaders.Accept.Clear();
-                Global.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                Global.client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.Token);
+                Global.InitializeClient();
             }
             else Global.ErrorLog("Неправильная ссылка");
         }
